@@ -4,6 +4,6 @@ import './style.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <div>Hello Camp#11 Midterm Project</div>
+    <div className="bg-slate-500">Hello Camp#11 Midterm Project</div>
   </React.StrictMode>
 );
