@@ -12,7 +12,7 @@ export default {
         white: {
           DEFAULT: '#FFFFFF',
           heavy: '#1C1C27',
-          dimmed: '#363740',
+          dimmed: '#363741',
         },
         error: '#EF4444',
         success: '#22C55E',
