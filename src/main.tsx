@@ -1,18 +1,94 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './style.css';
-import Input from './components/Input';
-import { FaRegUser } from "react-icons/fa";
-import { FaLock } from "react-icons/fa6";
-import { IoSearch } from "react-icons/io5";
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import NavbarLayout from './layouts/NavbarLayout';
+import LayoutWithoutNav from './layouts/LayoutWithoutNav';
+import LoginPage from './pages/LoginPage';
+import Homepage from './pages/Homepage';
+import MoviesPage from './pages/MoviesPage';
+import BookmarkedMoviesPage from './pages/BookmarkedMoviesPage';
+import SingleMoviePage from './pages/SingleMoviePage';
+import CastAndCrewPage from './pages/CastAndCrewPage';
+import ReservationPage from './pages/ReservationPage';
+import GenresPage from './pages/GenresPage';
+import RegisterPage from './pages/RegisterPage';
 
 
-
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <LayoutWithoutNav />,
+    children: [
+      {
+        index: true,
+        element: <LoginPage />,
+      },
+      {
+        path: 'genres',
+        element: <GenresPage />,
+      },
+      {
+        path: 'register',
+        element: <RegisterPage />,
+      },
+    ],
+  },
+  {
+    path: '/home',
+    element: <NavbarLayout />,
+    children: [
+      {
+        index: true,
+        element: <Homepage />,
+      },
+    ],
+  },
+  {
+    path: '/movies',
+    element: <NavbarLayout />,
+    children: [
+      {
+        index: true,
+        element: <MoviesPage />,
+      },
+    ],
+  },
+  {
+    path: '/movies',
+    element: <LayoutWithoutNav />,
+    children: [
+      {
+        path: ':movieId',
+        element: <SingleMoviePage />,
+        children: [
+          {
+            path: 'cast-crew',
+            element: <CastAndCrewPage />,
+          },
+          {
+            path: 'reservation',
+            element: <ReservationPage />,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: '/bookmarked-movies',
+    element: <NavbarLayout />,
+    children: [
+      {
+        index: true,
+        element: <BookmarkedMoviesPage />,
+      },
+    ],
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-      <Input icon={<FaRegUser />} id='email' label='email' placeholder='"your@email.com"'/>
-      <Input icon={<FaLock />} id='password' label='password' placeholder='Enter your Password'/>
-      <Input icon={<IoSearch />} id='search' label='search' placeholder='Search' isRounded={true} />
+    <div className="bg-slate-500">Hello Camp#11 Midterm Project</div>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
