@@ -4,7 +4,7 @@ import { cn } from '../utils/cn';
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 interface Props extends ButtonProps {
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'disabled';
   size?: 'sm' | 'md' | 'lg';
 }
 
@@ -18,14 +18,17 @@ function Button({
     <button
       {...props}
       className={cn(
-        'text-white  rounded-md',
-        variant === 'primary' && 'bg-primary',
-        variant === 'secondary' && 'bg-secondary',
-        size === 'sm' && 'text-sm py-2 px-4',
+        variant === 'primary' && 'bg-primary text-dark-light',
+        variant === 'secondary' && 'bg-secondary text-white',
+        variant === 'disabled' && 'bg-primary-dimmed text-dark-light',
+        size === 'sm' &&
+          'text-[12px] text-center w-[335px] h-[38px] rounded-[8px]',
+
         size === 'md' &&
-          'text-sm py-2 px-6 text-center w-[335px] h-[38px] rounded-[8px]',
+          'text-[14px] text-center w-[215px] h-[49px] rounded-[8px]',
+
         size === 'lg' &&
-          'text-sm py-2 px-6 text-center w-[335px] h-[49px] rounded-[8px]'
+          'text-[14px] text-center w-[335px] h-[49px] rounded-[8px]'
       )}
     >
       {children}
