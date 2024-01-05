@@ -12,6 +12,7 @@ import SingleMoviePage from './pages/SingleMoviePage';
 import CastAndCrewPage from './pages/CastAndCrewPage';
 import ReservationPage from './pages/ReservationPage';
 import GenresPage from './pages/GenresPage';
+import RegisterPage from './pages/RegisterPage';
 
 const router = createBrowserRouter([
   {
@@ -43,14 +44,20 @@ const router = createBrowserRouter([
         index: true,
         element: <MoviesPage />,
       },
+    ],
+  },
+  {
+    path: '/movies',
+    element: <LayoutWithoutNav />,
+    children: [
+      {
+        index: true,
+        element: <MoviesPage />,
+      },
       {
         path: ':movieId',
-        element: <LayoutWithoutNav />,
+        element: <SingleMoviePage />,
         children: [
-          {
-            index: true,
-            element: <SingleMoviePage />,
-          },
           {
             path: 'cast-crew',
             element: <CastAndCrewPage />,
@@ -82,6 +89,11 @@ const router = createBrowserRouter([
         element: <BookmarkedMoviesPage />,
       },
     ],
+  },
+  {
+    path: '/register',
+    element: <LayoutWithoutNav />,
+    children: [{ index: true, element: <RegisterPage /> }],
   },
 ]);
 
