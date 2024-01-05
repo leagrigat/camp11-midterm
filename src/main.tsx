@@ -23,9 +23,16 @@ const router = createBrowserRouter([
         index: true,
         element: <LoginPage />,
       },
+      {
+        path: 'genres',
+        element: <GenresPage />,
+      },
+      {
+        path: 'register',
+        element: <RegisterPage />,
+      },
     ],
   },
-
   {
     path: '/home',
     element: <NavbarLayout />,
@@ -67,16 +74,6 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/genres',
-    element: <LayoutWithoutNav />,
-    children: [
-      {
-        index: true,
-        element: <GenresPage />,
-      },
-    ],
-  },
-  {
     path: '/bookmarked-movies',
     element: <NavbarLayout />,
     children: [
@@ -85,11 +82,6 @@ const router = createBrowserRouter([
         element: <BookmarkedMoviesPage />,
       },
     ],
-  },
-  {
-    path: '/register',
-    element: <LayoutWithoutNav />,
-    children: [{ index: true, element: <RegisterPage /> }],
   },
 ]);
 
