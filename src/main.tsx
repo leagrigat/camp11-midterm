@@ -51,10 +51,6 @@ const router = createBrowserRouter([
     element: <LayoutWithoutNav />,
     children: [
       {
-        index: true,
-        element: <MoviesPage />,
-      },
-      {
         path: ':movieId',
         element: <SingleMoviePage />,
         children: [
