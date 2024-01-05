@@ -13,11 +13,7 @@ import CastAndCrewPage from './pages/CastAndCrewPage';
 import ReservationPage from './pages/ReservationPage';
 import GenresPage from './pages/GenresPage';
 import RegisterPage from './pages/RegisterPage';
-import Button from './components/Button';
 
-<Button variant="primary" size="sm">
-  test
-</Button>;
 
 const router = createBrowserRouter([
   {
