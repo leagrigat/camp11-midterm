@@ -5,3 +5,7 @@ function GenreIcons() {
 }
 
 export default GenreIcons;
+// eine karte
+// kann active gesetzt sein oder nicht
+// props
+//
