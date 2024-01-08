@@ -5,16 +5,15 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 interface Props extends InputProps {
   id: string;
-  label: string;
-  icon: React.ReactElement;
+  icon?: React.ReactElement;
   isRounded?: boolean;
 }
 
-function Input({ id, label, isRounded, icon, ...props }: Props) {
+function Input({ id, isRounded, icon, ...props }: Props) {
   return (
     <div
       className={cn(
-        'gap-2 mb-5 mx-5 py-3 px-4 rounded-lg bg-white-heavy',
+        'gap-2  py-3 px-4 rounded-lg bg-white-heavy',
         isRounded && 'rounded-full'
       )}
     >
@@ -23,8 +22,7 @@ function Input({ id, label, isRounded, icon, ...props }: Props) {
         <input
           id={id}
           {...props}
-          onChange={() => {}}
-          className="bg-white-heavy placeholder-white-dimmed"
+          className="bg-white-heavy placeholder-white-dimmed size-full outline-none"
         />
       </label>
     </div>

@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 function LayoutWithoutNav() {
   return (
-    <main>
+    <main className="h-full">
       <Outlet />
     </main>
   );
