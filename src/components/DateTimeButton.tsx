@@ -18,7 +18,7 @@ function BoringGenreButton({
     <button
       {...props}
       className={cn(
-        'disabled:text-dark-light text-center rounded-[0.25rem] text-center text-sm w-[4.375rem] h-[1.8125rem]',
+        'disabled:text-dark-light text-center rounded-[0.25rem] text-center text-sm font-medium w-[4.375rem] h-[1.8125rem]',
         active ? 'bg-primary text-dark-light' : 'text-white-dimmed'
       )}
     >
