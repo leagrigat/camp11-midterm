@@ -5,7 +5,7 @@ export const genresLibary = [
       genre: 'Action',
       emoji: '🧨',
       id: 28,
-      isSelected: false,
+      isSelected: true,
     },
     {
       genre: 'Adventure',
