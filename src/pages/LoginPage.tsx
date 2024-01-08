@@ -7,7 +7,7 @@ import SeatBtn from '../components/SeatBtn';
 
 function LoginPage() {
   return (
-    <div className="bg-black">
+    <div className="bg-black px-5">
       <GenreButton genre={'Adventure'}></GenreButton>
       <GenreButton genreId={28}></GenreButton>
       <BoringGenreButton
