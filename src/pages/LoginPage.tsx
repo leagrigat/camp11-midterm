@@ -2,11 +2,12 @@ import BoringGenreButton from '../components/BoringGenreButton';
 import Button from '../components/Button';
 import DateTimeButton from '../components/DateTimeButton';
 import GenreButton from '../components/GenreButton';
+import HomePageHeader from '../components/HomePageHeader';
 import SeatBtn from '../components/SeatBtn';
 
 function LoginPage() {
   return (
-    <div>
+    <div className="bg-black">
       <GenreButton genre={'Adventure'}></GenreButton>
       <GenreButton genreId={28}></GenreButton>
       <BoringGenreButton
@@ -23,6 +24,11 @@ function LoginPage() {
       ></DateTimeButton>
       <Button disabled></Button>
       <Button variant="primary"></Button>
+
+      <HomePageHeader
+        name="Gris"
+        avatarImg="https://ih1.redbubble.net/image.838053714.1459/flat,750x,075,f-pad,750x1000,f8f8f8.u2.jpg"
+      ></HomePageHeader>
     </div>
   );
 }

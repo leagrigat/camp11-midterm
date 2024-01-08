@@ -18,7 +18,7 @@ function Button({
     <button
       {...props}
       className={cn(
-        'disabled:bg-primary-dimmed text-center rounded-[8px] w-full',
+        'disabled:bg-primary-dimmed text-center rounded-[8px] w-full mx-5',
         variant === 'primary' && 'bg-primary text-dark-light',
         variant === 'secondary' && 'bg-secondary text-white',
         size === 'sm' && 'text-[12px] h-[38px]',
