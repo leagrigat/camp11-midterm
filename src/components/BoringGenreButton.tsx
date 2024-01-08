@@ -26,7 +26,6 @@ function BoringGenreButton({
         )}
       >
         <p className="w-full text-center">{genreIcon}</p>
-        {children}
       </button>
       <div className="flex justify-center w-14">
         <h5 className="text-xs font-bold text-white-dimmed">{genre}</h5>

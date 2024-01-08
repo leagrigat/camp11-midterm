@@ -23,7 +23,6 @@ function BoringGenreButton({
       )}
     >
       {dateTime}
-      {children}
     </button>
   );
 }
