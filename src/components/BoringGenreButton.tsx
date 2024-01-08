@@ -11,9 +11,9 @@ interface Props extends ButtonProps {
 
 function BoringGenreButton({
   children,
-  active=false,
-  genre = "",
-  genreIcon = "",
+  active = false,
+  genre = '',
+  genreIcon = '',
   ...props
 }: Props) {
   return (
@@ -21,7 +21,7 @@ function BoringGenreButton({
       <button
         {...props}
         className={cn(
-          'text-center rounded-[0.75rem] text-center text-3xl w-14 h-14',
+          'text-center rounded-[0.75rem] text-3xl w-14 h-14',
           active ? 'bg-white-dimmed' : 'bg-dark-light'
         )}
       >

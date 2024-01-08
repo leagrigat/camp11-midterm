@@ -30,8 +30,7 @@ function GenreButton({
   let buttonInfo = null;
   if (!genreId && genre) {
     buttonInfo = filterThis(genre);
-  }
-  else {
+  } else {
     buttonInfo = filterThis(genreId!);
   }
   genre = buttonInfo.genre;
@@ -41,7 +40,7 @@ function GenreButton({
       <button
         {...props}
         className={cn(
-          'text-center rounded-[0.75rem] text-center text-3xl w-14 h-14',
+          'text-center rounded-[0.75rem]  text-3xl w-14 h-14',
           buttonInfo!.isSelected ? 'bg-white-dimmed' : 'bg-dark-light'
         )}
       >

@@ -1,7 +1,6 @@
 import BoringGenreButton from '../components/BoringGenreButton';
 import DateTimeButton from '../components/DateTimeButton';
 import GenreButton from '../components/GenreButton';
-import PaginationIcon from '../components/PaginationIcon';
 
 function LoginPage() {
   return (
