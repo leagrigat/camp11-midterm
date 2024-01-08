@@ -16,7 +16,6 @@ function Input({ id, label, isRounded, icon, ...props }: Props) {
       <label htmlFor={id} className="flex items-center gap-5">
         <div className="text-white-dimmed py-3 pl-5">{icon}</div>
         <input
-          placeholder={placeholder}
           id={id}
           {...props}
           onChange={() => {}}
