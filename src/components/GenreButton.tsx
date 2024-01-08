@@ -23,7 +23,7 @@ function GenreButton({ children, genreId = null, genre=null, ...props }: Props) 
       className="bg-white-dimmed disabled:bg-dark-light text-center rounded-[0.75rem] patext-center text-3xl p-[0.81rem]"
     >
       {genreId && filterById(genreId).emoji}
-      {genre && filterByGenre(genre).emoji}
+      {!genreId && genre && filterByGenre(genre).emoji}
       {children}
     </button>
   );
