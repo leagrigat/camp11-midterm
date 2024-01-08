@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 function NavbarLayout() {
   return (
     <div>
-      <main>
+      <main className="h-full">
         <Outlet />
       </main>
       <footer>
