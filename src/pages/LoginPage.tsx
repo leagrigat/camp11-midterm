@@ -1,6 +1,8 @@
 import BoringGenreButton from '../components/BoringGenreButton';
+import Button from '../components/Button';
 import DateTimeButton from '../components/DateTimeButton';
 import GenreButton from '../components/GenreButton';
+import SeatBtn from '../components/SeatBtn';
 
 function LoginPage() {
   return (
@@ -19,6 +21,8 @@ function LoginPage() {
         active={false}
         dateTime="23 Dec"
       ></DateTimeButton>
+      <Button disabled></Button>
+      <Button variant="primary"></Button>
     </div>
   );
 }
