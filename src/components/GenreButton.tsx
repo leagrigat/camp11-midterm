@@ -1,33 +1,29 @@
 import React from 'react';
+import { genresLibary } from '../context/GenreProvider';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 interface Props extends ButtonProps {
-  genre?:
-    | 'action'
-    | 'adventure'
-    | 'animation'
-    | 'comedy'
-    | 'crime'
-    | 'documentary'
-    | 'drama'
-    | 'family'
-    | 'fantasy'
-    | 'history'
-    | 'horror'
-    | 'music'
-    | 'mystery'
-    | 'romance'
-    | 'scifi'
-    | 'thriller';
+  genreId?: Number|null;
+  genre?: String|null;
 }
 
-function GenreButton({ children, genre = 'action', ...props }: Props) {
+function filterById(gId:Number){
+  return genresLibary.filter(obj=>{return obj.id === gId})[0]
+}
+
+function filterByGenre(genre:String){
+  return genresLibary.filter(obj=>{return obj.genre === genre})[0]
+}
+
+function GenreButton({ children, genreId = null, genre=null, ...props }: Props) {
   return (
     <button
       {...props}
-      className="bg-white-dimmed disabled:bg-dark-light text-center rounded-[0.75rem] w-[3.5rem] h-[3.5rem] text-center"
+      className="bg-white-dimmed disabled:bg-dark-light text-center rounded-[0.75rem] patext-center text-3xl p-[0.81rem]"
     >
+      {genreId && filterById(genreId).emoji}
+      {genre && filterByGenre(genre).emoji}
       {children}
     </button>
   );
