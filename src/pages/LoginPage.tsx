@@ -1,6 +1,7 @@
 import BoringGenreButton from '../components/BoringGenreButton';
 import DateTimeButton from '../components/DateTimeButton';
 import GenreButton from '../components/GenreButton';
+import PaginationIcon from '../components/PaginationIcon';
 
 function LoginPage() {
   return (
@@ -14,7 +15,11 @@ function LoginPage() {
       ></BoringGenreButton>
       <DateTimeButton active={true} dateTime="18:00"></DateTimeButton>
       <DateTimeButton active={false} dateTime="23 Dec"></DateTimeButton>
-      <DateTimeButton disabled={true} active={false} dateTime="23 Dec"></DateTimeButton>
+      <DateTimeButton
+        disabled={true}
+        active={false}
+        dateTime="23 Dec"
+      ></DateTimeButton>
     </div>
   );
 }
