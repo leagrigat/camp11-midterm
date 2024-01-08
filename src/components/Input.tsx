@@ -23,7 +23,6 @@ function Input({ id, label, isRounded, icon, ...props }: Props) {
         <input
           id={id}
           {...props}
-          onChange={() => {}}
           className="bg-white-heavy placeholder-white-dimmed"
         />
       </label>
