@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import Input from '../components/Input';
 import Button from '../components/Button';
@@ -32,7 +31,7 @@ function LoginPage() {
         onSubmit={e => submitHandler(e)}
         className="flex flex-grow flex-col justify-between"
       >
-        <div className="text-white-dimmed">
+        <div className="text-white-dimmed flex flex-col gap-3">
           <Input
             id="email"
             value={inputVal.email}
