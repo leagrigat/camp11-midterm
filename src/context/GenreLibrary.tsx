@@ -1,9 +1,11 @@
-export const genresLibary = [
+// No real functionality, just a stub for testing!
+
+export const genresLibrary = [
   {
     genre: 'Action',
     emoji: '🧨',
     id: 28,
-    isSelected: false,
+    isSelected: true,
   },
   {
     genre: 'Adventure',

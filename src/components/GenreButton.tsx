@@ -1,5 +1,5 @@
 import React from 'react';
-import { genresLibary } from '../context/GenreProvider';
+import { genresLibrary } from '../context/GenreLibrary';
 import { cn } from '../utils/cn';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
