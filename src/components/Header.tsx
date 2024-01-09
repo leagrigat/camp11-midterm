@@ -1,6 +1,6 @@
 import React from 'react';
 import { IoIosArrowBack } from 'react-icons/io';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 type HeaderProps = React.InputHTMLAttributes<HTMLInputElement>;
 

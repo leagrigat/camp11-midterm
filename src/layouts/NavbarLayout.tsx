@@ -5,7 +5,7 @@ import NavBar from '../components/NavBar';
 function NavbarLayout() {
   return (
     <div>
-      <main>
+      <main className="h-full">
         <Outlet />
       </main>
       <footer>
