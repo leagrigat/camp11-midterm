@@ -1,34 +1,68 @@
-import BoringGenreButton from '../components/BoringGenreButton';
+
+import { useState } from 'react';
+import Input from '../components/Input';
 import Button from '../components/Button';
-import DateTimeButton from '../components/DateTimeButton';
-import GenreButton from '../components/GenreButton';
-import HomePageHeader from '../components/HomePageHeader';
-import SeatBtn from '../components/SeatBtn';
+import { MdOutlineEmail } from 'react-icons/md';
+import { RiLockPasswordLine } from 'react-icons/ri';
 
 function LoginPage() {
-  return (
-    <div className="bg-black px-5">
-      <GenreButton genre={'Adventure'}></GenreButton>
-      <GenreButton genreId={28}></GenreButton>
-      <BoringGenreButton
-        genre={'Adventure'}
-        genreIcon={'💎'}
-        active={true}
-      ></BoringGenreButton>
-      <DateTimeButton active={true} dateTime="18:00"></DateTimeButton>
-      <DateTimeButton active={false} dateTime="23 Dec"></DateTimeButton>
-      <DateTimeButton
-        disabled={true}
-        active={false}
-        dateTime="23 Dec"
-      ></DateTimeButton>
-      <Button disabled></Button>
-      <Button variant="primary"></Button>
+  const [inputVal, setInputVal] = useState({
+    email: '',
+    password: '',
+  });
 
-      <HomePageHeader
-        name="Gris"
-        avatarImg="https://ih1.redbubble.net/image.838053714.1459/flat,750x,075,f-pad,750x1000,f8f8f8.u2.jpg"
-      ></HomePageHeader>
+  function submitHandler(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    console.log(inputVal);
+  }
+
+  return (
+    <div className="px-5 py-8 flex flex-col h-full">
+      <div className="flex flex-col gap-3">
+        <h2 className="text-white text-base font-bold">
+          Welcome to Cine-Scape
+        </h2>
+        <p className="text-white-dimmed text-sm text-medium mb-8">
+          You need to log in to be able to make reservations and add movies to
+          your watchlist.
+        </p>
+      </div>
+
+      <form
+        onSubmit={e => submitHandler(e)}
+        className="flex flex-grow flex-col justify-between"
+      >
+        <div className="text-white-dimmed">
+          <Input
+            id="email"
+            value={inputVal.email}
+            onChange={e =>
+              setInputVal({
+                ...inputVal,
+                email: e.target.value,
+              })
+            }
+            placeholder="your@email.com"
+            icon={<MdOutlineEmail />}
+          />
+          <Input
+            type="password"
+            id="password"
+            value={inputVal.password}
+            onChange={e =>
+              setInputVal({
+                ...inputVal,
+                password: e.target.value,
+              })
+            }
+            placeholder="Enter your Password"
+            icon={<RiLockPasswordLine />}
+          />
+        </div>
+        <Button type="submit" className="text-sm font-bold">
+          Login
+        </Button>
+      </form>
     </div>
   );
 }
