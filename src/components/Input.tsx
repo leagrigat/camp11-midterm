@@ -13,7 +13,7 @@ function Input({ id, isRounded, icon, ...props }: Props) {
   return (
     <div
       className={cn(
-        'gap-2 mb-5 py-3 px-4 rounded-lg bg-dark-light',
+        'gap-2 mb-5 mx-5 py-3 px-4 rounded-lg bg-white-heavy',
         isRounded && 'rounded-full'
       )}
     >
@@ -22,7 +22,7 @@ function Input({ id, isRounded, icon, ...props }: Props) {
         <input
           id={id}
           {...props}
-          className="bg-dark-light placeholder-white-dimmed"
+          className="bg-white-heavy placeholder-white-dimmed"
         />
       </label>
     </div>

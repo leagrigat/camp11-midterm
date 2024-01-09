@@ -13,6 +13,7 @@ import CastAndCrewPage from './pages/CastAndCrewPage';
 import ReservationPage from './pages/ReservationPage';
 import GenresPage from './pages/GenresPage';
 import RegisterPage from './pages/RegisterPage';
+import Header from './components/Header';
 
 const router = createBrowserRouter([
   {
