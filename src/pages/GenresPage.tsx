@@ -3,9 +3,12 @@ import { GenreContext } from '../context/GenreProvider';
 import GenreButton from '../components/GenreButton';
 import Button from '../components/Button';
 import Header from '../components/Header';
+import { useNavigate } from 'react-router';
 
 function GenresPage() {
   const { genres, updateGenre } = useContext(GenreContext);
+  const navigate = useNavigate();
+
   console.log(genres);
   return (
     <div>
@@ -21,7 +24,9 @@ function GenresPage() {
             genre={g.genre}
           />
         ))}
-        <Button>Confirm selected Genres</Button>
+        <Button onClick={() => navigate('/home')}>
+          Confirm selected Genres
+        </Button>
       </div>
     </div>
   );
