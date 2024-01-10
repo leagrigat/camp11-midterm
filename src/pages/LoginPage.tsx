@@ -1,86 +1,67 @@
 import { useState } from 'react';
-import Header from '../components/Header';
-import DateTimeButton from '../components/DateTimeButton';
+import Input from '../components/Input';
 import Button from '../components/Button';
-import { format, add } from 'date-fns';
-
-const timesA = ['09:15', '09:45', '15:00', '17:30'];
-const timesB = ['19:00', '20:30', '22:00', '23:30'];
-const datesA: string[] = [];
-const datesB: string[] = [];
-const datesC: string[] = [];
-const today = new Date();
-const hourNow = format(today, 'H');
-const minuteNow = format(today, 'mm');
-console.log(timesA[0].slice(0, 2), hourNow);
-for (let x = 0; x < 4; x++) {
-  datesA.push(format(add(today, { days: x }), 'dd MMM'));
-}
-for (let x = 4; x < 8; x++) {
-  datesB.push(format(add(today, { days: x }), 'dd MMM'));
-}
-for (let x = 8; x < 12; x++) {
-  datesC.push(format(add(today, { days: x }), 'dd MMM'));
-}
+import { MdOutlineEmail } from 'react-icons/md';
+import { RiLockPasswordLine } from 'react-icons/ri';
 
 function LoginPage() {
-  function mapDates(mapArr: string[]) {
-    {
-      return mapArr.map((date, idx) => (
-        <DateTimeButton
-          key={date}
-          dateTime={date}
-          onClick={() => {
-            setActiveDateButton(date);
-          }}
-          active={activeDateButton === date}
-        >
-          {date}
-        </DateTimeButton>
-      ));
-    }
+  const [inputVal, setInputVal] = useState({
+    email: '',
+    password: '',
+  });
+
+  function submitHandler(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    console.log(inputVal);
   }
-  function mapTimes(mapArr: string[]) {
-    return mapArr.map((time, idx) => (
-      <DateTimeButton
-        key={time}
-        onClick={() => {
-          setActiveTimeButton(time);
-        }}
-        active={activeTimeButton === time}
-        dateTime={time}
-        disabled={!activeDateButton ||
-          (activeDateButton === format(today, 'dd MMM') &&
-          (Number(time.slice(0, 2)) < Number(hourNow) ||
-            (Number(time.slice(0, 2)) === Number(hourNow) &&
-              Number(time.slice(3, 5)) <= Number(minuteNow))))
-        }
-      >
-        {time}
-      </DateTimeButton>
-    ));
-  }
-  const [activeDateButton, setActiveDateButton] = useState('');
-  const [activeTimeButton, setActiveTimeButton] = useState('');
+
   return (
-    <div className="flex flex-col bg-dark px-5 py-8 h-full place-content-between">
-      <Header header={'Select Date & Time'}></Header>
-      <span className="text-white-dimmed font-bold text-sm mt-6">DATE</span>
-      <div className="flex w-full flex-wrap justify-between mt-4 gap-y-4">
-        <div className="flex w-full justify-between">{mapDates(datesA)}</div>
-        <div className="flex w-full justify-between">{mapDates(datesB)}</div>
-        <div className="flex w-full justify-between">{mapDates(datesC)}</div>
+    <div className="px-5 py-8 flex flex-col h-full">
+      <div className="flex flex-col gap-3">
+        <h2 className="text-white text-base font-bold">
+          Welcome to Cine-Scape
+        </h2>
+        <p className="text-white-dimmed text-sm text-medium mb-8">
+          You need to log in to be able to make reservations and add movies to
+          your watchlist.
+        </p>
       </div>
 
-      <hr className="h-0 border-t border-white-heavy my-6"></hr>
-
-      <span className="text-white-dimmed font-bold text-sm">TIME</span>
-      <div className="flex w-full flex-wrap justify-between mt-4 gap-y-4">
-        <div className="flex w-full justify-between">{mapTimes(timesA)}</div>
-        <div className="flex w-full justify-between">{mapTimes(timesB)}</div>
-      </div>
-      <div className="h-full"></div>
-      <Button size={'lg'}>Select Seat</Button>
+      <form
+        onSubmit={e => submitHandler(e)}
+        className="flex flex-grow flex-col justify-between"
+      >
+        <div className="text-white-dimmed">
+          <Input
+            id="email"
+            value={inputVal.email}
+            onChange={e =>
+              setInputVal({
+                ...inputVal,
+                email: e.target.value,
+              })
+            }
+            placeholder="your@email.com"
+            icon={<MdOutlineEmail />}
+          />
+          <Input
+            type="password"
+            id="password"
+            value={inputVal.password}
+            onChange={e =>
+              setInputVal({
+                ...inputVal,
+                password: e.target.value,
+              })
+            }
+            placeholder="Enter your Password"
+            icon={<RiLockPasswordLine />}
+          />
+        </div>
+        <Button type="submit" className="text-sm font-bold">
+          Login
+        </Button>
+      </form>
     </div>
   );
 }

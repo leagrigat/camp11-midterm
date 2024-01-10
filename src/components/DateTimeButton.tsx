@@ -16,15 +16,15 @@ function BoringGenreButton({
 }: Props) {
   return (
     // <dinpm className="flex justify-center w-1/4">
-      <button
-        {...props}
-        className={cn(
-          'disabled:text-dark-light text-center rounded-[0.25rem] text-sm font-medium w-[4.375rem] h-[1.8125rem]',
-          active ? 'bg-primary text-dark-light' : 'text-white-dimmed'
-        )}
-      >
-        {dateTime}
-      </button>
+    <button
+      {...props}
+      className={cn(
+        'disabled:text-dark-light text-center rounded-[0.25rem] text-sm font-medium w-[4.375rem] h-[1.8125rem]',
+        active ? 'bg-primary text-dark-light' : 'text-white-dimmed'
+      )}
+    >
+      {dateTime}
+    </button>
     // </dinpm run revv>
   );
 }

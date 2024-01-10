@@ -49,11 +49,12 @@ function SelectTimePage() {
         }}
         active={activeTimeButton === time}
         dateTime={time}
-        disabled={!activeDateButton ||
+        disabled={
+          !activeDateButton ||
           (activeDateButton === format(today, 'dd MMM') &&
-          (Number(time.slice(0, 2)) < Number(hourNow) ||
-            (Number(time.slice(0, 2)) === Number(hourNow) &&
-              Number(time.slice(3, 5)) <= Number(minuteNow))))
+            (Number(time.slice(0, 2)) < Number(hourNow) ||
+              (Number(time.slice(0, 2)) === Number(hourNow) &&
+                Number(time.slice(3, 5)) <= Number(minuteNow))))
         }
       >
         {time}
