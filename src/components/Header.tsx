@@ -17,7 +17,7 @@ function Header({ header, icon }: Props) {
   };
 
   return (
-    <div className="flex items-center font-bold px-5 text-white justify-between">
+    <div className="flex items-center font-semibold text-base text-white justify-between">
       <IoIosArrowBack onClick={handleClick} />
       <h2>{header}</h2>
       <div>{icon}</div>

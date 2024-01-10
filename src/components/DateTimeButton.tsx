@@ -4,7 +4,7 @@ import { cn } from '../utils/cn';
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 interface Props extends ButtonProps {
-  dateTime?: string;
+  dateTime: string;
   active?: boolean;
 }
 
@@ -15,6 +15,7 @@ function BoringGenreButton({
   ...props
 }: Props) {
   return (
+    // <dinpm className="flex justify-center w-1/4">
     <button
       {...props}
       className={cn(
@@ -24,6 +25,7 @@ function BoringGenreButton({
     >
       {dateTime}
     </button>
+    // </dinpm run revv>
   );
 }
 
