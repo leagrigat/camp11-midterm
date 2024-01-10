@@ -18,11 +18,11 @@ function Input({ id, isRounded, icon, ...props }: Props) {
       )}
     >
       <label htmlFor={id} className="flex items-center gap-5">
-        <div className="text-white-dimmed py-3 pl-5">{icon}</div>
+        <div className="text-white-dimmed  pl-5">{icon}</div>
         <input
           id={id}
           {...props}
-          className="bg-white-heavy placeholder-white-dimmed size-full outline-none"
+          className="bg-white-heavy placeholder-white-dimmed text-white size-full outline-none text-sm"
         />
       </label>
     </div>

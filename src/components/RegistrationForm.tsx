@@ -68,7 +68,7 @@ function RegistrationForm() {
           }
         />
 
-        <div className="absolute inset-x-0 bottom-8">
+        <div className="absolute inset-x-0 ">
           <Button
             variant="primary"
             type="submit"

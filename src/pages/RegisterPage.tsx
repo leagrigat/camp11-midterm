@@ -19,7 +19,7 @@ function RegisterPage() {
   };
 
   return (
-    <div className="px-5 py-8 h-full">
+    <div className=" h-full">
       <form
         onSubmit={handleSubmit}
         className="flex flex-col justify-between h-full"
