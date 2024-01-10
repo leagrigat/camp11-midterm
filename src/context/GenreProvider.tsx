@@ -1,100 +1,59 @@
-// No real functionality, just a stub for testing!
+import React, { createContext, useEffect, useState } from 'react';
+import { genresLibrary } from './GenreLibrary';
 
-export const genresLibary = [
-    {
-      genre: 'Action',
-      emoji: '🧨',
-      id: 28,
-      isSelected: true,
-    },
-    {
-      genre: 'Adventure',
-      emoji: '💎',
-      id: 12,
-      isSelected: false,
-    },
-    {
-      genre: 'Animation',
-      emoji: '🦁',
-      id: 16,
-      isSelected: false,
-    },
-    {
-      genre: 'Comedy',
-      emoji: '🤣',
-      id: 35,
-      isSelected: false,
-    },
-    {
-      genre: 'Crime',
-      emoji: '🚔',
-      id: 80,
-      isSelected: false,
-    },
-    {
-      genre: 'Documentary',
-      emoji: '🎥',
-      id: 99,
-      isSelected: false,
-    },
-    {
-      genre: 'Drama',
-      emoji: '🎭',
-      id: 18,
-      isSelected: false,
-    },
-    {
-      genre: 'Family',
-      emoji: '👨‍👩‍👧',
-      id: 10751,
-      isSelected: false,
-    },
-    {
-      genre: 'Fantasy',
-      emoji: '🦄',
-      id: 14,
-      isSelected: false,
-    },
-    {
-      genre: 'History',
-      emoji: '⏳',
-      id: 36,
-      isSelected: false,
-    },
-    {
-      genre: 'Horror',
-      emoji: '🔪',
-      id: 27,
-      isSelected: false,
-    },
-    {
-      genre: 'Music',
-      emoji: '🎧',
-      id: 10402,
-      isSelected: false,
-    },
-    {
-      genre: 'Mystery',
-      emoji: '🔎',
-      id: 9648,
-      isSelected: false,
-    },
-    {
-      genre: 'Romance',
-      emoji: '😍',
-      id: 10749,
-      isSelected: false,
-    },
-    {
-      genre: 'Science Fiction',
-      emoji: '👽',
-      id: 878,
-      isSelected: false,
-    },
-    {
-      genre: 'Thriller',
-      emoji: '😱',
-      id: 53,
-      isSelected: false,
-    },
-  ];
+type Props = {
+  children: React.ReactNode;
+};
+
+// type GenreType = {
+//   genre: string;
+//   emoji: string;
+//   id: number;
+//   isSelected: boolean;
+// };
+
+type ContextType = {
+  genres: typeof genresLibrary; //type wird autogeneriert
+  updateGenre: (id: number) => void;
+  selectedCount: number;
+};
+
+export const GenreContext = createContext<ContextType>({
+  genres: [],
+  updateGenre: () => {},
+  selectedCount: 0,
+});
+
+function GenreProvider({ children }: Props) {
+  const [genres, setGenres] = useState(genresLibrary);
+  const [selectedCount, SetSelectedCount] = useState(0);
+
+  //everytime the component mouns we wanna render the count und update it! = evertime we click genre component
+  useEffect(() => {
+    const count = genres.filter(genre => genre.isSelected).length;
+    SetSelectedCount(count);
+  }, [genres]); //run once genres are rendert
+
+  function updateGenre(genreId: number) {
+    // Finde die geklickte id zb: 3 im genresArray
+    // verändere in diesem object die isSelected Key value zum gegenteil
+
+    const updatedGenres = genres.map(genre => {
+      if (genre.id === genreId) {
+        genre.isSelected = !genre.isSelected;
+      }
+      return genre;
+    });
+    setGenres(updatedGenres);
+  }
+
+  return (
+    <>
+      <GenreContext.Provider value={{ genres, updateGenre, selectedCount }}>
+        {children}
+      </GenreContext.Provider>
+    </>
+  );
+}
+
+export default GenreProvider;
