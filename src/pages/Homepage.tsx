@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { Movie, getNowPlayingMovie } from '../api/movies';
 
 function Homepage() {
-  //  Ale and Benny are not sure if the following code should stay here. Talking about this to Julian on the 10th of January
   const [movieData, setMovieData] = useState<Movie[]>([]);
 
   useEffect(() => {
@@ -18,9 +16,9 @@ function Homepage() {
 
   return (
     <>
-        <div>
+        <div className='flex gap-9 rounded-lg h-[234px]'>
           {movieData.map(movie => (
-            <img src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`} />
+            <img key={movie.id} className='rounded-lg' src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`} />
           ))}
         </div>
     </>

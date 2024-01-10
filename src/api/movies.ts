@@ -1,40 +1,51 @@
-import axios from 'axios'
+import axios from 'axios';
 
 export type Movie = {
-    adult: boolean
-    backdrop_path: string
-    genre_ids: number[]
-    id: number
-    original_language: string
-    original_title: string
-    overview: string
-    popularity: number
-    poster_path: string
-    release_date: string
-    title: string
-    video: boolean
-    vote_average: number
-    vote_count: number
-  }
-  
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+  movieId: number;
+};
+
 type MovieResponse = {
-    results: Movie[]
-}
+  results: Movie[];
+};
 
 export async function getNowPlayingMovie() {
-    const {data} = await axios.get<MovieResponse>(`https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1`, {
+  const { data } = await axios.get<MovieResponse>(
+    `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1`,
+    {
       headers: {
         accept: 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_APP_MOVIES_SECRET}` 
-      }
-    });
+        Authorization: `Bearer ${import.meta.env.VITE_APP_MOVIES_SECRET}`,
+      },
+    }
+  );
 
-    return data.results
+  return data.results;
 }
 
-// Ale and Benny are working on this on the 10th of January
+export async function getSingleMovie(movieId: number) {
+  const { data } = await axios.get<Movie>(
+    `https://api.themoviedb.org/3/movie/${movieId}`,
+    {
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_APP_MOVIES_SECRET}`,
+      },
+    }
+  );
 
-
-// export function  getSingleMovieData(movieID){
-
-// }
+  return data;
+}
