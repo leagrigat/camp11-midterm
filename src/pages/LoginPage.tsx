@@ -2,15 +2,17 @@ import { useState } from 'react';
 import Header from '../components/Header';
 import DateTimeButton from '../components/DateTimeButton';
 import Button from '../components/Button';
-import { format, add, formatDistance, formatRelative, subDays } from 'date-fns';
+import { format, add } from 'date-fns';
 
-const timesA = ['12:00', '14:00', '16:00', '18:00'];
-const timesB = ['20:00', '22:00', '00:00', '02:00'];
+const timesA = ['09:15', '09:45', '15:00', '17:30'];
+const timesB = ['19:00', '20:30', '22:00', '23:30'];
 const datesA: string[] = [];
 const datesB: string[] = [];
 const datesC: string[] = [];
 const today = new Date();
-const timeNow = format(today, 'H');
+const hourNow = format(today, 'H');
+const minuteNow = format(today, 'mm');
+console.log(timesA[0].slice(0, 2), hourNow);
 for (let x = 0; x < 4; x++) {
   datesA.push(format(add(today, { days: x }), 'dd MMM'));
 }
@@ -20,9 +22,44 @@ for (let x = 4; x < 8; x++) {
 for (let x = 8; x < 12; x++) {
   datesC.push(format(add(today, { days: x }), 'dd MMM'));
 }
-console.log(timeNow);
 
 function LoginPage() {
+  function mapDates(mapArr: string[]) {
+    {
+      return mapArr.map((date, idx) => (
+        <DateTimeButton
+          key={date}
+          dateTime={date}
+          onClick={() => {
+            setActiveDateButton(date);
+          }}
+          active={activeDateButton === date}
+        >
+          {date}
+        </DateTimeButton>
+      ));
+    }
+  }
+  function mapTimes(mapArr: string[]) {
+    return mapArr.map((time, idx) => (
+      <DateTimeButton
+        key={time}
+        onClick={() => {
+          setActiveTimeButton(time);
+        }}
+        active={activeTimeButton === time}
+        dateTime={time}
+        disabled={!activeDateButton ||
+          (activeDateButton === format(today, 'dd MMM') &&
+          (Number(time.slice(0, 2)) < Number(hourNow) ||
+            (Number(time.slice(0, 2)) === Number(hourNow) &&
+              Number(time.slice(3, 5)) <= Number(minuteNow))))
+        }
+      >
+        {time}
+      </DateTimeButton>
+    ));
+  }
   const [activeDateButton, setActiveDateButton] = useState('');
   const [activeTimeButton, setActiveTimeButton] = useState('');
   return (
@@ -30,83 +67,17 @@ function LoginPage() {
       <Header header={'Select Date & Time'}></Header>
       <span className="text-white-dimmed font-bold text-sm mt-6">DATE</span>
       <div className="flex w-full flex-wrap justify-between mt-4 gap-y-4">
-      <div className="flex w-full justify-between">
-        {datesA.map((date, idx) => (
-          <DateTimeButton
-            key={date}
-            dateTime={date}
-            onClick={() => {
-              setActiveDateButton(date);
-            }}
-            active={activeDateButton === date}
-          >
-            {date}
-          </DateTimeButton>
-        ))}
-        </div>
-      <div className="flex w-full justify-between">
-        {datesB.map((date, idx) => (
-          <DateTimeButton
-            key={date}
-            dateTime={date}
-            onClick={() => {
-              setActiveDateButton(date);
-            }}
-            active={activeDateButton === date}
-          >
-            {date}
-          </DateTimeButton>
-        ))}
-        </div>
-      <div className="flex w-full justify-between">
-        {datesC.map((date, idx) => (
-          <DateTimeButton
-            key={date}
-            dateTime={date}
-            onClick={() => {
-              setActiveDateButton(date);
-            }}
-            active={activeDateButton === date}
-          >
-            {date}
-          </DateTimeButton>
-        ))}
-        </div>
+        <div className="flex w-full justify-between">{mapDates(datesA)}</div>
+        <div className="flex w-full justify-between">{mapDates(datesB)}</div>
+        <div className="flex w-full justify-between">{mapDates(datesC)}</div>
       </div>
 
       <hr className="h-0 border-t border-white-heavy my-6"></hr>
 
       <span className="text-white-dimmed font-bold text-sm">TIME</span>
       <div className="flex w-full flex-wrap justify-between mt-4 gap-y-4">
-        <div className="flex w-full justify-between">
-          {timesA.map((time, idx) => (
-            <DateTimeButton
-              key={time}
-              onClick={() => {
-                setActiveTimeButton(time);
-              }}
-              active={activeTimeButton === time}
-              dateTime={time}
-              disabled={time.slice(0,2)<=timeNow}
-            >
-              {time}
-            </DateTimeButton>
-          ))}
-        </div>
-        <div className="flex w-full justify-between">
-          {timesB.map((time, idx) => (
-            <DateTimeButton
-              key={time}
-              onClick={() => {
-                setActiveTimeButton(time);
-              }}
-              active={activeTimeButton === time}
-              dateTime={time}
-            >
-              {time}
-            </DateTimeButton>
-          ))}
-        </div>
+        <div className="flex w-full justify-between">{mapTimes(timesA)}</div>
+        <div className="flex w-full justify-between">{mapTimes(timesB)}</div>
       </div>
       <div className="h-full"></div>
       <Button size={'lg'}>Select Seat</Button>

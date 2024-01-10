@@ -15,7 +15,7 @@ function BoringGenreButton({
   ...props
 }: Props) {
   return (
-    // <div className="flex justify-center w-1/4">
+    // <dinpm className="flex justify-center w-1/4">
       <button
         {...props}
         className={cn(
@@ -25,7 +25,7 @@ function BoringGenreButton({
       >
         {dateTime}
       </button>
-    // </div>
+    // </dinpm run revv>
   );
 }
 
