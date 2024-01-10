@@ -31,7 +31,7 @@ function LoginPage() {
         onSubmit={e => submitHandler(e)}
         className="flex flex-grow flex-col justify-between"
       >
-        <div className="text-white-dimmed">
+        <div className="text-white-dimmed flex flex-col gap-3">
           <Input
             id="email"
             value={inputVal.email}
@@ -58,11 +58,10 @@ function LoginPage() {
             icon={<RiLockPasswordLine />}
           />
         </div>
-        <Button type="submit" className="text-sm font-bold">
+        <Button type="submit" size={'sm'}>
           Login
         </Button>
       </form>
-
     </div>
   );
 }

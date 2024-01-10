@@ -13,6 +13,7 @@ import CastAndCrewPage from './pages/CastAndCrewPage';
 import ReservationPage from './pages/ReservationPage';
 import GenresPage from './pages/GenresPage';
 import RegisterPage from './pages/RegisterPage';
+import GenreContext from './context/GenreProvider';
 
 const router = createBrowserRouter([
   {
@@ -87,8 +88,16 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+<<<<<<< HEAD
     <div className="flex flex-col h-screen px-5 py-8">
       <RouterProvider router={router} />
     </div>
+=======
+    <GenreContext>
+      <div className="flex flex-col h-screen">
+        <RouterProvider router={router} />
+      </div>
+    </GenreContext>
+>>>>>>> main
   </React.StrictMode>
 );
