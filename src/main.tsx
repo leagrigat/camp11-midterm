@@ -88,16 +88,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-<<<<<<< HEAD
     <div className="flex flex-col h-screen px-5 py-8">
       <RouterProvider router={router} />
     </div>
-=======
-    <GenreContext>
-      <div className="flex flex-col h-screen">
-        <RouterProvider router={router} />
-      </div>
-    </GenreContext>
->>>>>>> main
   </React.StrictMode>
 );
