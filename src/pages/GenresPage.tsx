@@ -34,7 +34,7 @@ function GenresPage() {
           <span className=" text-white">{selectedCount}</span>
           <p className=" text-white-dimmed">Genres selected</p>
         </div>
-        <Button onClick={() => navigate('/home')}>
+        <Button size={'lg'} onClick={() => navigate('/home')}>
           Confirm selected Genres
         </Button>
       </div>

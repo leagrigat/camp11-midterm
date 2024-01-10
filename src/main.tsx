@@ -15,6 +15,7 @@ import GenresPage from './pages/GenresPage';
 import RegisterPage from './pages/RegisterPage';
 import GenreContext from './context/GenreProvider';
 
+
 const router = createBrowserRouter([
   {
     path: '/',
