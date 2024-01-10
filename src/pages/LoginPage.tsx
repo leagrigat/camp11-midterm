@@ -58,7 +58,7 @@ function LoginPage() {
             icon={<RiLockPasswordLine />}
           />
         </div>
-        <Button type="submit" className="text-sm font-bold">
+        <Button type="submit" size={'sm'}>
           Login
         </Button>
       </form>
