@@ -22,6 +22,7 @@ function GenresPage() {
             genreIcon={genre.emoji}
             active={genre.isSelected}
             genre={genre.genre}
+            key={genre.id}
           />
         ))}
         <Button onClick={() => navigate('/home')}>
