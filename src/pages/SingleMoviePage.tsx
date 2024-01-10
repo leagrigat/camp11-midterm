@@ -22,7 +22,7 @@ function SingleMoviePage() {
       {movieData && (
         <img
           key={movieData.id}
-          className="rounded-lg"
+          className="rounded-lg m-auto"
           src={`https://image.tmdb.org/t/p/w300/${movieData.backdrop_path}`}
         />
       )}

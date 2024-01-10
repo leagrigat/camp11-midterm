@@ -14,7 +14,6 @@ import ReservationPage from './pages/ReservationPage';
 import GenresPage from './pages/GenresPage';
 import RegisterPage from './pages/RegisterPage';
 
-
 const router = createBrowserRouter([
   {
     path: '/',
@@ -88,7 +87,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen px-5 py-8">
       <RouterProvider router={router} />
     </div>
   </React.StrictMode>
