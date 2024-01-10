@@ -14,14 +14,14 @@ function GenresPage() {
     <div>
       <Header header="Genres"></Header>
       <div className="flex flex-wrap gap-[37px] mx-5 py-[16px] justify-center">
-        {genres.map(g => (
+        {genres.map(genre => (
           <GenreButton
             onClick={() => {
-              updateGenre(g.id);
+              updateGenre(genre.id);
             }}
-            genreIcon={g.emoji}
-            active={g.isSelected}
-            genre={g.genre}
+            genreIcon={genre.emoji}
+            active={genre.isSelected}
+            genre={genre.genre}
           />
         ))}
         <Button onClick={() => navigate('/home')}>
