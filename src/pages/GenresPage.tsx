@@ -6,29 +6,26 @@ import Header from '../components/Header';
 import { useNavigate } from 'react-router';
 
 function GenresPage() {
-  const { genres, updateGenre } = useContext(GenreContext);
+  const { genres, updateGenre, selectedCount } = useContext(GenreContext);
   const navigate = useNavigate();
-
-  console.log(genres);
   return (
-    <div>
-      <Header header="Genres"></Header>
-      <div className="flex flex-wrap gap-[37px] mx-5 py-[16px] justify-center">
-        {genres.map(genre => (
-          <GenreButton
-            onClick={() => {
-              updateGenre(genre.id);
-            }}
-            genreIcon={genre.emoji}
-            active={genre.isSelected}
-            genre={genre.genre}
-            key={genre.id}
-          />
-        ))}
-        <Button onClick={() => navigate('/home')}>
-          Confirm selected Genres
-        </Button>
+    <div className="flex flex-wrap gap-[37px] mx-5">
+      {genres.map(g => (
+        <GenreButton
+          onClick={() => {
+            updateGenre(g.id);
+          }}
+          key={g.id}
+          genreIcon={g.emoji}
+          active={g.isSelected}
+          genre={g.genre}
+        />
+      ))}
+      <div className="flex font-semibold gap-1">
+        <span className="flex text-white">{selectedCount}</span>
+        <p className="flex text-white-dimmed">Genres selected</p>
       </div>
+      <Button onClick={() => navigate('/home')}>Confirm selected Genres</Button>
     </div>
   );
 }

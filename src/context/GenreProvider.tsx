@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { genresLibrary } from './GenreLibrary';
 
 type Props = {
@@ -15,15 +15,24 @@ type Props = {
 type ContextType = {
   genres: typeof genresLibrary; //type wird autogeneriert
   updateGenre: (id: number) => void;
+  selectedCount: number;
 };
 
 export const GenreContext = createContext<ContextType>({
   genres: [],
   updateGenre: () => {},
+  selectedCount: 0,
 });
 
 function GenreProvider({ children }: Props) {
   const [genres, setGenres] = useState(genresLibrary);
+  const [selectedCount, SetSelectedCount] = useState(0);
+
+  //everytime the component mouns we wanna render the count und update it! = evertime we click genre component
+  useEffect(() => {
+    const count = genres.filter(genre => genre.isSelected).length;
+    SetSelectedCount(count);
+  }, [genres]); //run once genres are rendert
 
   function updateGenre(genreId: number) {
     // Finde die geklickte id zb: 3 im genresArray
@@ -36,12 +45,11 @@ function GenreProvider({ children }: Props) {
       return genre;
     });
     setGenres(updatedGenres);
-    console.log(genreId);
   }
 
   return (
     <>
-      <GenreContext.Provider value={{ genres, updateGenre }}>
+      <GenreContext.Provider value={{ genres, updateGenre, selectedCount }}>
         {children}
       </GenreContext.Provider>
     </>
