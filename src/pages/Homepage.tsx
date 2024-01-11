@@ -4,7 +4,6 @@ import MovieImage from '../components/MovieImage';
 import HomePageHeader from '../components/HomePageHeader';
 import Input from '../components/Input';
 import { IoSearch } from 'react-icons/io5';
-import { TestComponent } from '../components/TestComponent';
 
 function Homepage() {
   const [movieData, setMovieData] = useState<Movie[]>([]);
@@ -37,11 +36,6 @@ function Homepage() {
         <div className="overflow-scroll snap-x">
           <div className="flex gap-9 h-[234px]">
             {movieData.map(movie => (
-              // <img
-              //  key={movie.id}
-              //  className="rounded-lg snap-center"
-              //  src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-              // />
               <MovieImage
                 key={movie.id}
                 movieId={movie.id}
