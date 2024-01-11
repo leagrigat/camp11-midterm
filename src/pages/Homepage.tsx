@@ -4,6 +4,7 @@ import MovieImage from '../components/MovieImage';
 import HomePageHeader from '../components/HomePageHeader';
 import Input from '../components/Input';
 import { IoSearch } from 'react-icons/io5';
+import GenreComponent from '../components/GenreComponent';
 
 function Homepage() {
   const [movieData, setMovieData] = useState<Movie[]>([]);
@@ -29,9 +30,9 @@ function Homepage() {
           <Input
             isRounded={true}
             icon={<IoSearch className="h-6 w-6" />}
-            placeholder="Search"
-          />
+            placeholder="Search" id={'movieSearch'}          />
         </div>
+        <GenreComponent></GenreComponent>
         <h2 className="text-white text-base font-bold">Upcoming Movies</h2>
         <div className="overflow-scroll snap-x">
           <div className="flex gap-9 h-[234px]">
