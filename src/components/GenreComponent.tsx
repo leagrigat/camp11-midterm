@@ -44,7 +44,7 @@ function GenreComponent() {
   const { genres, updateGenre, selectedCount } = useContext(GenreContext);
 
   const handleClick = () => {
-    navigate(-1);
+    navigate("/genres");
   };
 
   return (
