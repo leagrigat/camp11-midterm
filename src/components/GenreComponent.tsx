@@ -48,15 +48,15 @@ function GenreComponent() {
   };
 
   return (
-    <>
-      <div className="flex items-center font-semibold text-base text-white justify-between">
-        <h2>Genres</h2>
-        <IoIosArrowForward onClick={handleClick} />
+    <div className='flex flex-col gap-y-4'>
+      <div className="flex items-center font-semibold text-base text-white justify-between opacity-[.44]">
+        <h2>Genre</h2>
+        <button className='flex items-center gap-x-3 text-primary font-medium text-xs' onClick={handleClick}><span>See All</span>{<IoIosArrowForward/>}</button>
       </div>
-      <div className="flex flex-wrap gap-[37px] justify-center">
+      <div className="flex flex-wrap justify-between">
         {genres.map(genre => mapGenres(genre))}
       </div>
-    </>
+    </div>
   );
 }
 
