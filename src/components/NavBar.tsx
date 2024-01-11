@@ -1,4 +1,3 @@
-import React, { Children } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 import { MdLocalMovies } from 'react-icons/md';
@@ -16,7 +15,7 @@ export const navIcons: NavItem[] = [
     path: '/home',
   },
   {
-    path: '/movies',
+    path: '/genres',
     icon: <MdLocalMovies />,
   },
   {

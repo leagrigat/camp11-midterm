@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { GenreContext } from '../context/GenreProvider';
 import GenreButton from '../components/GenreButton';
 import Button from '../components/Button';
@@ -13,7 +13,7 @@ function GenresPage() {
     <div className="px-5 py-[16px] h-full flex flex-col justify-between">
       <div>
         <Header header="Genres"></Header>
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col justify-between mt-12">
           <div className="flex flex-wrap gap-[37px] justify-center">
             {genres.map(genre => (
               <GenreButton
