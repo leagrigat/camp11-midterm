@@ -6,9 +6,9 @@ type MovieImageProps = {
   className?: string;
 };
 
-function MovieImage({ movieId, posterPath }: MovieImageProps) {
+function MovieImage({ movieId, posterPath, className = '' }: MovieImageProps) {
   return (
-    <Link to={`/movies/${movieId}`}>
+    <Link to={`/movies/${movieId}`} className={className}>
       <img src={`https://image.tmdb.org/t/p/w300/${posterPath}`} />
     </Link>
   );
