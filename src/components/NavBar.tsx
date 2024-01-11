@@ -15,7 +15,7 @@ export const navIcons: NavItem[] = [
     path: '/home',
   },
   {
-    path: '/genres',
+    path: '/movies',
     icon: <MdLocalMovies />,
   },
   {
