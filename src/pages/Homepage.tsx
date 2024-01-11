@@ -16,11 +16,15 @@ function Homepage() {
 
   return (
     <>
-        <div className='flex gap-9 rounded-lg h-[234px]'>
-          {movieData.map(movie => (
-            <img key={movie.id} className='rounded-lg' src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`} />
-          ))}
-        </div>
+      <div className="flex gap-9 rounded-lg h-[234px]">
+        {movieData.map(movie => (
+          <img
+            key={movie.id}
+            className="rounded-lg"
+            src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
+          />
+        ))}
+      </div>
     </>
   );
 }

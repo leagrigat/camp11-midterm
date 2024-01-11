@@ -4,7 +4,7 @@ import NavBar from '../components/NavBar';
 
 function NavbarLayout() {
   return (
-    <div>
+    <div className="relative">
       <main className="h-full">
         <Outlet />
       </main>
