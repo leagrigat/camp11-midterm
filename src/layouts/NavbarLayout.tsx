@@ -8,7 +8,7 @@ function NavbarLayout() {
       <main className="h-full">
         <Outlet />
       </main>
-      <footer>
+      <footer className="flex justify-center">
         <NavBar />
       </footer>
     </div>

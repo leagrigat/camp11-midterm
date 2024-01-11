@@ -30,7 +30,7 @@ export const navIcons: NavItem[] = [
 
 function NavBar() {
   return (
-    <nav className="fixed bottom-0 left-0">
+    <nav className="fixed bottom-0">
       <ul className="flex justify-center gap-12 bg-dark items-center py-8 px-16">
         {navIcons.map((navIcons, index) => (
           <li key={index}>
