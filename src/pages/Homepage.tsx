@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-import { Movie, getNowPlayingMovie } from '../api/movies';
 import MovieImage from '../components/MovieImage';
 import HomePageHeader from '../components/HomePageHeader';
 import Input from '../components/Input';
