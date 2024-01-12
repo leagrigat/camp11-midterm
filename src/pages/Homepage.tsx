@@ -5,6 +5,7 @@ import { IoSearch } from 'react-icons/io5';
 import GenreComponent from '../components/GenreComponent';
 import { useGetMovies } from '../hooks/useGetMovies';
 import { Oval } from 'react-loader-spinner';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 function Homepage() {
   const { movies, isLoading, isError, error } = useGetMovies();
@@ -29,16 +30,7 @@ function Homepage() {
         <div className="overflow-scroll snap-x">
           <div className="flex gap-9 h-[234px] justify-center items-center">
             {isLoading ? (
-              <Oval
-                visible={true}
-                height="80"
-                width="80"
-                color="#FFB43A"
-                secondaryColor="#363740"
-                ariaLabel="oval-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
-              />
+              <LoadingSpinner />
             ) : (
               movies?.map(movie => (
                 <MovieImage

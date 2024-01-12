@@ -1,3 +1,4 @@
+import LoadingSpinner from '../components/LoadingSpinner';
 import MovieImage from '../components/MovieImage';
 import { useGetMovies } from '../hooks/useGetMovies';
 import { Oval } from 'react-loader-spinner';
@@ -9,16 +10,7 @@ function MoviesPage() {
     <div>
       {isLoading ? (
         <div className="h-screen top-0 flex flex-col justify-center items-center">
-          <Oval
-            visible={true}
-            height="80"
-            width="80"
-            color="#FFB43A"
-            secondaryColor="#363740"
-            ariaLabel="oval-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-          />
+          <LoadingSpinner />
         </div>
       ) : (
         <div className="grid grid-rows-2 grid-cols-2 gap-5">
