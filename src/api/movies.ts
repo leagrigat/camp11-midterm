@@ -34,6 +34,8 @@ export type Movie = {
 };
 
 export interface SingleMovie extends Movie {
+  genres: string[];
+
   credits: {
     crew: Crew[];
   };

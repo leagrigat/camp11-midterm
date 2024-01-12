@@ -18,27 +18,44 @@ function SingleMoviePage() {
         console.error(err);
       });
   }, []);
+  const membersData = movieData ? movieData.credits.crew : [];
+  const writer = findCrewByRole(membersData, 'Writer');
+  const director = findCrewByRole(membersData, 'Director');
+  const unknownWriter = writer ? writer.name : 'Unknown Writer';
+  const genres = movieData?.genres.map(genre => {
+    return genre.name;
+  });
 
-  const membersData = movieData?.credits.crew;
-  const createtor = findCrewByRole();
-  console.log(createor);
+  console.log(movieData?.genres.map(genre => genre.name).join(' / '));
+
   return (
     <div className="flex flex-col gap-6">
-      <Header header={movieData?.title} />
+      <Header header={'Movie Detail'} />
       {movieData && (
         <img
           key={movieData.id}
-          className="rounded-lg m-auto"
+          className="rounded-lg"
           src={`https://image.tmdb.org/t/p/w300/${movieData.backdrop_path}`}
         />
       )}
 
       <h1 className="text-white font-bold">{movieData?.title}</h1>
       <div className="flex justify-around text-white">
-        <span>{movieData?.release_date}</span>
-        <span>{movieData?.genre_ids}</span>
+        <div>
+          <span>{movieData?.release_date.slice(0, 4)}</span>
+          <span className="font-bold">{genres}</span>
+        </div>
+
+        <div className="flex flex-col gap-2 text-white-dimmed">
+          <span>Director: </span>
+          <span>Writer: </span>
+        </div>
+        <div className="flex flex-col gap-2 font-bold">
+          <span>{director?.name}</span>
+          <span>{unknownWriter}</span>
+        </div>
+
         <span></span>
-        <button>click me</button>
       </div>
     </div>
   );

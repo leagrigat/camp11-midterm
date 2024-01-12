@@ -1,12 +1,11 @@
 import { Crew } from '../api/movies';
 
-export function findCrewByRole(crew: Crew[], rolename) {
-  const member = informationsFilm.find(crewMember => {
-    if (crewMember.job === 'Director') {
-      console.log(crewMember.name);
-      return crewMember.name;
+export function findCrewByRole(crew: Crew[], rolename: string) {
+  const person = crew.find(crewMember => {
+    if (crewMember.job === rolename) {
+      return true;
     }
   });
 
-  return member;
+  return person;
 }
