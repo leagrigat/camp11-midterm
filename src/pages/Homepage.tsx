@@ -4,7 +4,6 @@ import Input from '../components/Input';
 import { IoSearch } from 'react-icons/io5';
 import GenreComponent from '../components/GenreComponent';
 import { useGetMovies } from '../hooks/useGetMovies';
-import { Oval } from 'react-loader-spinner';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 function Homepage() {
@@ -25,10 +24,10 @@ function Homepage() {
             id={'movieSearch'}
           />
         </div>
-        <GenreComponent></GenreComponent>
+        <GenreComponent />
         <h2 className="text-white text-base font-bold">Upcoming Movies</h2>
         <div className="overflow-scroll snap-x">
-          <div className="flex gap-9 h-[234px] justify-center items-center">
+          <div className="flex gap-9 h-[270px] justify-center items-center">
             {isLoading ? (
               <LoadingSpinner />
             ) : (
@@ -37,7 +36,6 @@ function Homepage() {
                   key={movie.id}
                   movieId={movie.id}
                   posterPath={movie.poster_path}
-                  className="flex-[1_0_41vw] [&>img]:rounded-lg [&>img]:snap-center"
                 />
               ))
             )}

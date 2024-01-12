@@ -1,14 +1,25 @@
 import { Link } from 'react-router-dom';
+import { cn } from '../utils/cn';
 
 type MovieImageProps = {
   movieId: number;
   posterPath: string;
-  className?: string;
+  isRounded?: boolean;
 };
 
-function MovieImage({ movieId, posterPath, className = '' }: MovieImageProps) {
+function MovieImage({
+  movieId,
+  posterPath,
+  isRounded = true,
+}: MovieImageProps) {
   return (
-    <Link to={`/movies/${movieId}`} className={className}>
+    <Link
+      to={`/movies/${movieId}`}
+      className={cn(
+        'flex-[1_0_41vw] [&>img]:snap-center',
+        isRounded && '[&>img]:rounded-lg'
+      )}
+    >
       <img src={`https://image.tmdb.org/t/p/w300/${posterPath}`} />
     </Link>
   );
