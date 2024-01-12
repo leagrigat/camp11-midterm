@@ -14,6 +14,9 @@ import ReservationPage from './pages/ReservationPage';
 import GenresPage from './pages/GenresPage';
 import RegisterPage from './pages/RegisterPage';
 import GenreProvider from './context/GenreProvider';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -87,11 +90,13 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <div className="flex flex-col h-screen px-5 py-8">
-      <GenreProvider>
-        <RouterProvider router={router} />
-      </GenreProvider>
-    </div>
-  </React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <React.StrictMode>
+      <div className="flex flex-col h-screen px-5 py-8">
+        <GenreProvider>
+          <RouterProvider router={router} />
+        </GenreProvider>
+      </div>
+    </React.StrictMode>
+  </QueryClientProvider>
 );
