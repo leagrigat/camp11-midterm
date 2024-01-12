@@ -30,7 +30,9 @@ function Homepage() {
           <Input
             isRounded={true}
             icon={<IoSearch className="h-6 w-6" />}
-            placeholder="Search" id={'movieSearch'}          />
+            placeholder="Search"
+            id={'movieSearch'}
+          />
         </div>
         <GenreComponent></GenreComponent>
         <h2 className="text-white text-base font-bold">Upcoming Movies</h2>
@@ -41,7 +43,6 @@ function Homepage() {
                 key={movie.id}
                 movieId={movie.id}
                 posterPath={movie.poster_path}
-                className="flex-[1_0_41vw] [&>img]:rounded-lg [&>img]:snap-center"
               />
             ))}
           </div>

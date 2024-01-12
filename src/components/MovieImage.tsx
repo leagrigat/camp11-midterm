@@ -8,7 +8,10 @@ type MovieImageProps = {
 
 function MovieImage({ movieId, posterPath, className = '' }: MovieImageProps) {
   return (
-    <Link to={`/movies/${movieId}`} className={className}>
+    <Link
+      to={`/movies/${movieId}`}
+      className="flex-[1_0_41vw] [&>img]:rounded-lg [&>img]:snap-center"
+    >
       <img src={`https://image.tmdb.org/t/p/w300/${posterPath}`} />
     </Link>
   );

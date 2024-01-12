@@ -32,11 +32,8 @@ function MoviesPage() {
               key={movie.id}
               movieId={movie.id}
               posterPath={movie.poster_path}
-              //className="flex-[0_0_30vw] [&>img]:rounded-lg"
             />
           ))}
-        {/* <div <div className="flex justify-between">
-className="flex-grow-1"></div> */}
       </div>
 
       <div className="flex flex-wrap justify-between mb-[40px]">
