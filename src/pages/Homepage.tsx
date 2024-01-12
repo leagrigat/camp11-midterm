@@ -1,11 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Movie, getNowPlayingMovie } from '../api/movies';
+import { Movie, getNowPlayingMovie, getSingleMovie } from '../api/movies';
 import HomePageHeader from '../components/HomePageHeader';
 import Input from '../components/Input';
 import { IoSearch } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
 
 function Homepage() {
   const [movieData, setMovieData] = useState<Movie[]>([]);
+
+  const navigate = useNavigate();
+
+  function Click(id: number) {
+    navigate(`/movies/${id}`);
+  }
 
   useEffect(() => {
     getNowPlayingMovie()
@@ -36,6 +43,7 @@ function Homepage() {
           <div className="flex gap-9  h-[234px] ">
             {movieData.map(movie => (
               <img
+                onClick={() => Click(movie.id)}
                 key={movie.id}
                 className="rounded-lg snap-center"
                 src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}

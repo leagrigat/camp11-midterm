@@ -1,4 +1,19 @@
 import axios from 'axios';
+import { findCrewByRole } from '../utils/findCrewByRole';
+
+export type Crew = {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  credit_id: string;
+  department: string;
+  job: string;
+};
 
 export type Movie = {
   adult: boolean;
@@ -17,6 +32,12 @@ export type Movie = {
   vote_count: number;
   movieId: number;
 };
+
+export interface SingleMovie extends Movie {
+  credits: {
+    crew: Crew[];
+  };
+}
 
 type MovieResponse = {
   results: Movie[];
@@ -37,8 +58,8 @@ export async function getNowPlayingMovie() {
 }
 
 export async function getSingleMovie(movieId: number) {
-  const { data } = await axios.get<Movie>(
-    `https://api.themoviedb.org/3/movie/${movieId}`,
+  const { data } = await axios.get<SingleMovie>(
+    `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=credits&language=en-US`,
     {
       headers: {
         accept: 'application/json',
