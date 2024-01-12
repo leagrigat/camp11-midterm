@@ -6,7 +6,7 @@ export function useGetSingleMovie() {
   const { movieId } = useParams(); //useParams always returns a string
 
   const { data: movie } = useQuery({
-    queryKey: ['singleMovie', movieId],
+    queryKey: ['movies', movieId],
     queryFn: async () => await getSingleMovie(Number(movieId)),
   });
   return { movie };
