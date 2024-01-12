@@ -1,5 +1,30 @@
+import LoadingSpinner from '../components/LoadingSpinner';
+import MovieImage from '../components/MovieImage';
+import { useGetMovies } from '../hooks/useGetMovies';
+import { Oval } from 'react-loader-spinner';
+
 function MoviesPage() {
-  return <div></div>;
+  const { movies, isLoading, error, isError } = useGetMovies();
+
+  return (
+    <div>
+      {isLoading ? (
+        <div className="h-screen top-0 flex flex-col justify-center items-center">
+          <LoadingSpinner />
+        </div>
+      ) : (
+        <div className="grid grid-rows-2 grid-cols-2 gap-5">
+          {movies!.slice(0, 4).map(movie => (
+            <MovieImage
+              key={movie.id}
+              movieId={movie.id}
+              posterPath={movie.poster_path}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default MoviesPage;
