@@ -23,8 +23,8 @@ function MoviesPage() {
   };
 
   return (
-    <div className="px-5 py-8 h-full">
-      <div className="flex flex-wrap justify-center gap-[21px]">
+    <div className="flex flex-col h-full justify-around">
+      <div className="grid grid-rows-2 grid-cols-2 gap-5">
         {movieData
           .slice((currentPage - 1) * moviesPerPage, currentPage * moviesPerPage)
           .map(movie => (
@@ -32,12 +32,14 @@ function MoviesPage() {
               key={movie.id}
               movieId={movie.id}
               posterPath={movie.poster_path}
-              className="flex-[0_0_30vw] [&>img]:rounded-lg"
+              //className="flex-[0_0_30vw] [&>img]:rounded-lg"
             />
           ))}
+        {/* <div <div className="flex justify-between">
+className="flex-grow-1"></div> */}
       </div>
 
-      <div className="flex justify-between items-end">
+      <div className="flex flex-wrap justify-between mb-[40px]">
         {Array.from(
           { length: Math.ceil(movieData.length / moviesPerPage) },
           (_, i) => (
