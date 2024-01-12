@@ -37,7 +37,7 @@ function Homepage() {
         <GenreComponent></GenreComponent>
         <h2 className="text-white text-base font-bold">Upcoming Movies</h2>
         <div className="overflow-scroll snap-x">
-          <div className="flex gap-9 h-[234px]">
+          <div className="flex gap-9 h-[270px]">
             {movieData.map(movie => (
               <MovieImage
                 key={movie.id}

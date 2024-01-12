@@ -32,6 +32,7 @@ function MoviesPage() {
               key={movie.id}
               movieId={movie.id}
               posterPath={movie.poster_path}
+              isRounded={false}
             />
           ))}
       </div>
