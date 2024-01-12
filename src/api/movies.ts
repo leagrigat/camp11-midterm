@@ -23,17 +23,16 @@ type MovieResponse = {
 };
 
 function axiosGet() {
-  const delay =  new Promise((resolves, rejects) => {
-   setTimeout(() => {
-    resolves("hai")
-   },5000 )
-  })
+  const delay = new Promise((resolves, rejects) => {
+    setTimeout(() => {
+      resolves('hai');
+    }, 5000);
+  });
 
-  return delay
+  return delay;
 }
 
 export async function getNowPlayingMovie() {
-  
   const { data } = await axios.get<MovieResponse>(
     `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1`,
     {
@@ -44,8 +43,8 @@ export async function getNowPlayingMovie() {
     }
   );
 
-  const data2 = await axiosGet()
-  console.log(data2)
+  const data2 = await axiosGet();
+  console.log(data2);
 
   return data.results;
 }

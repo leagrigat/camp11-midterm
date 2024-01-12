@@ -1,24 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Movie, getNowPlayingMovie } from '../api/movies';
 import MovieImage from '../components/MovieImage';
+import { useGetMovies } from '../hooks/useGetMovies';
 
 function MoviesPage() {
-  const [movieData, setMovieData] = useState<Movie[]>([]);
-
-  useEffect(() => {
-    getNowPlayingMovie()
-      .then(movies => {
-        setMovieData(movies);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+  const { movies, isLoading, error, isError } = useGetMovies();
 
   return (
     <div>
       <div className="grid grid-rows-2 grid-cols-2 gap-5">
-        {movieData.slice(0, 4).map(movie => (
+        {movies!.slice(0, 4).map(movie => (
           <MovieImage
             key={movie.id}
             movieId={movie.id}

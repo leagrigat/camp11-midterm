@@ -9,18 +9,6 @@ import { useGetMovies } from '../hooks/useGetMovies';
 import { Oval } from 'react-loader-spinner';
 
 function Homepage() {
-  const [movieData, setMovieData] = useState<Movie[]>([]);
-
-  /*  useEffect(() => {
-    getNowPlayingMovie()
-      .then(movies => {
-        setMovieData(movies);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []); */
-
   const { movies, isLoading, isError, error } = useGetMovies();
 
   return (
