@@ -16,7 +16,7 @@ function MovieImage({
     <Link
       to={`/movies/${movieId}`}
       className={cn(
-        'flex-[1_0_41vw] [&>img]:snap-center',
+        'flex-[0_0_41vw] [&>img]:snap-center',
         isRounded && '[&>img]:rounded-lg'
       )}
     >
