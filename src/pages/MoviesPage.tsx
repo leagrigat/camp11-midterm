@@ -37,7 +37,7 @@ function MoviesPage() {
               ))}
           </div>
 
-          <div className="flex flex-wrap justify-between mb-[40px]">
+          <div className="flex flex-wrap justify-between mb-[48px]">
             {Array.from(
               { length: Math.ceil(movies.length / moviesPerPage) },
               (_, i) => (
