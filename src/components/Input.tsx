@@ -17,7 +17,7 @@ function Input({ id, isRounded, icon, ...props }: Props) {
         isRounded && 'rounded-full'
       )}
     >
-      <label htmlFor={id} className="flex items-center gap-5">
+      <label htmlFor={id} className="flex items-center gap-4">
         <div className="text-white-dimmed">{icon}</div>
         <input
           id={id}

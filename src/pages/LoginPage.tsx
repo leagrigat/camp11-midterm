@@ -3,6 +3,7 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import { MdOutlineEmail } from 'react-icons/md';
 import { RiLockPasswordLine } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
 
 function LoginPage() {
   const [inputVal, setInputVal] = useState({
@@ -16,7 +17,7 @@ function LoginPage() {
   }
 
   return (
-    <div className="py-8 flex flex-col h-full">
+    <div className="flex flex-col h-full">
       <div className="flex flex-col gap-3">
         <h2 className="text-white text-base font-bold">
           Welcome to Cine-Scape
@@ -42,7 +43,7 @@ function LoginPage() {
               })
             }
             placeholder="your@email.com"
-            icon={<MdOutlineEmail />}
+            icon={<MdOutlineEmail className="h-6 w-6" />}
           />
           <Input
             type="password"
@@ -55,8 +56,17 @@ function LoginPage() {
               })
             }
             placeholder="Enter your Password"
-            icon={<RiLockPasswordLine />}
+            icon={<RiLockPasswordLine className="h-6 w-6" />}
           />
+          <div className="flex gap-2 justify-end text-sm text-medium">
+            <span>Don't have an account yet?</span>
+            <Link
+              to={'/register'}
+              className="cursor-pointer underline text-primary"
+            >
+              <span>Sign Up</span>
+            </Link>
+          </div>
         </div>
         <Button type="submit" size={'sm'}>
           Login

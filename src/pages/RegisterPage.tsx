@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import RegistrationForm from '../components/RegistrationForm';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import { Link } from 'react-router-dom';
 
 function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -78,6 +79,12 @@ function RegisterPage() {
               setFormData({ ...formData, passwordRepeat: e.target.value })
             }
           />
+          <div className="flex gap-2 justify-end text-sm text-medium">
+            <span className="text-white-dimmed">Already have an account?</span>
+            <Link to={'/'} className="cursor-pointer underline text-primary">
+              <span>Log In</span>
+            </Link>
+          </div>
         </div>
 
         <Button variant="primary" type="submit" children="Register" size="lg" />
