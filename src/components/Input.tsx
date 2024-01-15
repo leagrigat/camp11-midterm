@@ -13,12 +13,12 @@ function Input({ id, isRounded, icon, ...props }: Props) {
   return (
     <div
       className={cn(
-        'gap-2  py-3 px-4 rounded-lg bg-white-heavy',
+        'gap-2 py-3 px-4 rounded-lg bg-white-heavy',
         isRounded && 'rounded-full'
       )}
     >
       <label htmlFor={id} className="flex items-center gap-5">
-        <div className="text-white-dimmed  pl-5">{icon}</div>
+        <div className="text-white-dimmed">{icon}</div>
         <input
           id={id}
           {...props}

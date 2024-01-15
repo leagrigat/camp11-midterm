@@ -22,10 +22,6 @@ function MoviesPage() {
       ) : (
         <>
           <div className="grid grid-rows-2 grid-cols-2 gap-5">
-<<<<<<< HEAD
-            {/* it needs to be called movies! to remove the TypeScript error */}
-=======
->>>>>>> 09c9f8337d6fbb4790578289d7dc2db066d71d25
             {movies!
               .slice(
                 (currentPage - 1) * moviesPerPage,
@@ -43,10 +39,6 @@ function MoviesPage() {
 
           <div className="flex flex-wrap justify-between mb-[40px]">
             {Array.from(
-<<<<<<< HEAD
-              // it needs to be called movies! to remove the TypeScript error
-=======
->>>>>>> 09c9f8337d6fbb4790578289d7dc2db066d71d25
               { length: Math.ceil(movies!.length / moviesPerPage) },
               (_, i) => (
                 <PaginationIcon
