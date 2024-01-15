@@ -19,7 +19,9 @@ function RegisterPage() {
   };
 
   return (
+    // implement <RegistrationForm/> in here (it's already imported!!)
     <div className=" h-full">
+      {/* create header component from LoginPage and implement it here */}
       <form
         onSubmit={handleSubmit}
         className="flex flex-col justify-between h-full"

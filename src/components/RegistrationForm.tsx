@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Input from './Input';
 import Button from './Button';
 
+// make component out of LoginPage header and also implement it here
+
 function RegistrationForm() {
   const [formData, setFormData] = useState({
     firstName: '',

@@ -16,6 +16,7 @@ function LoginPage() {
   }
 
   return (
+    // remove padding px-5
     <div className="px-5 py-8 flex flex-col h-full">
       <div className="flex flex-col gap-3">
         <h2 className="text-white text-base font-bold">

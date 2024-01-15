@@ -18,7 +18,8 @@ function PaginationIcon({
     <button
       {...props}
       className={cn(
-        'text-center text-dark-light rounded-[2px] w-[32px] h-[32px]',
+        // changed text font size to 12px (xs) like in screen design
+        'text-center text-dark-light rounded-[2px] w-[32px] h-[32px] text-xs',
         variant === 'selected' && 'bg-primary',
         variant === 'unselected' && 'bg-white-dimmed'
       )}
