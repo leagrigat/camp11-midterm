@@ -22,7 +22,7 @@ function MoviesPage() {
       ) : (
         <>
           <div className="grid grid-rows-2 grid-cols-2 gap-5">
-            {movies
+            {movies!
               .slice(
                 (currentPage - 1) * moviesPerPage,
                 currentPage * moviesPerPage
@@ -39,7 +39,7 @@ function MoviesPage() {
 
           <div className="flex flex-wrap justify-between mb-[48px]">
             {Array.from(
-              { length: Math.ceil(movies.length / moviesPerPage) },
+              { length: Math.ceil(movies!.length / moviesPerPage) },
               (_, i) => (
                 <PaginationIcon
                   key={i + 1}

@@ -16,7 +16,7 @@ function LoginPage() {
   }
 
   return (
-    <div className="px-5 py-8 flex flex-col h-full">
+    <div className="py-8 flex flex-col h-full">
       <div className="flex flex-col gap-3">
         <h2 className="text-white text-base font-bold">
           Welcome to Cine-Scape
