@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import { MdOutlineEmail } from 'react-icons/md';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
+import GreetingHeader from '../components/GreetingHeader';
 
 function LoginPage() {
   const [inputVal, setInputVal] = useState({
@@ -18,15 +19,10 @@ function LoginPage() {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex flex-col gap-3">
-        <h2 className="text-white text-base font-bold">
-          Welcome to Cine-Scape
-        </h2>
-        <p className="text-white-dimmed text-sm text-medium mb-8">
-          You need to log in to be able to make reservations and add movies to
-          your watchlist.
-        </p>
-      </div>
+      <GreetingHeader
+        title="Welcome to Cine-Scape"
+        description="You need to log in to be able to make reservations and add movies to your watchlist."
+      />
 
       <form
         onSubmit={e => submitHandler(e)}
