@@ -1,87 +1,200 @@
-import React, { useState } from 'react';
-import RegistrationForm from '../components/RegistrationForm';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Controller, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { passwordSchema } from '../validation/schemas';
 
-function RegisterPage() {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    passwordRepeat: '',
+const formSchema = z
+  .object({
+    firstName: z.string().min(1, 'Please specify a first name!'),
+    lastName: z.string().min(1, 'Please specify a last name!'),
+    email: z
+      .string()
+      .min(1, 'Please specify an email!')
+      .email('Please specify a valid email!'),
+    password: passwordSchema,
+    passwordRepeat: passwordSchema,
+  })
+  .superRefine((values, ctx) => {
+    if (values.password !== values.passwordRepeat) {
+      ctx.addIssue({
+        message: 'Passwords don\'t match!',
+        code: z.ZodIssueCode.custom,
+        path: ['passwordRepeat'],
+      });
+    }
+  });
+type FormFields = z.infer<typeof formSchema>;
+
+function RegistrationForm() {
+  const { control, handleSubmit, trigger } = useForm<FormFields>({
+    mode: 'onTouched',
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      passwordRepeat: '',
+    },
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    console.log('Form submitted with data:', formData);
+  const handleOnChangeText = (
+    value: string,
+    onChange: (...event: string[]) => void
+  ) => {
+    onChange(value);
+    trigger('passwordRepeat');
   };
 
   return (
-    <div className=" h-full">
+    <div className="px-5 py-8 flex flex-col h-full">
       <form
-        onSubmit={handleSubmit}
-        className="flex flex-col justify-between h-full"
+        onSubmit={handleSubmit(e => console.log(e))}
+        className="flex flex-grow flex-col justify-between"
       >
-        <div className="flex flex-col gap-5">
-          <Input
-            id="firstName"
-            type="text"
-            placeholder="First Name"
+        <div className="text-white-dimmed flex flex-col gap-3">
+          <Controller
             name="firstName"
-            value={formData.firstName}
-            onChange={e =>
-              setFormData({ ...formData, firstName: e.target.value })
-            }
+            control={control}
+            render={({
+              field: { value, onChange, onBlur },
+              fieldState: { error },
+            }) => (
+              <>
+                <Input
+                  id="firstName"
+                  required
+                  value={value}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                  error={Boolean(error)}
+                  type="text"
+                  placeholder="First Name"
+                />
+                {Boolean(error) && (
+                  <p className="text-error text-sm text-medium mb-4">
+                    {error?.message}
+                  </p>
+                )}
+              </>
+            )}
           />
-          <Input
-            id="lastName"
-            type="text"
-            placeholder="Last Name"
+          <Controller
             name="lastName"
-            value={formData.lastName}
-            onChange={e =>
-              setFormData({ ...formData, lastName: e.target.value })
-            }
+            control={control}
+            render={({
+              field: { value, onChange, onBlur },
+              fieldState: { error },
+            }) => (
+              <>
+                <Input
+                  id="lastName"
+                  required
+                  value={value}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                  error={Boolean(error)}
+                  type="text"
+                  placeholder="Last Name"
+                />
+                {Boolean(error) && (
+                  <p className="text-error text-sm text-medium mb-4">
+                    {error?.message}
+                  </p>
+                )}
+              </>
+            )}
           />
-          <Input
-            id="email"
-            type="email"
-            autoComplete="username"
-            placeholder="Your Email"
+          <Controller
             name="email"
-            value={formData.email}
-            onChange={e => setFormData({ ...formData, email: e.target.value })}
+            control={control}
+            render={({
+              field: { value, onChange, onBlur },
+              fieldState: { error },
+            }) => (
+              <>
+                <Input
+                  id="email"
+                  required
+                  value={value}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                  error={Boolean(error)}
+                  type="email"
+                  autoComplete="username"
+                  placeholder="Your Email"
+                />
+                {Boolean(error) && (
+                  <p className="text-error text-sm text-medium mb-4">
+                    {error?.message}
+                  </p>
+                )}
+              </>
+            )}
           />
-          <Input
-            id="password"
-            type="password"
-            autoComplete="new-password"
-            placeholder="Your Password"
+          <Controller
             name="password"
-            value={formData.password}
-            onChange={e =>
-              setFormData({ ...formData, password: e.target.value })
-            }
+            control={control}
+            render={({
+              field: { value, onChange, onBlur },
+              fieldState: { error },
+            }) => (
+              <>
+                <Input
+                  id="password"
+                  required
+                  value={value}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                  error={Boolean(error)}
+                  type="password"
+                  autoComplete="new-password"
+                  placeholder="Your Password"
+                />
+                {Boolean(error) && (
+                  <p className="text-error text-sm text-medium mb-4">
+                    {error?.message}
+                  </p>
+                )}
+              </>
+            )}
           />
-          <Input
-            id="passwordRepeat"
-            type="password"
-            autoComplete="new-password"
-            placeholder="Repeat your Password"
+          <Controller
             name="passwordRepeat"
-            value={formData.passwordRepeat}
-            onChange={e =>
-              setFormData({ ...formData, passwordRepeat: e.target.value })
-            }
+            control={control}
+            render={({
+              field: { value, onChange, onBlur },
+              fieldState: { error },
+            }) => (
+              <>
+                <Input
+                  id="passwordRepeat"
+                  required
+                  value={value}
+                  onChange={onChange}
+                  onBlur={e => handleOnChangeText(e.target.value, onBlur)}
+                  error={Boolean(error)}
+                  type="password"
+                  autoComplete="new-password"
+                  placeholder="Repeat your Password"
+                />
+                {Boolean(error) && (
+                  <p className="text-error text-sm text-medium mb-4">
+                    {error?.message}
+                  </p>
+                )}
+              </>
+            )}
           />
         </div>
-
-        <Button variant="primary" type="submit" children="Register" size="lg" />
+        <Button type="submit" size="sm">
+          Register
+        </Button>
       </form>
     </div>
   );
 }
 
-export default RegisterPage;
+export default RegistrationForm;
