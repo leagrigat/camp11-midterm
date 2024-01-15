@@ -26,6 +26,7 @@ for (let x = 8; x < 12; x++) {
 function SelectTimePage() {
   function mapDates(mapArr: string[]) {
     {
+      //klammer zu viel
       return mapArr.map((date, idx) => (
         <DateTimeButton
           key={date}
