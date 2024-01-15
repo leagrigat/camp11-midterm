@@ -4,14 +4,14 @@ import NavBar from '../components/NavBar';
 
 function NavbarLayout() {
   return (
-    <div>
+    <>
       <main className="h-full">
         <Outlet />
       </main>
-      <footer>
+      <footer className="flex justify-center">
         <NavBar />
       </footer>
-    </div>
+    </>
   );
 }
 

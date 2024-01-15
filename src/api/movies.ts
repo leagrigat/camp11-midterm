@@ -60,6 +60,9 @@ export async function getNowPlayingMovie() {
     }
   );
 
+  // const data2 = await axiosGet();
+  // console.log(data2);
+
   return data.results;
 }
 

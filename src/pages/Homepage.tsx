@@ -1,28 +1,13 @@
-import { useEffect, useState } from 'react';
-import { Movie, getNowPlayingMovie, getSingleMovie } from '../api/movies';
+import MovieImage from '../components/MovieImage';
 import HomePageHeader from '../components/HomePageHeader';
 import Input from '../components/Input';
 import { IoSearch } from 'react-icons/io5';
-import { useNavigate } from 'react-router-dom';
+import GenreComponent from '../components/GenreComponent';
+import { useGetMovies } from '../hooks/useGetMovies';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 function Homepage() {
-  const [movieData, setMovieData] = useState<Movie[]>([]);
-
-  const navigate = useNavigate();
-
-  function Click(id: number) {
-    navigate(`/movies/${id}`);
-  }
-
-  useEffect(() => {
-    getNowPlayingMovie()
-      .then(movies => {
-        setMovieData(movies);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+  const { movies, isLoading, isError, error } = useGetMovies();
 
   return (
     <>
@@ -36,19 +21,24 @@ function Homepage() {
             isRounded={true}
             icon={<IoSearch className="h-6 w-6" />}
             placeholder="Search"
+            id={'movieSearch'}
           />
         </div>
+        <GenreComponent />
         <h2 className="text-white text-base font-bold">Upcoming Movies</h2>
-        <div className="overflow-scroll snap-x ">
-          <div className="flex gap-9  h-[234px] ">
-            {movieData.map(movie => (
-              <img
-                onClick={() => Click(movie.id)}
-                key={movie.id}
-                className="rounded-lg snap-center"
-                src={`https://image.tmdb.org/t/p/w300/${movie.poster_path}`}
-              />
-            ))}
+        <div className="overflow-scroll snap-x">
+          <div className="flex gap-9 h-[270px] justify-center items-center">
+            {isLoading ? (
+              <LoadingSpinner />
+            ) : (
+              movies?.map(movie => (
+                <MovieImage
+                  key={movie.id}
+                  movieId={movie.id}
+                  posterPath={movie.poster_path}
+                />
+              ))
+            )}
           </div>
         </div>
       </div>
