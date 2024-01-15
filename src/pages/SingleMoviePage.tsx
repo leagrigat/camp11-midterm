@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Movie, SingleMovie, getSingleMovie } from '../api/movies';
+import { useParams, Link } from 'react-router-dom';
+import { SingleMovie, getSingleMovie } from '../api/movies';
 import Header from '../components/Header';
 import { findCrewByRole } from '../utils/findCrewByRole';
+import Button from '../components/Button';
 
 function SingleMoviePage() {
   const { movieId } = useParams();
 
-  const [movieData, setMovieData] = useState<SingleMovie | null>(null); //change the type
-
+  const [movieData, setMovieData] = useState<SingleMovie | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const readMore = () => {
+    setIsOpen(!isOpen);
+  };
   useEffect(() => {
     getSingleMovie(parseInt(movieId!))
       .then(movie => {
@@ -18,6 +22,7 @@ function SingleMoviePage() {
         console.error(err);
       });
   }, []);
+
   const membersData = movieData ? movieData.credits.crew : [];
   const writer = findCrewByRole(membersData, 'Writer');
   const director = findCrewByRole(membersData, 'Director');
@@ -26,7 +31,7 @@ function SingleMoviePage() {
     return genre.name;
   });
 
-  console.log(movieData?.genres.map(genre => genre.name).join(' / '));
+
 
   return (
     <div className="flex flex-col gap-6">
@@ -40,23 +45,59 @@ function SingleMoviePage() {
       )}
 
       <h1 className="text-white font-bold">{movieData?.title}</h1>
-      <div className="flex justify-around text-white">
-        <div>
+      <div className=" text-white text-xs flex justify-between">
+        <div className="flex gap-6">
           <span>{movieData?.release_date.slice(0, 4)}</span>
-          <span className="font-bold">{genres}</span>
+          <span className="text-white-dimmed">
+            {genres?.slice(0, 2).join('/')}
+          </span>
+          <span className="text-white-dimmed">
+            {movieData && Math.floor(movieData.runtime / 60) +
+              'h ' +
+              (movieData.runtime % 60) +
+              'm'}
+          </span>
         </div>
 
+        <div>
+          <span className="text-success">
+            {movieData && Math.floor(movieData?.vote_average * 10) + '% '}
+          </span>
+          <span className="text-white-dimmed">Score</span>
+        </div>
+      </div>
+      <div className="flex justify-between text-xs">
         <div className="flex flex-col gap-2 text-white-dimmed">
           <span>Director: </span>
           <span>Writer: </span>
         </div>
-        <div className="flex flex-col gap-2 font-bold">
+        <div className="flex flex-col gap-2 font-bold text-white">
           <span>{director?.name}</span>
           <span>{unknownWriter}</span>
         </div>
-
-        <span></span>
+        <div className="w-[140px] text-white">
+          <Link to={`/movies/${movieId}/cast-crew`}>
+            <Button size='sm' variant='secondary'>Cast & Crew</Button>
+          </Link>
+        </div>
       </div>
+      <hr className="border-white-dimmed" />
+      <div className="flex flex-col gap-2 items-start">
+        <span className="text-white font-bold text-sm">Synopsis</span>
+        <p
+          className={`text-white-dimmed text-sm ${
+            isOpen ? 'none' : 'line-clamp-2'
+          }`}
+        >
+          {movieData?.overview}
+        </p>
+        <button className="text-sm underline text-[#FFB43A]" onClick={readMore}>
+          {isOpen ? 'Read Less' : 'Read More'}
+        </button>
+      </div>
+      <Link to={`/movies/${movieId}/reservation`}>
+      <Button size='lg'> Get Reservation</Button>
+      </Link>
     </div>
   );
 }

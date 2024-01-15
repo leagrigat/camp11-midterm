@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { findCrewByRole } from '../utils/findCrewByRole';
 
 export type Crew = {
   adult: boolean;
@@ -28,22 +27,27 @@ export type Movie = {
   release_date: string;
   title: string;
   video: boolean;
-  vote_average: number;
   vote_count: number;
   movieId: number;
+  vote_average: number;
+  runtime: number;
+};
+
+type MovieResponse = {
+  results: Movie[];
 };
 
 export interface SingleMovie extends Movie {
-  genres: string[];
-
+  genres: Array[];
   credits: {
     crew: Crew[];
   };
 }
 
-type MovieResponse = {
-  results: Movie[];
-};
+type Array = {
+  name: string;
+}
+
 
 export async function getNowPlayingMovie() {
   const { data } = await axios.get<MovieResponse>(
