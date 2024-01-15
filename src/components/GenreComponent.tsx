@@ -27,6 +27,7 @@ function GenreComponent() {
     );
   }
 
+  //utility function?
   function mapGenres(genre: GenreType) {
     if (counter < 4) {
       if (counter < 4 - selectedCount || genre.isSelected) {
@@ -40,18 +41,25 @@ function GenreComponent() {
       }
     }
   }
+  //maybe this should be on top in the function
   const navigate = useNavigate();
   const { genres, updateGenre, selectedCount } = useContext(GenreContext);
 
   const handleClick = () => {
-    navigate("/genres");
+    navigate('/genres');
   };
 
   return (
-    <div className='flex flex-col gap-y-4'>
+    <div className="flex flex-col gap-y-4">
       <div className="flex items-center font-semibold text-base text-white justify-between opacity-[.44]">
         <h2>Genre</h2>
-        <button className='flex items-center gap-x-3 text-primary font-medium text-xs' onClick={handleClick}><span>See All</span>{<IoIosArrowForward/>}</button>
+        <button
+          className="flex items-center gap-x-3 text-primary font-medium text-xs"
+          onClick={handleClick}
+        >
+          <span>See All</span>
+          {<IoIosArrowForward />}
+        </button>
       </div>
       <div className="flex flex-wrap justify-between">
         {genres.map(genre => mapGenres(genre))}
