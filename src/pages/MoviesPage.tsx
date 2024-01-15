@@ -14,7 +14,7 @@ function MoviesPage() {
   };
 
   return (
-    <div className="h-full flex flex-col justify-around">
+    <div className="h-full flex flex-col justify-between">
       {isLoading ? (
         <div className="h-screen top-0 flex flex-col justify-center items-center">
           <LoadingSpinner />
