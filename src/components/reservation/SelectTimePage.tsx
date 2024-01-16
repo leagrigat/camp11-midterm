@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import Header from '../components/Header';
-import DateTimeButton from '../components/DateTimeButton';
-import Button from '../components/Button';
+import Header from '../Header';
+import DateTimeButton from '../DateTimeButton';
+import Button from '../Button';
 import { format, add } from 'date-fns';
 
-const timesA = ['09:15', '09:45', '15:00', '17:30'];
+const timesA = ['09:15', '09:45', '15:00', '17:30']; // vergangene Zeit soll disabled sein - hardcoded Zeiten für Filmvorstellungen
 const timesB = ['19:00', '20:30', '22:00', '23:30'];
 const datesA: string[] = [];
 // datesTest could replace three single arrays datesA, B and C
@@ -34,7 +34,7 @@ function SelectTimePage() {
   function mapDates(mapArr: string[]) {
     {
       //klammer zu viel
-      return mapArr.map((date, idx) => (
+      return mapArr.map(date => (
         <DateTimeButton
           key={date}
           dateTime={date}
@@ -49,9 +49,17 @@ function SelectTimePage() {
     }
   }
 
+  function isDisabled() {
+    !activeDateButton ||
+      (activeDateButton === format(today, 'dd MMM') &&
+        (Number(time.slice(0, 2)) < Number(hourNow) ||
+          (Number(time.slice(0, 2)) === Number(hourNow) &&
+            Number(time.slice(3, 5)) <= Number(minuteNow))));
+  }
+
+  // lieber unten mappen und dann direkt component mit reinsetzen anstatt die Funktion aufzurufen
   function mapTimes(mapArr: string[]) {
-    // idx kann weg
-    return mapArr.map((time, idx) => (
+    return mapArr.map(time => (
       <DateTimeButton
         key={time}
         onClick={() => {
@@ -60,13 +68,7 @@ function SelectTimePage() {
         active={activeTimeButton === time}
         dateTime={time}
         // write own function for activeButton condition?
-        disabled={
-          !activeDateButton ||
-          (activeDateButton === format(today, 'dd MMM') &&
-            (Number(time.slice(0, 2)) < Number(hourNow) ||
-              (Number(time.slice(0, 2)) === Number(hourNow) &&
-                Number(time.slice(3, 5)) <= Number(minuteNow))))
-        }
+        disabled={isDisabled}
       >
         {time}
       </DateTimeButton>
@@ -96,8 +98,7 @@ function SelectTimePage() {
         <div className="flex w-full justify-between">{mapTimes(timesB)}</div>
       </div>
       <div className="h-full"></div>
-      {/* don't need {} for string */}
-      <Button size={'lg'}>Select Seat</Button>
+      <Button size="lg">Select Seat</Button>
     </div>
   );
 }

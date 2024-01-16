@@ -18,19 +18,10 @@ export type Movie = {
   movieId: number;
 };
 
+// brauchen wir den type wirklich oder können wir einfach type Movie behalten?
 type MovieResponse = {
   results: Movie[];
 };
-
-// function axiosGet() {
-//   const delay = new Promise((resolves, rejects) => {
-//     setTimeout(() => {
-//       resolves('hai');
-//     }, 5000);
-//   });
-
-//   return delay;
-// }
 
 export async function getNowPlayingMovie() {
   const { data } = await axios.get<MovieResponse>(
@@ -42,9 +33,6 @@ export async function getNowPlayingMovie() {
       },
     }
   );
-
-  // const data2 = await axiosGet();
-  // console.log(data2);
 
   return data.results;
 }

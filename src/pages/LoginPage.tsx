@@ -67,8 +67,7 @@ function LoginPage() {
             </Link>
           </div>
         </div>
-        {/* no {} needed */}
-        <Button type="submit" size={'sm'}>
+        <Button type="submit" size="sm">
           Login
         </Button>
       </form>
