@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 
+export type Seat = {
+    id: number;
+    isAvailable: boolean;
+    isSelected: boolean;
+    isReserved: boolean;
+}
+
+type SeatType = {
+    seat: Seat;
+}
+
 function ReservationPage() {
+  const [seats, setSeats] = useState<Seat[]>;
+
   return(
     <div>
     <Header header="Select Seats"></Header>
