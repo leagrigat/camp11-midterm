@@ -25,22 +25,23 @@ function Homepage() {
           />
         </div>
         <GenreComponent />
-        <div className="fixed bottom-[88px]">
-          <h2 className="text-white text-base font-bold">Upcoming Movies</h2>
-          <div className=" overflow-scroll snap-x">
-            <div className=" left-0 flex gap-9 h-[270px] justify-center items-center">
-              {isLoading ? (
-                <LoadingSpinner />
-              ) : (
-                movies?.map(movie => (
-                  <MovieImage
-                    key={movie.id}
-                    movieId={movie.id}
-                    posterPath={movie.poster_path}
-                  />
-                ))
-              )}
-            </div>
+        {/* h2 and images div have to be inside 1 container so that we can remove the gap between them */}
+        <h2 className="text-white text-base font-bold fixed bottom-[340px]">
+          Upcoming Movies
+        </h2>
+        <div className="overflow-scroll snap-x fixed bottom-[88px] left-0">
+          <div className="flex gap-x-9 items-center">
+            {isLoading ? (
+              <LoadingSpinner />
+            ) : (
+              movies?.map(movie => (
+                <MovieImage
+                  key={movie.id}
+                  movieId={movie.id}
+                  posterPath={movie.poster_path}
+                />
+              ))
+            )}
           </div>
         </div>
       </div>
