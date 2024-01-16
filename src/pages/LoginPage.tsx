@@ -12,9 +12,12 @@ function LoginPage() {
     password: '',
   });
 
+  // could use binding with anonymous function here to signal that this is just locally used, which might or might not follow a convention.
+  /* const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); */
   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(inputVal);
+    console.log(inputVal); // do we need to keep the console.log?
   }
 
   return (
@@ -64,6 +67,7 @@ function LoginPage() {
             </Link>
           </div>
         </div>
+        {/* no {} needed */}
         <Button type="submit" size={'sm'}>
           Login
         </Button>

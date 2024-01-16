@@ -3,8 +3,6 @@ import Input from './Input';
 import Button from './Button';
 import { Link } from 'react-router-dom';
 
-// make component out of LoginPage header and also implement it here
-
 function RegistrationForm() {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -16,8 +14,7 @@ function RegistrationForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    console.log('Form submitted with data:', formData);
+    console.log('Form submitted with data:', formData); // do we need to keep the console.log?
   };
 
   return (
