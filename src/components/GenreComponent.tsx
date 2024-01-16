@@ -13,7 +13,10 @@ type GenreType = {
 
 // component lieber direkt unten im return statement einfügen - macht es uebersichtlicher
 function GenreComponent() {
-  let counter = 0;
+  //data
+  const { genres, updateGenre, selectedCount } = useContext(GenreContext);
+
+  //return component in css
   function generateButton(genre: GenreType) {
     return (
       <GenreButton
@@ -28,12 +31,11 @@ function GenreComponent() {
     );
   }
 
-  /* const selectedGenres = genres.filter(// filter selected)
-  const fallBackGenres = // getfallback (for the 4 default genres that should always get rendered when nothing is selected)
-  const genresToRender = [selectedGenres, fallBackGenres].slice(0,4) - the first 4 items of the current array should get rendered */
-
   // utility function? very hard to understand when not built by yourself - rather implement several logic parts that build on each other
+  //return generateButton with genre
+  let counter = 0;
   function mapGenres(genre: GenreType) {
+    //4 defaultnumber of genres displayed on homepage
     if (counter < 4) {
       if (counter < 4 - selectedCount || genre.isSelected) {
         if (
@@ -46,9 +48,9 @@ function GenreComponent() {
       }
     }
   }
-  // maybe this should be on top in the function
+
+  //navigate
   const navigate = useNavigate();
-  const { genres, updateGenre, selectedCount } = useContext(GenreContext);
 
   const handleClick = () => {
     navigate('/genres');

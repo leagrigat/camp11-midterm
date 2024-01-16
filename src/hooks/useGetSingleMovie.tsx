@@ -5,9 +5,9 @@ import { useParams } from 'react-router-dom';
 export function useGetSingleMovie() {
   const { movieId } = useParams(); //useParams always returns a string
 
-  const { data: movie } = useQuery({
+  const { data: movie, ...rest } = useQuery({
     queryKey: ['movies', movieId],
     queryFn: async () => await getSingleMovie(Number(movieId)),
   });
-  return { movie };
+  return { movie, ...rest };
 }

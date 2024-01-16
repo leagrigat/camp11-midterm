@@ -6,6 +6,8 @@ import { format, add } from 'date-fns';
 
 const timesA = ['09:15', '09:45', '15:00', '17:30']; // vergangene Zeit soll disabled sein - hardcoded Zeiten für Filmvorstellungen
 const timesB = ['19:00', '20:30', '22:00', '23:30'];
+
+//1 Array mit 12 items und grid
 const datesA: string[] = [];
 // datesTest could replace three single arrays datesA, B and C
 /* const datesTest = Array.from({ length: 12 }, (_, index) =>
@@ -14,6 +16,8 @@ const datesA: string[] = [];
 // map over datesTest and return components for each. Use grid to layout into three throws instead of using 3 different arrays
 const datesB: string[] = [];
 const datesC: string[] = [];
+
+//needs to stay
 const today = new Date();
 const hourNow = format(today, 'H');
 const minuteNow = format(today, 'mm');
@@ -32,24 +36,21 @@ function SelectTimePage() {
   // keep function outside or use arrow functions or map inside return statement (so that useState stuff is defined before it's used)
   // to map directly, we need one array instead of multiple.
   function mapDates(mapArr: string[]) {
-    {
-      //klammer zu viel
-      return mapArr.map(date => (
-        <DateTimeButton
-          key={date}
-          dateTime={date}
-          onClick={() => {
-            setActiveDateButton(date);
-          }}
-          active={activeDateButton === date}
-        >
-          {date}
-        </DateTimeButton>
-      ));
-    }
+    // lieber unten mappen und dann direkt component mit reinsetzen anstatt die Funktion aufzurufen
+    return mapArr.map(date => (
+      <DateTimeButton
+        key={date}
+        dateTime={date}
+        onClick={() => {
+          setActiveDateButton(date);
+        }}
+        active={activeDateButton === date}
+      >
+        {date}
+      </DateTimeButton>
+    ));
   }
 
-  // lieber unten mappen und dann direkt component mit reinsetzen anstatt die Funktion aufzurufen
   function mapTimes(mapArr: string[]) {
     return mapArr.map(time => (
       <DateTimeButton
@@ -60,6 +61,7 @@ function SelectTimePage() {
         active={activeTimeButton === time}
         dateTime={time}
         // write own function for activeButton condition?
+        //disabled kann eventuell raus
         disabled={
           !activeDateButton ||
           (activeDateButton === format(today, 'dd MMM') &&
