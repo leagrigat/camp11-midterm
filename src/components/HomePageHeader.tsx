@@ -15,7 +15,7 @@ function HomePageHeader({ name, avatarImg }: Props) {
       <img
         alt={name}
         src={avatarImg}
-        className="w-[40px] h-[40px] rounded-full "
+        className="w-[40px] h-[40px] rounded-full"
       />
     </div>
   );
