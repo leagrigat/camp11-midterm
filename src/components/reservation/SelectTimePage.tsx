@@ -49,14 +49,6 @@ function SelectTimePage() {
     }
   }
 
-  function isDisabled() {
-    !activeDateButton ||
-      (activeDateButton === format(today, 'dd MMM') &&
-        (Number(time.slice(0, 2)) < Number(hourNow) ||
-          (Number(time.slice(0, 2)) === Number(hourNow) &&
-            Number(time.slice(3, 5)) <= Number(minuteNow))));
-  }
-
   // lieber unten mappen und dann direkt component mit reinsetzen anstatt die Funktion aufzurufen
   function mapTimes(mapArr: string[]) {
     return mapArr.map(time => (
@@ -68,7 +60,13 @@ function SelectTimePage() {
         active={activeTimeButton === time}
         dateTime={time}
         // write own function for activeButton condition?
-        disabled={isDisabled}
+        disabled={
+          !activeDateButton ||
+          (activeDateButton === format(today, 'dd MMM') &&
+            (Number(time.slice(0, 2)) < Number(hourNow) ||
+              (Number(time.slice(0, 2)) === Number(hourNow) &&
+                Number(time.slice(3, 5)) <= Number(minuteNow))))
+        }
       >
         {time}
       </DateTimeButton>
