@@ -46,10 +46,9 @@ export interface SingleMovie extends Movie {
 
 type Array = {
   name: string;
-}
+};
 
-
-export async function getNowPlayingMovie() {
+export async function getNowPlayingMovies() {
   const { data } = await axios.get<MovieResponse>(
     `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1`,
     {
@@ -59,9 +58,6 @@ export async function getNowPlayingMovie() {
       },
     }
   );
-
-  // const data2 = await axiosGet();
-  // console.log(data2);
 
   return data.results;
 }

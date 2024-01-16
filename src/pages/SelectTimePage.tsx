@@ -4,15 +4,20 @@ import DateTimeButton from '../components/DateTimeButton';
 import Button from '../components/Button';
 import { format, add } from 'date-fns';
 
+//1 array mit 8 times und grid
 const timesA = ['09:15', '09:45', '15:00', '17:30'];
 const timesB = ['19:00', '20:30', '22:00', '23:30'];
+
+//1 Array mit 12 items und grid
 const datesA: string[] = [];
 const datesB: string[] = [];
 const datesC: string[] = [];
+
+//needs to stay
 const today = new Date();
 const hourNow = format(today, 'H');
 const minuteNow = format(today, 'mm');
-console.log(timesA[0].slice(0, 2), hourNow);
+
 for (let x = 0; x < 4; x++) {
   datesA.push(format(add(today, { days: x }), 'dd MMM'));
 }
@@ -25,24 +30,22 @@ for (let x = 8; x < 12; x++) {
 
 function SelectTimePage() {
   function mapDates(mapArr: string[]) {
-    {
-      //klammer zu viel
-      return mapArr.map((date, idx) => (
-        <DateTimeButton
-          key={date}
-          dateTime={date}
-          onClick={() => {
-            setActiveDateButton(date);
-          }}
-          active={activeDateButton === date}
-        >
-          {date}
-        </DateTimeButton>
-      ));
-    }
+    return mapArr.map(date => (
+      <DateTimeButton
+        key={date}
+        dateTime={date}
+        onClick={() => {
+          setActiveDateButton(date);
+        }}
+        active={activeDateButton === date}
+      >
+        {date}
+      </DateTimeButton>
+    ));
   }
+
   function mapTimes(mapArr: string[]) {
-    return mapArr.map((time, idx) => (
+    return mapArr.map(time => (
       <DateTimeButton
         key={time}
         onClick={() => {
@@ -50,6 +53,7 @@ function SelectTimePage() {
         }}
         active={activeTimeButton === time}
         dateTime={time}
+        //disabled kann eventuell raus
         disabled={
           !activeDateButton ||
           (activeDateButton === format(today, 'dd MMM') &&
@@ -82,7 +86,7 @@ function SelectTimePage() {
         <div className="flex w-full justify-between">{mapTimes(timesB)}</div>
       </div>
       <div className="h-full"></div>
-      <Button size={'lg'}>Select Seat</Button>
+      <Button size="lg">Select Seat</Button>
     </div>
   );
 }

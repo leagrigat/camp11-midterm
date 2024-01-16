@@ -12,7 +12,10 @@ type GenreType = {
 };
 
 function GenreComponent() {
-  let counter = 0;
+  //data
+  const { genres, updateGenre, selectedCount } = useContext(GenreContext);
+
+  //return component in css
   function generateButton(genre: GenreType) {
     return (
       <GenreButton
@@ -27,23 +30,25 @@ function GenreComponent() {
     );
   }
 
-  //utility function?
+  //return generateButton with genre
+  let counter = 0;
   function mapGenres(genre: GenreType) {
+    //4 defaultnumber of genres displayed on homepage
     if (counter < 4) {
       if (counter < 4 - selectedCount || genre.isSelected) {
         if (
           !genre.isSelected ||
           (genre.isSelected && counter >= 4 - selectedCount)
         ) {
-          counter++;
+          counter++; //useState
         }
         return generateButton(genre);
       }
     }
   }
-  //maybe this should be on top in the function
+
+  //navigate
   const navigate = useNavigate();
-  const { genres, updateGenre, selectedCount } = useContext(GenreContext);
 
   const handleClick = () => {
     navigate('/genres');

@@ -1,67 +1,81 @@
-import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { SingleMovie, getSingleMovie } from '../api/movies';
 import Header from '../components/Header';
 import { findCrewByRole } from '../utils/findCrewByRole';
 import Button from '../components/Button';
+import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
+import { useState } from 'react';
+import { FaHeart } from 'react-icons/fa';
+import { FaRegHeart } from 'react-icons/fa6';
 
 function SingleMoviePage() {
+  //SingleMovie data
   const { movieId } = useParams();
+  const { movie } = useGetSingleMovie();
 
-  const [movieData, setMovieData] = useState<SingleMovie | null>(null);
+  //crew data
+  const membersData = movie ? movie.credits.crew : [];
+  const writer = findCrewByRole(membersData, 'Writer');
+  const director = findCrewByRole(membersData, 'Director');
+  const unknownWriter = writer ? writer.name : 'Unknown Writer';
+
+  const genres = movie?.genres.map(genre => {
+    return genre.name;
+  });
+
+  //toggle read more
   const [isOpen, setIsOpen] = useState(false);
   const readMore = () => {
     setIsOpen(!isOpen);
   };
-  useEffect(() => {
-    getSingleMovie(parseInt(movieId!))
-      .then(movie => {
-        setMovieData(movie);
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  }, []);
 
-  const membersData = movieData ? movieData.credits.crew : [];
-  const writer = findCrewByRole(membersData, 'Writer');
-  const director = findCrewByRole(membersData, 'Director');
-  const unknownWriter = writer ? writer.name : 'Unknown Writer';
-  const genres = movieData?.genres.map(genre => {
-    return genre.name;
-  });
-
-
+  //toggle favorite
+  const [favorite, setFavorite] = useState(true);
+  const toggleFavorite = () => setFavorite(status => !status);
 
   return (
     <div className="flex flex-col gap-6">
-      <Header header={'Movie Detail'} />
-      {movieData && (
+      <div className="">
+        <Header
+          header={'Movie Detail'}
+          icon={
+            <div onClick={toggleFavorite}>
+              {favorite ? (
+                <FaRegHeart className="text-error" />
+              ) : (
+                <FaHeart className="text-error" />
+              )}
+            </div>
+          }
+        />
+      </div>
+
+      {movie && (
         <img
-          key={movieData.id}
+          key={movie.id}
           className="rounded-lg"
-          src={`https://image.tmdb.org/t/p/w300/${movieData.backdrop_path}`}
+          src={`https://image.tmdb.org/t/p/w300/${movie.backdrop_path}`}
         />
       )}
 
-      <h1 className="text-white font-bold">{movieData?.title}</h1>
+      <h1 className="text-white font-bold">{movie?.title}</h1>
       <div className=" text-white text-xs flex justify-between">
         <div className="flex gap-6">
-          <span>{movieData?.release_date.slice(0, 4)}</span>
+          <span>{movie?.release_date.slice(0, 4)}</span>
           <span className="text-white-dimmed">
             {genres?.slice(0, 2).join('/')}
           </span>
           <span className="text-white-dimmed">
-            {movieData && Math.floor(movieData.runtime / 60) +
-              'h ' +
-              (movieData.runtime % 60) +
-              'm'}
+            {movie &&
+              Math.floor(movie.runtime / 60) +
+                'h ' +
+                (movie.runtime % 60) +
+                'm'}
           </span>
         </div>
 
         <div>
           <span className="text-success">
-            {movieData && Math.floor(movieData?.vote_average * 10) + '% '}
+            {movie && Math.floor(movie?.vote_average * 10) + '% '}
           </span>
           <span className="text-white-dimmed">Score</span>
         </div>
@@ -77,7 +91,9 @@ function SingleMoviePage() {
         </div>
         <div className="w-[140px] text-white">
           <Link to={`/movies/${movieId}/cast-crew`}>
-            <Button size='sm' variant='secondary'>Cast & Crew</Button>
+            <Button size="sm" variant="secondary">
+              Cast & Crew
+            </Button>
           </Link>
         </div>
       </div>
@@ -89,14 +105,14 @@ function SingleMoviePage() {
             isOpen ? 'none' : 'line-clamp-2'
           }`}
         >
-          {movieData?.overview}
+          {movie?.overview}
         </p>
         <button className="text-sm underline text-[#FFB43A]" onClick={readMore}>
-          {isOpen ? 'Read Less' : 'Read More'}
+          {isOpen ? 'Read less' : 'Read more'}
         </button>
       </div>
       <Link to={`/movies/${movieId}/reservation`}>
-      <Button size='lg'> Get Reservation</Button>
+        <Button size="lg"> Get Reservation</Button>
       </Link>
     </div>
   );
