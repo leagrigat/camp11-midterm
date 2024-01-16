@@ -38,8 +38,7 @@ function GenresPage() {
               : ' Genres selected'}
           </p>
         </div>
-        {/* no {} needed | lg not needed coz default button size value anyway */}
-        <Button size={'lg'} onClick={() => navigate('/home')}>
+        <Button size="lg" onClick={() => navigate('/home')}>
           Confirm selected Genres
         </Button>
       </div>

@@ -78,7 +78,7 @@ function SelectTimePage() {
   const [activeDateButton, setActiveDateButton] = useState('');
   const [activeTimeButton, setActiveTimeButton] = useState('');
   return (
-    <div className="flex flex-col bg-dark px-5 py-8 h-full place-content-between">
+    <div className="flex flex-col bg-dark h-full place-content-between">
       {/* need no {} */}
       <Header header={'Select Date & Time'}></Header>
       <span className="text-white-dimmed font-bold text-sm mt-6">DATE</span>
