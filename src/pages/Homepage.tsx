@@ -25,20 +25,25 @@ function Homepage() {
           />
         </div>
         <GenreComponent />
-        <div className="overflow-scroll snap-x">
-          <h2 className="text-white text-base font-bold">Upcoming Movies</h2>
-          <div className="flex gap-9 justify-center items-center -mx-5">
-            {isLoading ? (
-              <LoadingSpinner />
-            ) : (
-              movies?.map(movie => (
-                <MovieImage
-                  key={movie.id}
-                  movieId={movie.id}
-                  posterPath={movie.poster_path}
-                />
-              ))
-            )}
+        <div>
+          {' '}
+          <h2 className="text-white text-base font-bold mb-[16px]">
+            Upcoming Movies
+          </h2>
+          <div className="overflow-scroll snap-x -mx-5">
+            <div className="flex gap-x-9 items-center">
+              {isLoading ? (
+                <LoadingSpinner />
+              ) : (
+                movies?.map(movie => (
+                  <MovieImage
+                    key={movie.id}
+                    movieId={movie.id}
+                    posterPath={movie.poster_path}
+                  />
+                ))
+              )}
+            </div>
           </div>
         </div>
       </div>
