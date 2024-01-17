@@ -10,18 +10,21 @@ function CastAndCrewPage() {
   // We used hook instead
   const { movie } = useGetSingleMovie();
 
+  // Show loading state
+  // Or go even further with isLoading and isError return values from useGetSingleMovie()
+  /*   if (!movie) {
+    return <></>
+  } */
+
   // task 3: fetch cast and crew data
   const castData = movie ? movie.credits.cast : [];
   const crewData = movie ? movie.credits.crew : [];
 
-  // loop through array and extract the values we need: Name, job, image
+  // loop through array and extract the values we need: Name, job, image - that happens in return
 
   // task 4: console log the cast and crew data on the page
   console.log(castData);
   console.log(crewData);
-
-  //access to cast names
-  // const castNames = castData.map(castName => castName.name);
 
   return (
     <>
@@ -31,9 +34,16 @@ function CastAndCrewPage() {
       {/* rendering cast members */}
       <div className="mt-8">
         {castData.map(castMember => (
-          <div key={castMember.id} className="flex gap-5 pb-4">
+          <div
+            key={castMember.id + castMember.character}
+            className="flex gap-5 pb-4"
+          >
             <img
-              src={`https://image.tmdb.org/t/p/w500${castMember.profile_path}`}
+              src={
+                castMember.profile_path
+                  ? `https://image.tmdb.org/t/p/w500${castMember.profile_path}`
+                  : 'https://i.pinimg.com/280x280_RS/da/2b/ba/da2bba6e54d8ef933f2c1921a56496a1.jpg' // find dummy image for a profile pic
+              }
               alt={castMember.name}
               className="h-[64px] w-[64px] object-cover"
             />
@@ -47,9 +57,13 @@ function CastAndCrewPage() {
       {/* rendering crew members */}
       <div>
         {crewData.map(crewMember => (
-          <div key={crewMember.id} className="flex gap-5 py-4">
+          <div key={crewMember.id + crewMember.job} className="flex gap-5 py-4">
             <img
-              src={`https://image.tmdb.org/t/p/w500${crewMember.profile_path}`}
+              src={
+                crewMember.profile_path
+                  ? `https://image.tmdb.org/t/p/w500${crewMember.profile_path}`
+                  : 'https://i.pinimg.com/280x280_RS/da/2b/ba/da2bba6e54d8ef933f2c1921a56496a1.jpg'
+              }
               alt={crewMember.name}
               className="h-[64px] w-[64px] object-cover"
             />
