@@ -25,9 +25,10 @@ function Homepage() {
           />
         </div>
         <GenreComponent />
+        {/* h2 and images div have to be inside 1 container so that we can remove the gap between them */}
         <h2 className="text-white text-base font-bold">Upcoming Movies</h2>
-        <div className="overflow-scroll snap-x">
-          <div className="flex gap-9 h-[270px] justify-center items-center">
+        <div className="overflow-scroll snap-x -mx-5">
+          <div className="flex gap-x-9 items-center">
             {isLoading ? (
               <LoadingSpinner />
             ) : (

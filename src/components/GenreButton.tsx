@@ -11,17 +11,17 @@ interface Props extends ButtonProps {
 
 function GenreButton({ active, genre, genreIcon, ...props }: Props) {
   return (
-    <div className="flex flex-col items-center gap-2 w-fit">
+    <div className="flex flex-col justify-center gap-2 w-fit">
       <button
         {...props}
         className={cn(
-          'text-center rounded-[0.75rem] text-3xl w-14 h-14',
+          'rounded-[0.75rem] flex flex-col items-center justify-center text-3xl w-14 h-14',
           active ? 'bg-white-dimmed' : 'bg-dark-light'
         )}
       >
         <p className="w-full text-center">{genreIcon}</p>
       </button>
-      <div className="flex justify-center w-14">
+      <div className="flex whitespace-nowrap justify-center text-center w-14">
         <h5 className="text-xs font-bold text-white-dimmed">{genre}</h5>
       </div>
     </div>

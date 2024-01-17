@@ -1,7 +1,11 @@
-import React from 'react';
+import SelectTimePage from '../components/reservation/SelectTimePage';
 
 function ReservationPage() {
-  return <div></div>;
+  return (
+    <>
+      <SelectTimePage />
+    </>
+  );
 }
 
 export default ReservationPage;
