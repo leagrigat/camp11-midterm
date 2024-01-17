@@ -36,7 +36,7 @@ function SingleMoviePage() {
     <div className="flex flex-col gap-6">
       <div className="">
         <Header
-          header={'Movie Detail'}
+          header="Movie Detail"
           icon={
             <div onClick={toggleFavorite}>
               {favorite ? (
@@ -112,7 +112,7 @@ function SingleMoviePage() {
         </button>
       </div>
       <Link to={`/movies/${movieId}/reservation`}>
-        <Button size="lg"> Get Reservation</Button>
+        <Button size="lg">Get Reservation</Button>
       </Link>
     </div>
   );
