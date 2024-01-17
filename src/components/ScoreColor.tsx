@@ -1,14 +1,21 @@
 import React from 'react';
 import { Movie } from '../api/movies';
+import axios from 'axios';
 
 function ScoreColor({ vote_average }: Movie) {
+  const votePercent: number = vote_average * 10;
+  console.log(votePercent);
+  console.log(vote_average);
+
   let textColor: string;
 
-  if (vote_average * 10 >= 0 && vote_average <= 15) {
+  if (votePercent >= 0 && votePercent <= 15) {
     textColor = 'text-red-500';
-  } else if (vote_average * 10 > 15 && vote_average <= 50) {
+  } else if (votePercent > 15 && votePercent <= 50) {
     textColor = 'text-orange-500';
-  } else if (vote_average * 10 > 50 && vote_average <= 100) {
+  } else if (votePercent > 50 && votePercent <= 75) {
+    textColor = 'text-yellow-500';
+  } else if (votePercent > 75 && votePercent <= 100) {
     textColor = 'text-green-500';
   } else {
     textColor = 'text-gray-500'; // Fallback-Color, if no number fits
@@ -16,7 +23,7 @@ function ScoreColor({ vote_average }: Movie) {
 
   return (
     <div>
-      <p className={`${textColor}`}>{vote_average} + '%' Score</p>
+      <p className={textColor}>{votePercent + '$'} </p>
     </div>
   );
 }

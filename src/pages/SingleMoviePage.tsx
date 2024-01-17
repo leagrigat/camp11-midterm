@@ -4,6 +4,7 @@ import { SingleMovie, getSingleMovie } from '../api/movies';
 import Header from '../components/Header';
 import { findCrewByRole } from '../utils/findCrewByRole';
 import Button from '../components/Button';
+import ScoreColor from '../components/ScoreColor';
 
 function SingleMoviePage() {
   const { movieId } = useParams();
@@ -59,6 +60,24 @@ function SingleMoviePage() {
         </div>
 
         <div>
+          <ScoreColor
+            adult={false}
+            backdrop_path={''}
+            genre_ids={[]}
+            id={0}
+            original_language={''}
+            original_title={''}
+            overview={''}
+            popularity={0}
+            poster_path={''}
+            release_date={''}
+            title={''}
+            video={false}
+            vote_count={0}
+            movieId={0}
+            vote_average={0}
+            runtime={0}
+          />
           <span className="text-success">
             {movieData && Math.floor(movieData?.vote_average * 10) + '% '}
           </span>
