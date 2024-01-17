@@ -26,12 +26,15 @@ const times = [
   '23:30',
 ];
 
-const isTimesButtonDisabled = (activeDateButton: string, time: string) =>
-  !activeDateButton ||
-  (activeDateButton === format(today, 'dd MMM') &&
-    (Number(time.slice(0, 2)) < Number(hourNow) ||
-      (Number(time.slice(0, 2)) === Number(hourNow) &&
-        Number(time.slice(3, 5)) <= Number(minuteNow))));
+const isTimesButtonDisabled = (activeDateButton: string, time: string) => {
+  return (
+    !activeDateButton ||
+    (activeDateButton === format(today, 'dd MMM') &&
+      (Number(time.slice(0, 2)) < Number(hourNow) ||
+        (Number(time.slice(0, 2)) === Number(hourNow) &&
+          Number(time.slice(3, 5)) <= Number(minuteNow))))
+  );
+};
 
 function SelectTimePage() {
   const [activeDateButton, setActiveDateButton] = useState('');
