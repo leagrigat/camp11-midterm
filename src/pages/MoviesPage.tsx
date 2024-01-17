@@ -2,10 +2,10 @@ import { useState } from 'react';
 import LoadingSpinner from '../components/LoadingSpinner';
 import MovieImage from '../components/MovieImage';
 import PaginationIcon from '../components/PaginationIcon';
-import { useGetMovies } from '../hooks/useGetMovies';
+import { useGetMoviesByGenre } from '../hooks/useGetMoviesByGenre';
 
 function MoviesPage() {
-  const { movies, isLoading, error, isError } = useGetMovies();
+  const { movies, isLoading, error, isError } = useGetMoviesByGenre();
   const [currentPage, setCurrentPage] = useState(1);
   const moviesPerPage = 4;
 
