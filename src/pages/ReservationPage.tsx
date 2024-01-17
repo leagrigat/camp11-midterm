@@ -1,43 +1,70 @@
-import React, { useState } from 'react';
-import Header from '../components/Header';
-import { id } from 'date-fns/locale';
+import React from 'react';
+import { useState } from 'react';
+import Modal from '../components/Modal';
 
 export type Seat = {
-  id: number;
-  isAvailable: boolean;
+  name: string | null;
   isSelected: boolean;
   isReserved: boolean;
 };
 
+function generateSeats() {
+  // prettier-ignore
+  const seats = [ null, 'A1', 'A2', 'A3',  null, 'A4', 'A5', 'A6',  null,
+                  'B1', 'B2', 'B3', 'B4',  null, 'B5', 'B6', 'B7',  'B8',
+                  'C1', 'C2', 'C3', 'C4',  null, 'C5', 'C6', 'C7',  'C8',
+                  'D1', 'D2', 'D3', 'D4',  null, 'D5', 'D6', 'D7',  'D8',
+                  'E1', 'E2', 'E3', 'E4',  null, 'E5', 'E6', 'E7',  'E8',
+                  null, 'F1', 'F2', 'F3',  null, 'F4', 'F5', 'F6',  null,];
+
+  const seatObj: Seat[] = seats.map((seat, idx) => {
+    return { name: seat, isSelected: false, isReserved: false };
+  });
+  console.log(seatObj);
+  return seatObj;
+}
+
 function ReservationPage() {
-  const [seats, setSeats] = useState<Seat[]>(Array.from({length: 24}, (_, index) => ({
-    id: index +1,
-    isAvailable: true,
-    isSelected: false,
-    isReserved: false,
-  })))
+  const [seatsInfo, setSeatsInfo] = useState(() => generateSeats());
 
-  const handleSeatClick = (seatId: number) => {
-    const updatedSeats = seats.map(seat => {
-      if(seat.id === seatId) {
-        return {...seat, isSelected: !seat.isSelected};
-      }
-      return seat;
-    });
+  const selectedSeats = seatsInfo.filter(seat => seat.isSelected);
 
-    setSeats(updatedSeats);
+  function handleClick(seatId: number) {
+    setSeatsInfo(prevSeats =>
+      prevSeats.map((seat, idx) =>
+        idx === seatId ? { ...seat, isSelected: !seat.isSelected } : seat
+      )
+    );
   }
-  console.log(seats)
 
-  return (
-    <div>
-      <Header header="Select Seats"></Header>
-      <hr className="border-[#FFB43A] w-[279px] m-auto" />
-      <div className="grid grid-cols-4 w-[50%] gap-4">{seats.map(seat =>(
-        <button key={seat.id} className={`bg-white-dimmed text-center rounded-[4px] text-xl w-[28px] h-[28px]${seat.isSelected ? "bg-[#FFB43A]" : "none"}`} onClick={() => {handleSeatClick(seat.id)}}>{seat.id}</button>))}
+    return (
+    <>
+      <h1 className="text-white">Hallo reservation</h1>;
+      <div className="grid grid-cols-9 gap-2 auto-rows-max">
+        {seatsInfo.map((seat, idx) => {
+          if (!seat.name)
+            return <div className="w-[28px] h-[28px]" key={idx}></div>;
+
+          return (
+            <button
+              className={`w-[28px] h-[28px] bg-white-dimmed rounded ${
+                seat.isSelected ? 'bg-yellow-500' : 'none'
+              }`}
+              key={idx}
+              onClick={() => {
+                handleClick(idx);
+              }}
+            >
+              {seat.name}
+            </button>
+          );
+        })}
       </div>
-    </div>
+      {selectedSeats.length > 0 && <Modal selectedSeats={selectedSeats} />}
+    </>
   );
 }
 
 export default ReservationPage;
+
+// {selectedSeats && `${selectedSeats.map(seat => seat.name).join()} `}
