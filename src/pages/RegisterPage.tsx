@@ -1,25 +1,27 @@
-import Input from '../components/Input';
 import Button from '../components/Button';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { passwordSchema } from '../validation/schemas';
+import { nameSchema, passwordSchema } from '../validation/schemas';
+import InputControlled from '../components/InputControlled';
+
+let repeatTouched = false;
 
 const formSchema = z
   .object({
-    firstName: z.string().min(1, 'Please specify a first name!'),
-    lastName: z.string().min(1, 'Please specify a last name!'),
+    firstName: nameSchema,
+    lastName: nameSchema,
     email: z
       .string()
       .min(1, 'Please specify an email!')
       .email('Please specify a valid email!'),
     password: passwordSchema,
-    passwordRepeat: passwordSchema,
+    passwordRepeat: z.string().min(1, 'Please repeat the password!'),
   })
   .superRefine((values, ctx) => {
     if (values.password !== values.passwordRepeat) {
       ctx.addIssue({
-        message: 'Passwords don\'t match!',
+        message: "Passwords don't match!",
         code: z.ZodIssueCode.custom,
         path: ['passwordRepeat'],
       });
@@ -27,7 +29,7 @@ const formSchema = z
   });
 type FormFields = z.infer<typeof formSchema>;
 
-function RegistrationForm() {
+function RegisterPage() {
   const { control, handleSubmit, trigger } = useForm<FormFields>({
     mode: 'onTouched',
     resolver: zodResolver(formSchema),
@@ -40,13 +42,87 @@ function RegistrationForm() {
     },
   });
 
-  const handleOnChangeText = (
+  const handleDefault = (
     value: string,
     onChange: (...event: string[]) => void
   ) => {
     onChange(value);
+  };
+
+  const handleOnPassword = (
+    value: string,
+    onChange: (...event: string[]) => void
+  ) => {
+    onChange(value);
+    if (repeatTouched) {
+      trigger('passwordRepeat');
+    }
+  };
+
+  const handleOnRepeat = (
+    value: string,
+    onChange: (...event: string[]) => void
+  ) => {
+    repeatTouched = true;
+    console.log(
+      (event!.target! as HTMLTextAreaElement).attributes!.getNamedItem('id')!
+        .value === 'passwordRepeat'
+    );
+    onChange(value);
     trigger('passwordRepeat');
   };
+
+  type InputField = {
+    name: 'firstName' | 'lastName' | 'email' | 'password' | 'passwordRepeat';
+    placeholder: string;
+    type: string;
+    autocomplete: string;
+    ocTrigger: (value: string, onChange: (...event: string[]) => void) => void;
+    obTrigger: (value: string, onChange: (...event: string[]) => void) => void;
+  };
+
+  const inputFields: InputField[] = [
+    {
+      name: 'firstName',
+      placeholder: 'First Name',
+      type: 'text',
+      autocomplete: 'given-name',
+      ocTrigger: handleDefault,
+      obTrigger: handleDefault,
+    },
+    {
+      name: 'lastName',
+      placeholder: 'Last Name',
+      type: 'text',
+      autocomplete: 'family-name',
+      ocTrigger: handleDefault,
+      obTrigger: handleDefault,
+    },
+    {
+      name: 'email',
+      placeholder: 'Your Email',
+      type: 'email',
+      autocomplete: 'email',
+      ocTrigger: handleDefault,
+      obTrigger: handleDefault,
+    },
+    {
+      name: 'password',
+      placeholder: 'Your Password',
+      type: 'password',
+      autocomplete: 'new-password',
+      ocTrigger: handleOnPassword,
+      obTrigger: handleDefault,
+    },
+    {
+      name: 'passwordRepeat',
+      placeholder: 'Repeat your Password',
+      type: 'password',
+      autocomplete: 'new-password',
+      ocTrigger: handleDefault,
+      obTrigger: handleOnRepeat,
+    },
+  ];
 
   return (
     <div className="px-5 py-8 flex flex-col h-full">
@@ -55,139 +131,17 @@ function RegistrationForm() {
         className="flex flex-grow flex-col justify-between"
       >
         <div className="text-white-dimmed flex flex-col gap-3">
-          <Controller
-            name="firstName"
-            control={control}
-            render={({
-              field: { value, onChange, onBlur },
-              fieldState: { error },
-            }) => (
-              <>
-                <Input
-                  id="firstName"
-                  required
-                  value={value}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  error={Boolean(error)}
-                  type="text"
-                  placeholder="First Name"
-                />
-                {Boolean(error) && (
-                  <p className="text-error text-sm text-medium mb-4">
-                    {error?.message}
-                  </p>
-                )}
-              </>
-            )}
-          />
-          <Controller
-            name="lastName"
-            control={control}
-            render={({
-              field: { value, onChange, onBlur },
-              fieldState: { error },
-            }) => (
-              <>
-                <Input
-                  id="lastName"
-                  required
-                  value={value}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  error={Boolean(error)}
-                  type="text"
-                  placeholder="Last Name"
-                />
-                {Boolean(error) && (
-                  <p className="text-error text-sm text-medium mb-4">
-                    {error?.message}
-                  </p>
-                )}
-              </>
-            )}
-          />
-          <Controller
-            name="email"
-            control={control}
-            render={({
-              field: { value, onChange, onBlur },
-              fieldState: { error },
-            }) => (
-              <>
-                <Input
-                  id="email"
-                  required
-                  value={value}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  error={Boolean(error)}
-                  type="email"
-                  autoComplete="username"
-                  placeholder="Your Email"
-                />
-                {Boolean(error) && (
-                  <p className="text-error text-sm text-medium mb-4">
-                    {error?.message}
-                  </p>
-                )}
-              </>
-            )}
-          />
-          <Controller
-            name="password"
-            control={control}
-            render={({
-              field: { value, onChange, onBlur },
-              fieldState: { error },
-            }) => (
-              <>
-                <Input
-                  id="password"
-                  required
-                  value={value}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  error={Boolean(error)}
-                  type="password"
-                  autoComplete="new-password"
-                  placeholder="Your Password"
-                />
-                {Boolean(error) && (
-                  <p className="text-error text-sm text-medium mb-4">
-                    {error?.message}
-                  </p>
-                )}
-              </>
-            )}
-          />
-          <Controller
-            name="passwordRepeat"
-            control={control}
-            render={({
-              field: { value, onChange, onBlur },
-              fieldState: { error },
-            }) => (
-              <>
-                <Input
-                  id="passwordRepeat"
-                  required
-                  value={value}
-                  onChange={onChange}
-                  onBlur={e => handleOnChangeText(e.target.value, onBlur)}
-                  error={Boolean(error)}
-                  type="password"
-                  autoComplete="new-password"
-                  placeholder="Repeat your Password"
-                />
-                {Boolean(error) && (
-                  <p className="text-error text-sm text-medium mb-4">
-                    {error?.message}
-                  </p>
-                )}
-              </>
-            )}
-          />
+          {inputFields.map(inputField => (
+            <InputControlled
+              control={control}
+              name={inputField.name}
+              placeholder={inputField.placeholder}
+              type={inputField.type}
+              autocomplete={inputField.autocomplete}
+              ocTrigger={inputField.ocTrigger}
+              obTrigger={inputField.obTrigger}
+            />
+          ))}
         </div>
         <Button type="submit" size="sm">
           Register
@@ -197,4 +151,4 @@ function RegistrationForm() {
   );
 }
 
-export default RegistrationForm;
+export default RegisterPage;

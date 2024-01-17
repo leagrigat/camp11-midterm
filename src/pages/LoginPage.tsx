@@ -1,11 +1,9 @@
-import Input from '../components/Input';
 import Button from '../components/Button';
-import { MdOutlineEmail } from 'react-icons/md';
-import { RiLockPasswordLine } from 'react-icons/ri';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { passwordSchema } from '../validation/schemas';
+import InputControlled from '../components/InputControlled';
 
 const loginSchema = z.object({
   email: z
@@ -27,6 +25,41 @@ function LoginPage() {
     },
   });
 
+  const handleDefault = (
+    value: string,
+    onChange: (...event: string[]) => void
+  ) => {
+    onChange(value);
+  };
+
+  type InputField = {
+    name: 'email' | 'password' ;
+    placeholder: string;
+    type: string;
+    autocomplete: string;
+    ocTrigger: (value: string, onChange: (...event: string[]) => void) => void;
+    obTrigger: (value: string, onChange: (...event: string[]) => void) => void;
+  };
+
+  const inputFields: InputField[] = [
+    {
+      name: 'email',
+      placeholder: 'Your Email',
+      type: 'email',
+      autocomplete: 'email',
+      ocTrigger: handleDefault,
+      obTrigger: handleDefault,
+    },
+    {
+      name: 'password',
+      placeholder: 'Your Password',
+      type: 'password',
+      autocomplete: 'current-password',
+      ocTrigger: handleDefault,
+      obTrigger: handleDefault,
+    },
+  ];
+
   return (
     <div className="px-5 py-8 flex flex-col h-full">
       <div className="flex flex-col gap-3">
@@ -44,59 +77,17 @@ function LoginPage() {
         className="flex flex-grow flex-col justify-between"
       >
         <div className="text-white-dimmed flex flex-col gap-3">
-          <Controller
-            name="email"
-            control={control}
-            render={({
-              field: { value, onChange, onBlur },
-              fieldState: { error },
-            }) => (
-              <>
-                <Input
-                  id="email"
-                  required
-                  value={value}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  error={Boolean(error)}
-                  placeholder="your@email.com"
-                  icon={<MdOutlineEmail />}
-                />
-                {Boolean(error) && (
-                  <p className="text-error text-sm text-medium mb-4">
-                    {error?.message}
-                  </p>
-                )}
-              </>
-            )}
-          />
-          <Controller
-            name="password"
-            control={control}
-            render={({
-              field: { value, onChange, onBlur },
-              fieldState: { error },
-            }) => (
-              <>
-                <Input
-                  type="password"
-                  id="password"
-                  required
-                  value={value}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  error={Boolean(error)}
-                  placeholder="Enter your Password"
-                  icon={<RiLockPasswordLine />}
-                />
-                {error && (
-                  <p className="text-error text-sm text-medium mb-4">
-                    {error?.message}
-                  </p>
-                )}
-              </>
-            )}
-          />
+        {inputFields.map(inputField => (
+            <InputControlled
+              control={control}
+              name={inputField.name}
+              placeholder={inputField.placeholder}
+              type={inputField.type}
+              autocomplete={inputField.autocomplete}
+              ocTrigger={inputField.ocTrigger}
+              obTrigger={inputField.obTrigger}
+            />
+          ))}
         </div>
         <Button type="submit" size={'sm'}>
           Login
