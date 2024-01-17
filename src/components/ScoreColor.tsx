@@ -16,7 +16,7 @@ function ScoreColor({ vote_average }: Movie) {
 
   return (
     <div>
-      <p className={`${textColor}`}>{vote_average} + '% ' Score</p>
+      <p className={`${textColor}`}>{vote_average} + '%' Score</p>
     </div>
   );
 }

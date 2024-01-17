@@ -31,7 +31,7 @@ export const navIcons: NavItem[] = [
 function NavBar() {
   return (
     <nav className="fixed bottom-0">
-      <ul className="flex justify-center gap-12 bg-transparent items-center py-8 px-16">
+      <ul className="flex justify-center gap-12 bg-transparent text-2xl items-center py-8 px-16">
         {navIcons.map((navIcons, index) => (
           <li key={index}>
             <NavLink

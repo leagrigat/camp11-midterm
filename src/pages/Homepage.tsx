@@ -25,9 +25,9 @@ function Homepage() {
           />
         </div>
         <GenreComponent />
-        <h2 className="text-white text-base font-bold">Upcoming Movies</h2>
         <div className="overflow-scroll snap-x">
-          <div className="flex gap-9 h-[270px] justify-center items-center">
+          <h2 className="text-white text-base font-bold">Upcoming Movies</h2>
+          <div className="flex gap-9 justify-center items-center -mx-5">
             {isLoading ? (
               <LoadingSpinner />
             ) : (
