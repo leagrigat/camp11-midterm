@@ -17,7 +17,7 @@ export const passwordSchema = z
 
 export const nameSchema = z
   .string()
-  .min(1)
+  .min(1, 'Please specify a name!')
   .refine(
     value => !/[`!@#$%^&_+=\[\]{};:\\|<>\?~]/.test(value),
     'Name may not contain special characters!'
