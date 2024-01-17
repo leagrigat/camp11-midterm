@@ -3,7 +3,7 @@ import Header from '../components/Header';
 
 
 function CastAndCrewPage() {
-  return <div>hello</div>;
+  return <div></div>;
 }
 
 export default CastAndCrewPage;
