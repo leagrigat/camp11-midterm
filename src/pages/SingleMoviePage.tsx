@@ -31,8 +31,6 @@ function SingleMoviePage() {
     return genre.name;
   });
 
-
-
   return (
     <div className="flex flex-col gap-6">
       <Header header={'Movie Detail'} />
@@ -52,10 +50,11 @@ function SingleMoviePage() {
             {genres?.slice(0, 2).join('/')}
           </span>
           <span className="text-white-dimmed">
-            {movieData && Math.floor(movieData.runtime / 60) +
-              'h ' +
-              (movieData.runtime % 60) +
-              'm'}
+            {movieData &&
+              Math.floor(movieData.runtime / 60) +
+                'h ' +
+                (movieData.runtime % 60) +
+                'm'}
           </span>
         </div>
 
@@ -77,7 +76,9 @@ function SingleMoviePage() {
         </div>
         <div className="w-[140px] text-white">
           <Link to={`/movies/${movieId}/cast-crew`}>
-            <Button size='sm' variant='secondary'>Cast & Crew</Button>
+            <Button size="sm" variant="secondary">
+              Cast & Crew
+            </Button>
           </Link>
         </div>
       </div>
@@ -96,7 +97,7 @@ function SingleMoviePage() {
         </button>
       </div>
       <Link to={`/movies/${movieId}/reservation`}>
-      <Button size='lg'> Get Reservation</Button>
+        <Button size="lg"> Get Reservation</Button>
       </Link>
     </div>
   );
