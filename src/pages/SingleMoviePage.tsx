@@ -4,7 +4,7 @@ import { SingleMovie, getSingleMovie } from '../api/movies';
 import Header from '../components/Header';
 import { findCrewByRole } from '../utils/findCrewByRole';
 import Button from '../components/Button';
-import ScoreColor from '../components/ScoreColor';
+import Score from '../components/Score';
 
 function SingleMoviePage() {
   const { movieId } = useParams();
@@ -24,26 +24,6 @@ function SingleMoviePage() {
       });
   }, []);
 
-  //========my shit=============
-  const votePercent = movieData && Math.floor(movieData?.vote_average * 10);
-
-  console.log(votePercent);
-
-  let textColor: string;
-
-  if (votePercent! >= 0 && votePercent!! <= 15) {
-    textColor = 'text-red-500';
-  } else if (votePercent! > 15 && votePercent! <= 50) {
-    textColor = 'text-orange-500';
-  } else if (votePercent! > 50 && votePercent! <= 75) {
-    textColor = 'text-yellow-500';
-  } else if (votePercent! > 75 && votePercent! <= 100) {
-    textColor = 'text-green-500';
-  } else {
-    textColor = 'text-gray-500'; // Fallback-Color, if no number fits
-  }
-
-  //==============================
   const membersData = movieData ? movieData.credits.crew : [];
   const writer = findCrewByRole(membersData, 'Writer');
   const director = findCrewByRole(membersData, 'Director');
@@ -79,20 +59,7 @@ function SingleMoviePage() {
           </span>
         </div>
 
-        <div>
-          {/* <span>
-            <ScoreColor />
-          </span> */}
-
-          <div>
-            <p className={textColor}>{votePercent + '$'} Score </p>
-          </div>
-
-          <span className="text-success">
-            {movieData && Math.floor(movieData?.vote_average * 10) + '% '}
-          </span>
-          <span className="text-white-dimmed">Score</span>
-        </div>
+        {movieData && <Score voteAverage={movieData.vote_average} />}
       </div>
       <div className="flex justify-between text-xs">
         <div className="flex flex-col gap-2 text-white-dimmed">
