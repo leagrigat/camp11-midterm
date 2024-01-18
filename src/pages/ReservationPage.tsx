@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import TicketPreviewPage from '../components/reservation/TicketPreviewPage';
 import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
-import SelectTimePage from '../components/reservation/SelectTimePage';
 
 function ReservationPage() {
   //fetched data
