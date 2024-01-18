@@ -1,11 +1,17 @@
 import React from 'react';
 import { Movie } from '../api/movies';
 import axios from 'axios';
+import { SingleMovie, getSingleMovie } from '../api/movies';
+import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
+import { id } from 'date-fns/locale';
+import movieData from '../pages/SingleMoviePage';
 
-function ScoreColor({ vote_average }: Movie) {
-  const votePercent: number = vote_average * 10;
+function ScoreColor() {
+  // const vote_average: number = useGetSingleMovie();
+  const votePercent: number = Math.floor(movieData.vote_average * 10);
+
   console.log(votePercent);
-  console.log(vote_average);
+  console.log(movieData?.vote_average);
 
   let textColor: string;
 

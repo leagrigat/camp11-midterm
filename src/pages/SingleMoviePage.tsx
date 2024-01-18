@@ -24,6 +24,26 @@ function SingleMoviePage() {
       });
   }, []);
 
+  //========my shit=============
+  const votePercent = movieData && Math.floor(movieData?.vote_average * 10);
+
+  console.log(votePercent);
+
+  let textColor: string;
+
+  if (votePercent! >= 0 && votePercent!! <= 15) {
+    textColor = 'text-red-500';
+  } else if (votePercent! > 15 && votePercent! <= 50) {
+    textColor = 'text-orange-500';
+  } else if (votePercent! > 50 && votePercent! <= 75) {
+    textColor = 'text-yellow-500';
+  } else if (votePercent! > 75 && votePercent! <= 100) {
+    textColor = 'text-green-500';
+  } else {
+    textColor = 'text-gray-500'; // Fallback-Color, if no number fits
+  }
+
+  //==============================
   const membersData = movieData ? movieData.credits.crew : [];
   const writer = findCrewByRole(membersData, 'Writer');
   const director = findCrewByRole(membersData, 'Director');
@@ -60,24 +80,14 @@ function SingleMoviePage() {
         </div>
 
         <div>
-          <ScoreColor
-            adult={false}
-            backdrop_path={''}
-            genre_ids={[]}
-            id={0}
-            original_language={''}
-            original_title={''}
-            overview={''}
-            popularity={0}
-            poster_path={''}
-            release_date={''}
-            title={''}
-            video={false}
-            vote_count={0}
-            movieId={0}
-            vote_average={0}
-            runtime={0}
-          />
+          {/* <span>
+            <ScoreColor />
+          </span> */}
+
+          <div>
+            <p className={textColor}>{votePercent + '$'} Score </p>
+          </div>
+
           <span className="text-success">
             {movieData && Math.floor(movieData?.vote_average * 10) + '% '}
           </span>
