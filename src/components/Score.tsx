@@ -9,9 +9,9 @@ function Score({ voteAverage }: Props) {
 
   if (votePercent >= 0 && votePercent <= 15) {
     textColor = 'text-red-500';
-  } else if (votePercent > 15 && votePercent <= 50) {
+  } else if (votePercent > 15 && votePercent <= 65) {
     textColor = 'text-orange-500';
-  } else if (votePercent > 50 && votePercent <= 75) {
+  } else if (votePercent > 65 && votePercent <= 75) {
     textColor = 'text-yellow-500';
   } else if (votePercent > 75 && votePercent <= 100) {
     textColor = 'text-green-500';
