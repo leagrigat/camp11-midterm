@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from './Button';
-import { Seat } from '../pages/ReservationPage';
+import Button from '../Button';
+import { Seat } from '../../pages/ReservationPage';
 
 export type ModalType = {
   selectedSeats: Seat[];
