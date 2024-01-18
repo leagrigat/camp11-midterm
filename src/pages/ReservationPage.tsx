@@ -1,11 +1,19 @@
 import { useParams } from 'react-router-dom';
 import TicketPreviewPage from '../components/reservation/TicketPreviewPage';
 import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
+import SelectTimePage from '../components/reservation/SelectTimePage';
+import { useState } from 'react';
 
 function ReservationPage() {
   //fetched data
   const { movieId } = useParams();
   const { movie } = useGetSingleMovie();
+
+  //change current page
+
+  const [currentPage, setCurrentPage] = useState<
+    'selectTimePage' | 'ticketPreviewPage'
+  >('selectTimePage');
 
   //this information can be adjusted with the right fetched data
   const ticketInformation = {
@@ -18,7 +26,10 @@ function ReservationPage() {
 
   return (
     <>
-      {/* <SelectTimePage /> */}
+      {currentPage === 'selectTimePage' && (
+        <SelectTimePage onClick={() => setCurrentPage('ticketPreviewPage')} />
+      )}
+
       <TicketPreviewPage {...ticketInformation} movie={movie} />
     </>
   );
