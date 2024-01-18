@@ -52,8 +52,8 @@ function ReservationPage() {
 
           return (
             <button
-              className={`w-[28px] h-[28px] bg-dark-light text-white-dimmed rounded text-xs ${
-                seat.isSelected ? 'bg-[#FFB43A]' : 'none'
+              className={`w-[28px] h-[28px] text-white-dimmed rounded text-xs ${
+                seat.isSelected ? 'bg-[#FFB43A]' : 'bg-dark-light'
               }`}
               key={idx}
               onClick={() => {

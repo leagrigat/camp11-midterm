@@ -61,14 +61,15 @@ function Modal({ selectedSeats }: ModalType) {
         </div>
     
         <hr className="border-white-dimmed mt-4" />
-        <div className='flex gap-12 items-end pt-[33px]'>
-        <div className="flex flex-col">
+        <div className='flex items-end gap-6 pt-[33px]'>
+        <div className="flex flex-col w-[150px]">
             <span className='text-white-dimmed text-xs'>Total Price</span>
             <span className='text-white font-bold text-xl'>${totalPrice}</span>
             </div>
-        <Button variant="primary" size="lg">
+          <Button variant="primary" size="lg">
           Book Ticket
         </Button>
+        
         </div>
       </div>
     </div>
