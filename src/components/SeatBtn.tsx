@@ -7,6 +7,8 @@ interface Props extends ButtonProps {
   variant?: 'free' | 'occupuied' | 'selected';
 }
 
+// use styleDictionary?
+
 function SeatBtn({ children, variant = 'free', ...props }: Props) {
   return (
     <button

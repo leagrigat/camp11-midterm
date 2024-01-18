@@ -3,6 +3,8 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import { MdOutlineEmail } from 'react-icons/md';
 import { RiLockPasswordLine } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
+import GreetingHeader from '../components/GreetingHeader';
 
 function LoginPage() {
   const [inputVal, setInputVal] = useState({
@@ -10,22 +12,22 @@ function LoginPage() {
     password: '',
   });
 
-  function submitHandler(event: React.FormEvent<HTMLFormElement>) {
+  // changed to const convention like in RegistrationForm so function submitHandler could be deleted
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(inputVal); // do we need to keep the console.log?
+  };
+  /*   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(inputVal);
-  }
+    console.log(inputVal); // do we need to keep the console.log?
+  } */
 
   return (
-    <div className="px-5 py-8 flex flex-col h-full">
-      <div className="flex flex-col gap-3">
-        <h2 className="text-white text-base font-bold">
-          Welcome to Cine-Scape
-        </h2>
-        <p className="text-white-dimmed text-sm text-medium mb-8">
-          You need to log in to be able to make reservations and add movies to
-          your watchlist.
-        </p>
-      </div>
+    <div className="flex flex-col h-full">
+      <GreetingHeader
+        title="Welcome to Cine-Scape"
+        description="You need to log in to be able to make reservations and add movies to your watchlist."
+      />
 
       <form
         onSubmit={e => submitHandler(e)}
@@ -42,7 +44,7 @@ function LoginPage() {
               })
             }
             placeholder="your@email.com"
-            icon={<MdOutlineEmail />}
+            icon={<MdOutlineEmail className="h-6 w-6" />}
           />
           <Input
             type="password"
@@ -55,10 +57,19 @@ function LoginPage() {
               })
             }
             placeholder="Enter your Password"
-            icon={<RiLockPasswordLine />}
+            icon={<RiLockPasswordLine className="h-6 w-6" />}
           />
+          <div className="flex gap-2 justify-end text-sm text-medium">
+            <span>Don't have an account yet?</span>
+            <Link
+              to={'/register'}
+              className="cursor-pointer underline text-primary"
+            >
+              <span>Sign Up</span>
+            </Link>
+          </div>
         </div>
-        <Button type="submit" size={'sm'}>
+        <Button type="submit" size="sm">
           Login
         </Button>
       </form>
