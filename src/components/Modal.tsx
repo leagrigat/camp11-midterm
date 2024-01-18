@@ -7,7 +7,7 @@ export type ModalType = {
 };
 
 function Modal({ selectedSeats }: ModalType) {
-  //   console.log(selectedSeats);
+
   const frontSeats = selectedSeats.filter(
     seat => seat.name && seat.name[0] === 'A'
   );
@@ -16,17 +16,18 @@ function Modal({ selectedSeats }: ModalType) {
   );
   const backSeats = selectedSeats.filter(
     seat => seat.name && seat.name[0] === 'F'
-  );
+  );  
 
   const frontPrice = Number((frontSeats.length * 12.95).toFixed(2));
   const middlePrice = Number((middleSeats.length * 14.95).toFixed(2));
   const backPrice = Number((backSeats.length * 16.95).toFixed(2));
 
-  const totalPrice = Number((frontPrice + middlePrice + backPrice).toFixed(2));
+  const totalPrice = Number(frontPrice + middlePrice + backPrice).toFixed(2);
 
   return (
     <div>
       <div className="w-screen h-[211px] bg-dark-light rounded-t-3xl -mx-5 p-4 fixed bottom-0">
+        <div className='flex flex-col gap-2'>
       <div className='flex justify-between text-xs font-medium'>
           <div className="text-white-dimmed flex gap-6">
             <div>{frontSeats.length}x</div>
@@ -57,9 +58,10 @@ function Modal({ selectedSeats }: ModalType) {
             <span className='text-white-dimmed'>/ each</span>
           </div>
         </div>
+        </div>
     
-        <hr className="border-white-dimmed pt-4" />
-        <div className='flex gap-12 items-end'>
+        <hr className="border-white-dimmed mt-4" />
+        <div className='flex gap-12 items-end pt-[33px]'>
         <div className="flex flex-col">
             <span className='text-white-dimmed text-xs'>Total Price</span>
             <span className='text-white font-bold text-xl'>${totalPrice}</span>

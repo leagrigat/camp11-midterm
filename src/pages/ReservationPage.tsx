@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import Modal from '../components/Modal';
+import Header from '../components/Header';
 
 export type Seat = {
   name: string | null;
@@ -9,6 +10,7 @@ export type Seat = {
 };
 
 function generateSeats() {
+  // the following comment prevents prettier of formatting the matrix - do not remove!
   // prettier-ignore
   const seats = [ null, 'A1', 'A2', 'A3',  null, 'A4', 'A5', 'A6',  null,
                   'B1', 'B2', 'B3', 'B4',  null, 'B5', 'B6', 'B7',  'B8',
@@ -20,7 +22,6 @@ function generateSeats() {
   const seatObj: Seat[] = seats.map((seat, idx) => {
     return { name: seat, isSelected: false, isReserved: false };
   });
-  console.log(seatObj);
   return seatObj;
 }
 
@@ -39,16 +40,20 @@ function ReservationPage() {
 
     return (
     <>
-      <h1 className="text-white">Hallo reservation</h1>;
-      <div className="grid grid-cols-9 gap-2 auto-rows-max">
+     <Header header='Select Seats'/>
+     <div className='flex flex-col items-center mb-[32px]'>
+     <div className='w-[279px] h-[5px] bg-[#FFB43A] mt-[48px]'></div>
+     <div className='w-[279px] h-[20px] bg-gradient-to-b from-[#FFB43A] opacity-20'></div>
+     </div>
+      <div className="grid grid-cols-9 gap-3 auto-rows-max">
         {seatsInfo.map((seat, idx) => {
           if (!seat.name)
             return <div className="w-[28px] h-[28px]" key={idx}></div>;
 
           return (
             <button
-              className={`w-[28px] h-[28px] bg-white-dimmed rounded ${
-                seat.isSelected ? 'bg-yellow-500' : 'none'
+              className={`w-[28px] h-[28px] bg-dark-light text-white-dimmed rounded text-xs ${
+                seat.isSelected ? 'bg-[#FFB43A]' : 'none'
               }`}
               key={idx}
               onClick={() => {
@@ -59,12 +64,25 @@ function ReservationPage() {
             </button>
           );
         })}
-      </div>
+        </div>
+        <div className='flex justify-evenly pt-[24px]'>
+          <div className='flex gap-[6px] items-center'>
+            <div className='w-[16px] h-[16px] rounded-full bg-dark-light'></div>
+            <span className='text-white-dimmed text-xs font-medium'>Available</span>
+          </div>
+          <div className='flex gap-[6px] items-center'>
+            <div className='w-[16px] h-[16px] rounded-full bg-[#FFB43A]'></div>
+            <span className='text-white-dimmed text-xs font-medium'>Selected</span>
+          </div>
+          <div className='flex gap-[6px] items-center'>
+            <div className='w-[16px] h-[16px] rounded-full bg-white'></div>
+            <span className='text-white-dimmed text-xs font-medium'>Reserved</span>
+          </div>
+        </div>
+      
       {selectedSeats.length > 0 && <Modal selectedSeats={selectedSeats} />}
     </>
   );
 }
 
 export default ReservationPage;
-
-// {selectedSeats && `${selectedSeats.map(seat => seat.name).join()} `}
