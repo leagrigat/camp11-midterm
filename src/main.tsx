@@ -15,6 +15,7 @@ import GenresPage from './pages/GenresPage';
 import RegisterPage from './pages/RegisterPage';
 import GenreProvider from './context/GenreProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import ProfilePage from './pages/ProfilePage';
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Homepage />,
+      },
+    ],
+  },
+  {
+    path: '/profile',
+    element: <NavbarLayout />,
+    children: [
+      {
+        index: true,
+        element: <ProfilePage />,
       },
     ],
   },
