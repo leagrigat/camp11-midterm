@@ -14,7 +14,7 @@ function MoviesPage() {
   };
 
   return (
-    <div className="h-full flex flex-col justify-around">
+    <div className="h-full flex flex-col justify-between">
       {isLoading ? (
         <div className="h-screen top-0 flex flex-col justify-center items-center">
           <LoadingSpinner />
@@ -22,7 +22,7 @@ function MoviesPage() {
       ) : (
         <>
           <div className="grid grid-rows-2 grid-cols-2 gap-5">
-            {movies
+            {movies!
               .slice(
                 (currentPage - 1) * moviesPerPage,
                 currentPage * moviesPerPage
@@ -37,9 +37,9 @@ function MoviesPage() {
               ))}
           </div>
 
-          <div className="flex flex-wrap justify-between mb-[40px]">
+          <div className="flex flex-wrap justify-between sticky bottom-[80px]">
             {Array.from(
-              { length: Math.ceil(movies.length / moviesPerPage) },
+              { length: Math.ceil(movies!.length / moviesPerPage) },
               (_, i) => (
                 <PaginationIcon
                   key={i + 1}

@@ -1,30 +1,27 @@
-import { Link, useParams } from 'react-router-dom';
-import Button from '../components/Button';
+import { useParams } from 'react-router-dom';
+import TicketPreviewPage from '../components/reservation/TicketPreviewPage';
 import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
+import SelectTimePage from '../components/reservation/SelectTimePage';
 
 function ReservationPage() {
+  //fetched data
   const { movieId } = useParams();
   const { movie } = useGetSingleMovie();
 
+  //this information can be adjusted with the right fetched data
+  const ticketInformation = {
+    movieId: movieId || '',
+    date: '12 Jan',
+    price: '$22.55',
+    seat: 'S-4, C-5, A-4',
+    time: '12:30',
+  };
+
   return (
-    <div className="">
-      <div className="bg-dark-light rounded-lg">
-        <img
-          className="w-full rounded-t-lg min-h-40"
-          key={movieId}
-          src={`https://image.tmdb.org/t/p/w300/${movie?.backdrop_path}`}
-          alt=""
-        />
-        <div>
-          <h1>{movie?.original_title}</h1>
-        </div>
-      </div>
-      <Link to={`/home`}>
-        <Button size="lg" variant="primary">
-          Back to Home
-        </Button>
-      </Link>
-    </div>
+    <>
+      {/* <SelectTimePage /> */}
+      <TicketPreviewPage {...ticketInformation} movie={movie} />
+    </>
   );
 }
 

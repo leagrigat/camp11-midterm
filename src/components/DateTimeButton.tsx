@@ -8,14 +8,13 @@ interface Props extends ButtonProps {
   active?: boolean;
 }
 
-function BoringGenreButton({
+function DateTimeButton({
   children,
   dateTime = '',
   active = false,
   ...props
 }: Props) {
   return (
-    // <dinpm className="flex justify-center w-1/4">
     <button
       {...props}
       className={cn(
@@ -25,8 +24,7 @@ function BoringGenreButton({
     >
       {dateTime}
     </button>
-    // </dinpm run revv>
   );
 }
 
-export default BoringGenreButton;
+export default DateTimeButton;
