@@ -28,5 +28,6 @@ export function useGetMoviesByGenre() {
     queryKey: ['movies'],
     queryFn: async () => await getNowPlayingByGenre(selectedGenreIDs.join('|')),
   });
+  console.log({ movies });
   return { movies, ...rest };
 }

@@ -1,4 +1,9 @@
 import axios from 'axios';
+import { format, add } from 'date-fns';
+
+const today = new Date();
+const maxDate = format(add(today, { days: 7 }), 'yyyy-MM-dd');
+const minDate = format(add(today, { days: -35 }), 'yyyy-MM-dd');
 
 export type Crew = {
   adult: boolean;
@@ -50,8 +55,9 @@ type Array = {
 };
 
 export async function getNowPlayingMovies() {
+  console.log(minDate, maxDate);
   const { data } = await axios.get<MovieResponse>(
-    `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=2023-12-13&release_date.lte=2024-01-24`,
+    `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=${minDate}&release_date.lte=${maxDate}`,
     {
       headers: {
         accept: 'application/json',
@@ -65,7 +71,7 @@ export async function getNowPlayingMovies() {
 
 export async function getNowPlayingByGenre(genres: string) {
   const { data } = await axios.get<MovieResponse>(
-    `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=2023-12-13&release_date.lte=2024-01-24&with_genres=${genres}`,
+    `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=${minDate}&release_date.lte=${maxDate}&with_genres=${genres}`,
     {
       headers: {
         accept: 'application/json',
