@@ -1,7 +1,5 @@
-import React from 'react';
 import Header from '../components/Header';
 import ProfileForm from '../components/ProfileForm';
-import Button from '../components/Button';
 
 function ProfilePage() {
   const initialProfileData = {
@@ -18,11 +16,13 @@ function ProfilePage() {
 
   return (
     <>
-      <Header header="Profile"></Header>
-      <ProfileForm
-        initialData={initialProfileData}
-        onSubmit={handleProfileSubmit}
-      />
+      <div className="h-full flex flex-col justify-between gap-5">
+        <Header header="Profile"></Header>
+        <ProfileForm
+          initialData={initialProfileData}
+          onSubmit={handleProfileSubmit}
+        />
+      </div>
     </>
   );
 }
