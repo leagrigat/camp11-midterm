@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Modal from './Modal';
 import Header from '../../components/Header';
-import SelectTimePage from './SelectTimePage';
+import { Transition } from '@headlessui/react';
 
 export type Seat = {
   name: string | null;
@@ -28,6 +28,7 @@ function generateSeats() {
 
 function SelectSeatsPage() {
   const [seatsInfo, setSeatsInfo] = useState(() => generateSeats());
+  const [isShown, setIsShown] = useState(false);
 
   const selectedSeats = seatsInfo.filter(seat => seat.isSelected);
 
@@ -39,13 +40,17 @@ function SelectSeatsPage() {
     );
   }
 
-    return (
+  useEffect(() => {
+    setIsShown(selectedSeats.length > 0);
+  }, [selectedSeats]);
+
+  return (
     <>
-     <Header header='Select Seats'/>
-     <div className='flex flex-col items-center mb-[32px]'>
-     <div className='w-[279px] h-[5px] bg-[#FFB43A] mt-[48px]'></div>
-     <div className='w-[279px] h-[20px] bg-gradient-to-b from-[#FFB43A] opacity-20'></div>
-     </div>
+      <Header header="Select Seats" />
+      <div className="flex flex-col items-center mb-[32px]">
+        <div className="w-[279px] h-[5px] bg-[#FFB43A] mt-[48px]"></div>
+        <div className="w-[279px] h-[20px] bg-gradient-to-b from-[#FFB43A] opacity-20"></div>
+      </div>
       <div className="grid grid-cols-9 gap-3 auto-rows-max">
         {seatsInfo.map((seat, idx) => {
           if (!seat.name)
@@ -65,23 +70,39 @@ function SelectSeatsPage() {
             </button>
           );
         })}
+      </div>
+      <div className="flex justify-evenly pt-[24px]">
+        <div className="flex gap-[6px] items-center">
+          <div className="w-[16px] h-[16px] rounded-full bg-dark-light"></div>
+          <span className="text-white-dimmed text-xs font-medium">
+            Available
+          </span>
         </div>
-        <div className='flex justify-evenly pt-[24px]'>
-          <div className='flex gap-[6px] items-center'>
-            <div className='w-[16px] h-[16px] rounded-full bg-dark-light'></div>
-            <span className='text-white-dimmed text-xs font-medium'>Available</span>
-          </div>
-          <div className='flex gap-[6px] items-center'>
-            <div className='w-[16px] h-[16px] rounded-full bg-[#FFB43A]'></div>
-            <span className='text-white-dimmed text-xs font-medium'>Selected</span>
-          </div>
-          <div className='flex gap-[6px] items-center'>
-            <div className='w-[16px] h-[16px] rounded-full bg-white'></div>
-            <span className='text-white-dimmed text-xs font-medium'>Reserved</span>
-          </div>
+        <div className="flex gap-[6px] items-center">
+          <div className="w-[16px] h-[16px] rounded-full bg-[#FFB43A]"></div>
+          <span className="text-white-dimmed text-xs font-medium">
+            Selected
+          </span>
         </div>
-      
-      {selectedSeats.length > 0 && <Modal selectedSeats={selectedSeats} />}
+        <div className="flex gap-[6px] items-center">
+          <div className="w-[16px] h-[16px] rounded-full bg-white"></div>
+          <span className="text-white-dimmed text-xs font-medium">
+            Reserved
+          </span>
+        </div>
+      </div>
+      <Transition
+        show={isShown}
+        enter="transition-all duration-300"
+        enterFrom="opacity-0 translate-y-[250px]"
+        enterTo="opacity-100 translate-y-0"
+        leave="transition-all ease-linear duration-300"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0 translate-y-[250px]"
+        className="fixed bottom-0"
+      >
+        <Modal selectedSeats={selectedSeats} />
+      </Transition>
     </>
   );
 }
