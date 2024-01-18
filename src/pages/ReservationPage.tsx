@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 import Modal from '../components/Modal';
 import Header from '../components/Header';
@@ -38,13 +37,13 @@ function ReservationPage() {
     );
   }
 
-    return (
+  return (
     <>
-     <Header header='Select Seats'/>
-     <div className='flex flex-col items-center mb-[32px]'>
-     <div className='w-[279px] h-[5px] bg-[#FFB43A] mt-[48px]'></div>
-     <div className='w-[279px] h-[20px] bg-gradient-to-b from-[#FFB43A] opacity-20'></div>
-     </div>
+      <Header header="Select Seats" />
+      <div className="flex flex-col items-center mb-[32px]">
+        <div className="w-[279px] h-[5px] bg-[#FFB43A] mt-[48px]"></div>
+        <div className="w-[279px] h-[20px] bg-gradient-to-b from-[#FFB43A] opacity-20"></div>
+      </div>
       <div className="grid grid-cols-9 gap-3 auto-rows-max">
         {seatsInfo.map((seat, idx) => {
           if (!seat.name)
@@ -64,22 +63,28 @@ function ReservationPage() {
             </button>
           );
         })}
+      </div>
+      <div className="flex justify-evenly pt-[24px]">
+        <div className="flex gap-[6px] items-center">
+          <div className="w-[16px] h-[16px] rounded-full bg-dark-light"></div>
+          <span className="text-white-dimmed text-xs font-medium">
+            Available
+          </span>
         </div>
-        <div className='flex justify-evenly pt-[24px]'>
-          <div className='flex gap-[6px] items-center'>
-            <div className='w-[16px] h-[16px] rounded-full bg-dark-light'></div>
-            <span className='text-white-dimmed text-xs font-medium'>Available</span>
-          </div>
-          <div className='flex gap-[6px] items-center'>
-            <div className='w-[16px] h-[16px] rounded-full bg-[#FFB43A]'></div>
-            <span className='text-white-dimmed text-xs font-medium'>Selected</span>
-          </div>
-          <div className='flex gap-[6px] items-center'>
-            <div className='w-[16px] h-[16px] rounded-full bg-white'></div>
-            <span className='text-white-dimmed text-xs font-medium'>Reserved</span>
-          </div>
+        <div className="flex gap-[6px] items-center">
+          <div className="w-[16px] h-[16px] rounded-full bg-[#FFB43A]"></div>
+          <span className="text-white-dimmed text-xs font-medium">
+            Selected
+          </span>
         </div>
-      
+        <div className="flex gap-[6px] items-center">
+          <div className="w-[16px] h-[16px] rounded-full bg-white"></div>
+          <span className="text-white-dimmed text-xs font-medium">
+            Reserved
+          </span>
+        </div>
+      </div>
+
       {selectedSeats.length > 0 && <Modal selectedSeats={selectedSeats} />}
     </>
   );
