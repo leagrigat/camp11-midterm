@@ -66,7 +66,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <SingleMoviePage/>
+            element: <SingleMoviePage />,
           },
           {
             path: 'cast-crew',

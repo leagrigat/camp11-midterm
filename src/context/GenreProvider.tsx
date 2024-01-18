@@ -5,15 +5,8 @@ type Props = {
   children: React.ReactNode;
 };
 
-// type GenreType = {
-//   genre: string;
-//   emoji: string;
-//   id: number;
-//   isSelected: boolean;
-// };
-
 type ContextType = {
-  genres: typeof genresLibrary; //type wird autogeneriert
+  genres: typeof genresLibrary; //autogenerate type from genresLibrary
   updateGenre: (id: number) => void;
   selectedCount: number;
 };
@@ -26,18 +19,17 @@ export const GenreContext = createContext<ContextType>({
 
 function GenreProvider({ children }: Props) {
   const [genres, setGenres] = useState(genresLibrary);
+
+  //set count
   const [selectedCount, SetSelectedCount] = useState(0);
 
-  //everytime the component mouns we wanna render the count und update it! = evertime we click genre component
   useEffect(() => {
     const count = genres.filter(genre => genre.isSelected).length;
     SetSelectedCount(count);
-  }, [genres]); //run once genres are rendert
+  }, [genres]);
 
+  //toggle GenreButton
   function updateGenre(genreId: number) {
-    // Finde die geklickte id zb: 3 im genresArray
-    // verändere in diesem object die isSelected Key value zum gegenteil
-
     const updatedGenres = genres.map(genre => {
       if (genre.id === genreId) {
         genre.isSelected = !genre.isSelected;

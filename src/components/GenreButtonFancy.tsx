@@ -21,6 +21,15 @@ function filterThis(filterTerm: number | string) {
   }
 }
 
+/* 
+function filterDifferent(filterTerm: number | string) {
+  return genresLibrary.filter(obj =>
+    typeof filterTerm === 'string'
+      ? obj.genre === filterTerm
+      : obj.id === filterTerm
+  )[0];
+} */
+
 function GenreButton({
   children,
   genreId = null,
