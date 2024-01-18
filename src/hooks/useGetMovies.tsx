@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Movie, getNowPlayingMovies } from '../api/movies';
+import { getNowPlayingMovies } from '../api/movies';
 
 export function useGetMovies() {
   const { data: movies, ...rest } = useQuery({
