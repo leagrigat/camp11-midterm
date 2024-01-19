@@ -14,11 +14,11 @@ function isCast(person: Personell): person is Cast {
 
 function CastCrewTabPanel({ data }: PersonellListProps) {
   return (
-    <div className="mt-8">
+    <div className="flex flex-col gap-4">
       {data.map(person => (
         <div
           key={person.id + (isCast(person) ? person.character : person.job)}
-          className="flex gap-5 pb-4"
+          className="flex gap-5"
         >
           <img
             src={

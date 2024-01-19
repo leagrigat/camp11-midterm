@@ -24,23 +24,23 @@ function CastAndCrewPage() {
 
   return (
     <>
-      <div>
+      <div className="flex flex-col gap-6">
         <Header header="Cast & Crew" />
+        <Tab.Group>
+          <Tab.List className="flex gap-6 text-sm font-medium justify-center pt-2">
+            <CastCrewTab>Cast</CastCrewTab>
+            <CastCrewTab>Crew</CastCrewTab>
+          </Tab.List>
+          <Tab.Panels>
+            <Tab.Panel>
+              <CastCrewTabPanel data={castData}></CastCrewTabPanel>
+            </Tab.Panel>
+            <Tab.Panel>
+              <CastCrewTabPanel data={crewData}></CastCrewTabPanel>
+            </Tab.Panel>
+          </Tab.Panels>
+        </Tab.Group>
       </div>
-      <Tab.Group>
-        <Tab.List className="flex gap-6 text-sm font-medium">
-          <CastCrewTab>Cast</CastCrewTab>
-          <CastCrewTab>Crew</CastCrewTab>
-        </Tab.List>
-        <Tab.Panels>
-          <Tab.Panel>
-            <CastCrewTabPanel data={castData}></CastCrewTabPanel>
-          </Tab.Panel>
-          <Tab.Panel>
-            <CastCrewTabPanel data={crewData}></CastCrewTabPanel>
-          </Tab.Panel>
-        </Tab.Panels>
-      </Tab.Group>
     </>
   );
 }
