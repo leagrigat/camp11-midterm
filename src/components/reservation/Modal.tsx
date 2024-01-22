@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
 import Button from '../Button';
 import { Seat } from '../../components/reservation/SelectSeatsPage';
 
 export type ModalType = {
   selectedSeats: Seat[];
+  onNextClick: () => void;
 };
 
-function Modal({ selectedSeats }: ModalType) {
+function Modal({ selectedSeats, onNextClick }: ModalType) {
   const frontSeats = selectedSeats.filter(
     seat => seat.name && seat.name[0] === 'A'
   );
@@ -65,7 +65,7 @@ function Modal({ selectedSeats }: ModalType) {
             <span className="text-white-dimmed text-xs">Total Price</span>
             <span className="text-white font-bold text-xl">${totalPrice}</span>
           </div>
-          <Button variant="primary" size="lg">
+          <Button variant="primary" size="lg" onClick={onNextClick}>
             {selectedSeats.length <= 1
               ? 'Book Ticket' || selectedSeats.length >= 2
               : 'Book Tickets'}
