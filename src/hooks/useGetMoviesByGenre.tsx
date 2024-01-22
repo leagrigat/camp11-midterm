@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { getNowPlayingByGenre } from '../api/movies';
 import { useContext } from 'react';
 import { GenreContext } from '../context/GenreProvider';
@@ -22,12 +22,18 @@ function getSelectedIDs(genreList: Genre[]) {
 
 export function useGetMoviesByGenre() {
   const { genres } = useContext(GenreContext);
-  const selectedGenreIDs = getSelectedIDs(genres);
-  console.log(selectedGenreIDs.join('|'));
-  const { data: movies, ...rest } = useQuery({
-    queryKey: ['movies'],
-    queryFn: async () => await getNowPlayingByGenre(selectedGenreIDs.join('|')),
+  const selectedGenreIDs = getSelectedIDs(genres).join('|');
+  console.log(selectedGenreIDs);
+  const { data: movies, ...rest } = useInfiniteQuery({
+    queryKey: ['movies', selectedGenreIDs],
+    queryFn: async ({ pageParam }) =>
+      await getNowPlayingByGenre(pageParam, selectedGenreIDs),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage.page >= lastPage.total_pages) return undefined;
+      return allPages.length + 1;
+    },
   });
-  console.log({ movies });
+  console.log('HI!', {movies, ...rest});
   return { movies, ...rest };
 }

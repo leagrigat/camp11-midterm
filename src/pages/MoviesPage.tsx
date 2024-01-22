@@ -1,17 +1,17 @@
-import { useState } from 'react';
 import LoadingSpinner from '../components/LoadingSpinner';
 import MovieImage from '../components/MovieImage';
-import PaginationIcon from '../components/PaginationIcon';
 import { useGetMoviesByGenre } from '../hooks/useGetMoviesByGenre';
 
 function MoviesPage() {
-  const { movies, isLoading, error, isError } = useGetMoviesByGenre();
-  const [currentPage, setCurrentPage] = useState(1);
-  const moviesPerPage = 4;
-
-  const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
-  };
+  const {
+    movies,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    error,
+    isError,
+  } = useGetMoviesByGenre();
 
   return (
     <div className="h-full flex flex-col justify-between">
@@ -21,37 +21,35 @@ function MoviesPage() {
         </div>
       ) : (
         <>
-          <div className="grid grid-rows-2 grid-cols-2 gap-5">
-            {movies!
-              .slice(
-                (currentPage - 1) * moviesPerPage,
-                currentPage * moviesPerPage
-              )
-              .map(movie => (
-                <MovieImage
-                  key={movie.id}
-                  movieId={movie.id}
-                  posterPath={movie.poster_path}
-                  isRounded={false}
-                />
-              ))}
+          <div
+            id="movieContainer"
+            className="flex flex-col flex-wrap h-[700px] gap-5 overflow-x-scroll"
+          >
+            {movies?.pages.map(moviePage =>
+              moviePage.results!.map(movie => (
+                <div>
+                  <MovieImage
+                    key={movie.id}
+                    movieId={movie.id}
+                    posterPath={movie.poster_path}
+                    isRounded={false}
+                  />
+                </div>
+              ))
+            )}
           </div>
 
           <div className="flex flex-wrap justify-between sticky bottom-[80px]">
-            {Array.from(
-              { length: Math.ceil(movies!.length / moviesPerPage) },
-              (_, i) => (
-                <PaginationIcon
-                  key={i + 1}
-                  page={i + 1}
-                  variant={currentPage === i + 1 ? 'selected' : 'unselected'}
-                  onClick={() => handlePageChange(i + 1)}
-                  className="text-center text-dark-light rounded-[2px] w-[32px] h-[32px] cursor-pointer"
-                >
-                  {i + 1}
-                </PaginationIcon>
-              )
-            )}
+            <button
+              onClick={() => fetchNextPage()}
+              disabled={!hasNextPage || isFetchingNextPage}
+            >
+              {isFetchingNextPage
+                ? 'Loading more...'
+                : hasNextPage
+                ? 'Load More'
+                : 'Nothing more to load'}
+            </button>
           </div>
         </>
       )}
