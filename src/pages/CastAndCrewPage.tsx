@@ -18,7 +18,7 @@ function CastAndCrewPage() {
 
   return (
     <>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 h-full">
         <Tab.Group>
           <div className="sticky top-0 z-10 bg-dark flex flex-col gap-6">
             <Header header="Cast & Crew" />
@@ -27,7 +27,7 @@ function CastAndCrewPage() {
               <CastCrewTab>Crew</CastCrewTab>
             </Tab.List>
           </div>
-          <div className="max-h-84 overflow-y-auto">
+          <div className="overflow-y-auto">
             <Tab.Panels>
               <Tab.Panel>
                 <CastCrewTabPanel data={castData}></CastCrewTabPanel>
