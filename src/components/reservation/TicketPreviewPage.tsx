@@ -32,7 +32,7 @@ function TicketPreviewPage({
         <div>
           <div className="px-6">
             <h1 className="text-white font-bold text-[23px] pt-2 pb-6">
-              {movie?.original_title}
+              {movie?.title}
             </h1>
             <div className="flex justify-between gap-1">
               <div className="flex flex-col justify-start">

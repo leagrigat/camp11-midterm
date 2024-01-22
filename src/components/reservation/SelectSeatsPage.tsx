@@ -1,8 +1,13 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import Modal from './Modal';
 import Header from '../../components/Header';
 import { Transition } from '@headlessui/react';
+
+//onNextClick to render new UI
+type SelectTimePageProps = {
+  onNextClick: () => void;
+};
 
 export type Seat = {
   name: string | null;
@@ -26,7 +31,7 @@ function generateSeats() {
   return seatObj;
 }
 
-function SelectSeatsPage() {
+function SelectSeatsPage({ onNextClick }: SelectTimePageProps) {
   const [seatsInfo, setSeatsInfo] = useState(() => generateSeats());
   const [isShown, setIsShown] = useState(false);
 
@@ -101,7 +106,7 @@ function SelectSeatsPage() {
         leaveTo="opacity-0 translate-y-[250px]"
         className="fixed bottom-0"
       >
-        <Modal selectedSeats={selectedSeats} />
+        <Modal onNextClick={onNextClick} selectedSeats={selectedSeats} />
       </Transition>
     </>
   );
