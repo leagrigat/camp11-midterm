@@ -29,6 +29,13 @@ export type Cast = {
   order: number
 }
 
+export type Personell = {
+  id: number,
+  name: string,
+  profile_path: string,
+  positions: string[]
+}
+
 export type Movie = {
   adult: boolean;
   backdrop_path: string;

@@ -1,25 +1,78 @@
-import { Crew, Cast } from '../../api/movies';
+import { Crew, Cast, Personell } from '../../api/movies';
 
-// create a union type from the imported type, so that TS knows that the type Personell can either be of type Cast or of type Crew
-type Personell = Cast | Crew;
+type PersonellList = Cast[] | Crew[];
 
-interface PersonellListProps {
-  data: Personell[];
+interface Props {
+  data: PersonellList;
 }
 
-// Type guard to check if a Personell is a Cast - typescript knows conversly if the person is crew if the funcition returns false
-function isCast(person: Personell): person is Cast {
+// type guard is meant to determine if the passed 'data' is an array of Cast objects or Crew objects
+// we don't need isCrewArray function because we are using ternary statement in CastCrewTabPanel to determine if isCastArray === true
+// if it's false it can only be Crew[]
+// ---> do the return statements make sense? <---
+function isCastArray(data: PersonellList): data is Cast[] {
+  return data.every(
+    person =>
+      (person as Cast).character !== undefined &&
+      (person as Cast).id !== undefined
+  );
+}
+
+function isCast(person: Cast | Crew): person is Cast {
   return (person as Cast).character !== undefined;
 }
 
-function CastCrewTabPanel({ data }: PersonellListProps) {
+// functions to aggregate data
+// Personell[] is return type (from movies.ts)
+function aggregateData(data: Crew[] | Cast[]): Personell[] {
+  // Record type for objects, in this case with string as key and Personell as value
+  const resultDictionary: Record<string, Personell> = {};
+  // look at each crew object and either write new object into dictionary or combine "new info" in already existing object
+  for (const personell of data) {
+    // check if crew name is already resultDictionary.
+    if (resultDictionary[personell.name] !== undefined) {
+      // wenn schon was da ist
+      // then combine crew with data that is already in dictionary - push other jobs into object in existing dictionary
+      // wenn isCast false ist, ist es of type Crew und job wird gepusht
+      isCast(personell)
+        ? resultDictionary[personell.name].positions.push(personell.character)
+        : resultDictionary[personell.name].positions.push(personell.job);
+    } else {
+      // wenn name noch nicht vorhanden (daher else Block) - neu anlegen
+      if (isCast(personell)) {
+        // if-else statement bezogen auf isCast oder nicht
+        const { id, name, profile_path, character } = personell;
+        // use name of crew to add new entry to dictionary
+        resultDictionary[personell.name] = {
+          id,
+          name,
+          profile_path,
+          positions: [character],
+        };
+      } else {
+        const { id, name, profile_path, job } = personell;
+        // use name of crew to add new entry to dictionary
+        resultDictionary[personell.name] = {
+          id,
+          name,
+          profile_path,
+          positions: [job],
+        };
+      }
+    }
+  }
+
+  // values sind hier ebenfalls Objekte of type Personell (siehe Record!)
+  return Object.values(resultDictionary);
+}
+
+function CastCrewTabPanel({ data }: Props) {
+  const aggregatedData = aggregateData(data);
+
   return (
     <div className="flex flex-col gap-4">
-      {data.map(person => (
-        <div
-          key={person.id + (isCast(person) ? person.character : person.job)}
-          className="flex gap-5"
-        >
+      {aggregatedData.map(person => (
+        <div key={person.id} className="flex gap-5">
           <img
             src={
               person.profile_path
@@ -32,7 +85,7 @@ function CastCrewTabPanel({ data }: PersonellListProps) {
           <div>
             <h3 className="text-white text-sm">{person.name}</h3>
             <p className="text-white-dimmed text-xs">
-              {isCast(person) ? person.character : person.job}
+              {person.positions.join(', ')}
             </p>
           </div>
         </div>
