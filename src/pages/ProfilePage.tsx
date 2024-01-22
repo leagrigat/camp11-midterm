@@ -3,15 +3,13 @@ import ProfileForm from '../components/ProfileForm';
 
 function ProfilePage() {
   const initialProfileData = {
-    firstName: 'InitialFirstName', // Set your initial data here
-    lastName: 'InitialLastName',
-    // Add other shared initial data here
+    firstName: '', //this is for default data
+    lastName: '',
+    emai: '',
   };
 
   const handleProfileSubmit = formData => {
-    // Handle form submission for profile data
-    console.log('Profile data submitted:', formData);
-    // Add logic to save/update profile data
+    console.log(formData);
   };
 
   return (
