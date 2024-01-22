@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import { PropsWithChildren, useState } from 'react';
 import Header from '../Header';
 import DateTimeButton from '../DateTimeButton';
 import Button from '../Button';
 import { format, add } from 'date-fns';
+
+//props onClick to change the ui component
+type SelectTimePageProps = {
+  onNextClick: () => void;
+};
 
 // bindings for our date and time formats
 const today = new Date();
@@ -36,7 +41,7 @@ const isTimesButtonDisabled = (activeDateButton: string, time: string) => {
   );
 };
 
-function SelectTimePage() {
+function SelectTimePage({ onNextClick }: SelectTimePageProps) {
   const [activeDateButton, setActiveDateButton] = useState('');
   const [activeTimeButton, setActiveTimeButton] = useState('');
 
@@ -78,7 +83,9 @@ function SelectTimePage() {
         ))}
       </div>
       <div className="h-full"></div>
-      <Button size="lg">Select Seat</Button>
+      <Button size="lg" onClick={onNextClick}>
+        Select Seat
+      </Button>
     </div>
   );
 }
