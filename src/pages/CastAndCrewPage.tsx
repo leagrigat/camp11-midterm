@@ -25,6 +25,7 @@ function CastAndCrewPage() {
   return (
     <>
       <div className="flex flex-col gap-6">
+        {/* make header and tabs sticky and scrollable */}
         <Header header="Cast & Crew" />
         <Tab.Group>
           <Tab.List className="flex gap-6 text-sm font-medium justify-center pt-2">
