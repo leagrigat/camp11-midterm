@@ -25,21 +25,24 @@ function CastAndCrewPage() {
   return (
     <>
       <div className="flex flex-col gap-6">
-        {/* make header and tabs sticky and scrollable */}
-        <Header header="Cast & Crew" />
         <Tab.Group>
-          <Tab.List className="flex gap-6 text-sm font-medium justify-center pt-2">
-            <CastCrewTab>Cast</CastCrewTab>
-            <CastCrewTab>Crew</CastCrewTab>
-          </Tab.List>
-          <Tab.Panels>
-            <Tab.Panel>
-              <CastCrewTabPanel data={castData}></CastCrewTabPanel>
-            </Tab.Panel>
-            <Tab.Panel>
-              <CastCrewTabPanel data={crewData}></CastCrewTabPanel>
-            </Tab.Panel>
-          </Tab.Panels>
+          <div className="sticky top-0 z-10 bg-dark flex flex-col gap-6">
+            <Header header="Cast & Crew" />
+            <Tab.List className="flex gap-6 text-sm font-medium justify-center pt-2">
+              <CastCrewTab>Cast</CastCrewTab>
+              <CastCrewTab>Crew</CastCrewTab>
+            </Tab.List>
+          </div>
+          <div className="max-h-84 overflow-y-auto">
+            <Tab.Panels>
+              <Tab.Panel>
+                <CastCrewTabPanel data={castData}></CastCrewTabPanel>
+              </Tab.Panel>
+              <Tab.Panel>
+                <CastCrewTabPanel data={crewData}></CastCrewTabPanel>
+              </Tab.Panel>
+            </Tab.Panels>
+          </div>
         </Tab.Group>
       </div>
     </>
