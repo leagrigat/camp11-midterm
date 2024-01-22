@@ -36,7 +36,7 @@ function MoviesPage() {
         <>
           <div
             id="movieContainer"
-            className="flex flex-col flex-wrap min-h-[275px] max-h-[800px] gap-5 overflow-x-scroll mb-20 justify-center pb-5"
+            className="flex flex-col flex-wrap min-h-[275px] max-h-[800px] gap-5 overflow-x-scroll justify-center mb-8"
           >
             {movies?.pages.map(moviePage =>
               moviePage.results!.map((movie, index) => {
