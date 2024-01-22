@@ -7,70 +7,44 @@ export type ModalType = {
 };
 
 function Modal({ selectedSeats }: ModalType) {
+  //   console.log(selectedSeats);
+  const aRowSeats = selectedSeats.filter(seat => seat.name[0] === 'A');
+  const bRowSeats = selectedSeats.filter(seat => seat.name[0] === 'B');
+  const frontSeats = aRowSeats.concat(bRowSeats);
 
-  const frontSeats = selectedSeats.filter(
-    seat => seat.name && seat.name[0] === 'A'
-  );
-  const middleSeats = selectedSeats.filter(
-    seat => seat.name && seat.name[0] !== 'A' && seat.name[0] !== 'F'
-  );
-  const backSeats = selectedSeats.filter(
-    seat => seat.name && seat.name[0] === 'F'
-  );  
+  const cRowSeats = selectedSeats.filter(seat => seat.name[0] === 'C');
+  const dRowSeats = selectedSeats.filter(seat => seat.name[0] === 'D');
+  const middleSeats = cRowSeats.concat(dRowSeats);
 
-  const frontPrice = Number((frontSeats.length * 12.95).toFixed(2));
-  const middlePrice = Number((middleSeats.length * 14.95).toFixed(2));
-  const backPrice = Number((backSeats.length * 16.95).toFixed(2));
+  const eRowSeats = selectedSeats.filter(seat => seat.name[0] === 'E');
+  const fRowSeats = selectedSeats.filter(seat => seat.name[0] === 'F');
+  const backSeats = eRowSeats.concat(fRowSeats);
 
-  const totalPrice = Number(frontPrice + middlePrice + backPrice).toFixed(2);
+  //   const middleSeats = 'all other seats which are not a or f row 3';
+  //   const frontSeatCost = 12.95;
+  //   const middleSeatsCost = 14.95;
+  //   const backSeatsCost = 16.95;
+
+  const middlePrice = (middleSeats.length * 14.95).toFixed(2);
+  const frontPrice = (frontSeats.length * 12.95).toFixed(2);
+  const backPrice = (backSeats.length * 16.95).toFixed(2);
+
+  console.log(frontPrice);
 
   return (
     <div>
-      <div className="w-screen h-[211px] bg-dark-light rounded-t-3xl -mx-5 p-4 fixed bottom-0">
-        <div className='flex flex-col gap-2'>
-      <div className='flex justify-between text-xs font-medium'>
-          <div className="text-white-dimmed flex gap-6">
-            <div>{frontSeats.length}x</div>
-            <div className='text-white'>Seat - Front</div>
-          </div>
-          <div className='flex gap-[4px]'>
-            <div className='text-white'>${frontPrice}</div>
-            <span className='text-white-dimmed'>/ each</span>
-          </div>
-        </div>
-        <div className='flex justify-between text-xs font-medium'>
-          <div className="text-white-dimmed flex gap-6">
-            <div>{middleSeats.length}x</div>
-            <div className='text-white'>Seat - Middle</div>
-          </div>
-          <div className='flex gap-[4px]'>
-            <div className='text-white'>${middlePrice}</div>
-            <span className='text-white-dimmed'>/ each</span>
-          </div>
-        </div>
-        <div className='flex justify-between text-xs font-medium'>
-          <div className="text-white-dimmed flex gap-6">
-            <div>{backSeats.length}x</div>
-            <div className='text-white'>Seat - Back</div>
-          </div>
-          <div className='flex gap-[4px]'>
-            <div className='text-white'>${backPrice}</div>
-            <span className='text-white-dimmed'>/ each</span>
-          </div>
-        </div>
-        </div>
-    
-        <hr className="border-white-dimmed mt-4" />
-        <div className='flex items-end gap-6 pt-[33px]'>
-        <div className="flex flex-col w-[150px]">
-            <span className='text-white-dimmed text-xs'>Total Price</span>
-            <span className='text-white font-bold text-xl'>${totalPrice}</span>
-            </div>
-          <Button variant="primary" size="lg">
+      <div className="w-screen h-[211px] bg-dark-light rounded-3xl absolute bottom-0 p-4">
+        <h3 className="text-white">
+          Selected Seats:
+          {/* {`${selectedSeats.map(seat => seat.name).join()} `} */}
+        </h3>
+        <h3 className="text-white">Seat front:{frontPrice}</h3>
+        <h3 className="text-white">Seat middle:{middlePrice}</h3>
+        <h3 className="text-white">Seat back:{backPrice}</h3>
+        <hr className="border-white-dimmed pt-4" />
+        <Button variant="primary" size="lg">
           Book Ticket
         </Button>
-        
-        </div>
       </div>
     </div>
   );
