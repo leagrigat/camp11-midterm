@@ -3,6 +3,7 @@ import TicketPreviewPage from '../components/reservation/TicketPreviewPage';
 import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
 import SelectTimePage from '../components/reservation/SelectTimePage';
 import { useState } from 'react';
+import SelectSeatsPage from '../components/reservation/SelectSeatsPage';
 
 function ReservationPage() {
   //fetched data
@@ -12,7 +13,7 @@ function ReservationPage() {
   //change current page
 
   const [currentPage, setCurrentPage] = useState<
-    'selectTimePage' | 'ticketPreviewPage'
+    'selectTimePage' | 'selectSeatsPage' | 'ticketPreviewPage'
   >('selectTimePage');
 
   //this information can be adjusted with the right fetched data
@@ -27,10 +28,16 @@ function ReservationPage() {
   return (
     <>
       {currentPage === 'selectTimePage' && (
-        <SelectTimePage onClick={() => setCurrentPage('ticketPreviewPage')} />
+        <SelectTimePage onNextClick={() => setCurrentPage('selectSeatsPage')} />
       )}
-
-      <TicketPreviewPage {...ticketInformation} movie={movie} />
+      {currentPage === 'selectSeatsPage' && (
+        <SelectSeatsPage
+          onNextClick={() => setCurrentPage('ticketPreviewPage')}
+        />
+      )}
+      {currentPage === 'ticketPreviewPage' && (
+        <TicketPreviewPage {...ticketInformation} movie={movie} />
+      )}
     </>
   );
 }
