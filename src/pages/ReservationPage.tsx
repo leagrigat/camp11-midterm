@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import SelectSeatsPage from '../components/reservation/SelectSeatsPage';
-
-function ReservationPage() {
-  return (
-    <div>
-      <SelectSeatsPage />
-    </div>
-=======
 import { useParams } from 'react-router-dom';
 import TicketPreviewPage from '../components/reservation/TicketPreviewPage';
 import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
@@ -31,7 +21,6 @@ function ReservationPage() {
       {/* <SelectTimePage /> */}
       <TicketPreviewPage {...ticketInformation} movie={movie} />
     </>
->>>>>>> main
   );
 }
 
