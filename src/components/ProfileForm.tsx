@@ -16,7 +16,10 @@ function ProfileForm({ initialData, onSubmit }) {
 
   return (
     <div className="flex flex-col h-full">
-      <form onSubmit={handleSubmit} className="flex flex-col flex-grow gap-5">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col flex-grow gap-5 justify-between mb-[48px]"
+      >
         <div className="flex flex-col gap-5">
           <Input
             id="firstName"
@@ -44,12 +47,14 @@ function ProfileForm({ initialData, onSubmit }) {
             onChange={e => setFormData({ ...formData, email: e.target.value })}
           />
         </div>
-        <Button variant="secondary" size="sm">
-          Change Password?
-        </Button>
-        <Button type="submit" variant="primary" size="sm">
-          Save Changes
-        </Button>
+        <div className="flex gap-5">
+          <Button variant="secondary" size="sm">
+            Change Password?
+          </Button>
+          <Button type="submit" variant="primary" size="sm">
+            Save Changes
+          </Button>
+        </div>
       </form>
     </div>
   );
