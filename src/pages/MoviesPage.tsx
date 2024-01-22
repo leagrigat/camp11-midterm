@@ -1,6 +1,8 @@
+import { Movie } from '../api/movies';
 import LoadingSpinner from '../components/LoadingSpinner';
 import MovieImage from '../components/MovieImage';
 import { useGetMoviesByGenre } from '../hooks/useGetMoviesByGenre';
+import { InView } from 'react-intersection-observer';
 
 function MoviesPage() {
   const {
@@ -13,8 +15,19 @@ function MoviesPage() {
     isError,
   } = useGetMoviesByGenre();
 
+  function getMovieImage(movie: Movie) {
+    return (
+      <MovieImage
+        key={movie.id}
+        movieId={movie.id}
+        posterPath={movie.poster_path}
+        isRounded={false}
+      />
+    );
+  }
+
   return (
-    <div className="h-full flex flex-col justify-between">
+    <div className="h-full flex flex-col justify-center">
       {isLoading ? (
         <div className="h-screen top-0 flex flex-col justify-center items-center">
           <LoadingSpinner />
@@ -23,23 +36,29 @@ function MoviesPage() {
         <>
           <div
             id="movieContainer"
-            className="flex flex-col flex-wrap h-[700px] gap-5 overflow-x-scroll"
+            className="flex flex-col flex-wrap min-h-[275px] max-h-[800px] gap-5 overflow-x-scroll mb-20 justify-center pb-5"
           >
             {movies?.pages.map(moviePage =>
-              moviePage.results!.map(movie => (
-                <div>
-                  <MovieImage
-                    key={movie.id}
-                    movieId={movie.id}
-                    posterPath={movie.poster_path}
-                    isRounded={false}
-                  />
-                </div>
-              ))
+              moviePage.results!.map((movie, index) => {
+                if (index === 9 && hasNextPage) {
+                  return (
+                    <InView
+                      onChange={(inView, entry) => {
+                        inView ? fetchNextPage() : null;
+                      }}
+                      triggerOnce
+                    >
+                      {getMovieImage(movie)}
+                    </InView>
+                  );
+                } else {
+                  return <div>{getMovieImage(movie)}</div>;
+                }
+              })
             )}
           </div>
 
-          <div className="flex flex-wrap justify-between sticky bottom-[80px]">
+          {/* <div className="flex flex-wrap justify-between sticky bottom-[80px]">
             <button
               onClick={() => fetchNextPage()}
               disabled={!hasNextPage || isFetchingNextPage}
@@ -50,7 +69,7 @@ function MoviesPage() {
                 ? 'Load More'
                 : 'Nothing more to load'}
             </button>
-          </div>
+          </div> */}
         </>
       )}
     </div>
