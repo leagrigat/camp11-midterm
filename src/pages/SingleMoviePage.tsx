@@ -12,7 +12,7 @@ function SingleMoviePage() {
   const { movieId } = useParams();
   const { movie } = useGetSingleMovie();
 
-  //crew data
+  // crew data
   const membersData = movie ? movie.credits.crew : [];
   const writer = findCrewByRole(membersData, 'Writer');
   const director = findCrewByRole(membersData, 'Director');
