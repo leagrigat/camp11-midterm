@@ -8,12 +8,6 @@ function CastAndCrewPage() {
   // We can use our hook to get access to a single movie
   const { movie } = useGetSingleMovie();
 
-  // Show loading state?
-  // Or go even further with isLoading and isError return values from useGetSingleMovie()
-  /*   if (!movie) {
-    return <></>
-  } */
-
   // task 3: fetch cast and crew data
   const castData = movie ? movie.credits.cast : [];
   const crewData = movie ? movie.credits.crew : [];
