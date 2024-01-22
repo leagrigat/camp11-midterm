@@ -3,9 +3,10 @@ import ProfileForm from '../components/ProfileForm';
 
 function ProfilePage() {
   const initialProfileData = {
-    firstName: '', //this is for default data
-    lastName: '',
-    emai: '',
+    //this is for default data
+    firstName: 'Fluffy',
+    lastName: 'Unicorn',
+    email: 'fairyworld@bicycleDay.net',
   };
 
   const handleProfileSubmit = formData => {
