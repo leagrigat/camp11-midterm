@@ -6,43 +6,29 @@ interface Props {
   data: PersonellList;
 }
 
-// type guard is meant to determine if the passed 'data' is an array of Cast objects or Crew objects
-// we don't need isCrewArray function because we are using ternary statement in CastCrewTabPanel to determine if isCastArray === true
-// if it's false it can only be Crew[]
-// ---> do the return statements make sense? <---
-function isCastArray(data: PersonellList): data is Cast[] {
-  return data.every(
-    person =>
-      (person as Cast).character !== undefined &&
-      (person as Cast).id !== undefined
-  );
-}
-
+// to determine if person is of type cast
 function isCast(person: Cast | Crew): person is Cast {
-  return (person as Cast).character !== undefined;
+  return (person as Cast).character !== undefined; // when character is defined person is of type Cast
+  // we use as Cast to tell TS that person is definitely of type Cast to be able to check the character field
 }
 
-// functions to aggregate data
-// Personell[] is return type (from movies.ts)
 function aggregateData(data: Crew[] | Cast[]): Personell[] {
   // Record type for objects, in this case with string as key and Personell as value
   const resultDictionary: Record<string, Personell> = {};
-  // look at each crew object and either write new object into dictionary or combine "new info" in already existing object
+
   for (const personell of data) {
-    // check if crew name is already resultDictionary.
+    // check if personell.name is already in resultDictionary
     if (resultDictionary[personell.name] !== undefined) {
-      // wenn schon was da ist
-      // then combine crew with data that is already in dictionary - push other jobs into object in existing dictionary
-      // wenn isCast false ist, ist es of type Crew und job wird gepusht
+      // if it's already there push incoming jobs/character into existing object
+      // when isCast is true, it's of type Cast and character gets pushed in the positions array - otherwise it's of type Crew and job gets pushed
       isCast(personell)
         ? resultDictionary[personell.name].positions.push(personell.character)
         : resultDictionary[personell.name].positions.push(personell.job);
     } else {
-      // wenn name noch nicht vorhanden (daher else Block) - neu anlegen
+      // if personell.name isn't yet availabe, create a new entry
       if (isCast(personell)) {
-        // if-else statement bezogen auf isCast oder nicht
+        // if-else finds out whether we need to create a Cast or a Crew object
         const { id, name, profile_path, character } = personell;
-        // use name of crew to add new entry to dictionary
         resultDictionary[personell.name] = {
           id,
           name,
@@ -50,8 +36,8 @@ function aggregateData(data: Crew[] | Cast[]): Personell[] {
           positions: [character],
         };
       } else {
+        // otherwise we create Crew object
         const { id, name, profile_path, job } = personell;
-        // use name of crew to add new entry to dictionary
         resultDictionary[personell.name] = {
           id,
           name,
@@ -62,7 +48,7 @@ function aggregateData(data: Crew[] | Cast[]): Personell[] {
     }
   }
 
-  // values sind hier ebenfalls Objekte of type Personell (siehe Record!)
+  // we want to return the values of our resultDictionary object - those values are of type Personell, so an object itself
   return Object.values(resultDictionary);
 }
 
