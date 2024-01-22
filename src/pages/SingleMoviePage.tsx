@@ -2,10 +2,10 @@ import { useParams, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { findCrewByRole } from '../utils/findCrewByRole';
 import Button from '../components/Button';
-import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
+import Score from '../components/Score';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { useState } from 'react';
-import { FaHeart } from 'react-icons/fa';
-import { FaRegHeart } from 'react-icons/fa6';
+import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
 
 function SingleMoviePage() {
   //SingleMovie data
@@ -73,12 +73,7 @@ function SingleMoviePage() {
           </span>
         </div>
 
-        <div>
-          <span className="text-success">
-            {movie && Math.floor(movie?.vote_average * 10) + '% '}
-          </span>
-          <span className="text-white-dimmed">Score</span>
-        </div>
+        {movie && <Score voteAverage={movie.vote_average} />}
       </div>
       <div className="flex justify-between text-xs">
         <div className="flex flex-col gap-2 text-white-dimmed">
