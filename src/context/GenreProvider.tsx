@@ -36,8 +36,15 @@ function GenreProvider({ children }: Props) {
       }
       return genre;
     });
+    console.log('hai');
     setGenres(updatedGenres);
+    saveLocalStorage(updatedGenres);
   }
+
+  //local storage
+  const saveLocalStorage = (genres: typeof genresLibrary) => {
+    localStorage.setItem('genres', JSON.stringify(genres));
+  };
 
   return (
     <>
