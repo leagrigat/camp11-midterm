@@ -1,4 +1,9 @@
 import axios from 'axios';
+import { format, add } from 'date-fns';
+
+const today = new Date();
+const maxDate = format(add(today, { days: 7 }), 'yyyy-MM-dd');
+const minDate = format(add(today, { days: -35 }), 'yyyy-MM-dd');
 
 export type Crew = {
   adult: boolean;
@@ -38,6 +43,12 @@ type MovieResponse = {
   results: Movie[];
 };
 
+type AdvMovieResponse = {
+  results: Movie[];
+  page: number;
+  total_pages: number;
+};
+
 export interface SingleMovie extends Movie {
   genres: Array[];
   credits: {
@@ -50,8 +61,9 @@ type Array = {
 };
 
 export async function getNowPlayingMovies() {
+  console.log(minDate, maxDate);
   const { data } = await axios.get<MovieResponse>(
-    `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1`,
+    `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=${minDate}&release_date.lte=${maxDate}`,
     {
       headers: {
         accept: 'application/json',
@@ -63,9 +75,37 @@ export async function getNowPlayingMovies() {
   return data.results;
 }
 
+export async function getNowPlayingByGenre(pageParam = 1, genres: string) {
+  const { data } = await axios.get<AdvMovieResponse>(
+    `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageParam}&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=${minDate}&release_date.lte=${maxDate}&with_genres=${genres}`,
+    {
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_APP_MOVIES_SECRET}`,
+      },
+    }
+  );
+  console.log(data);
+  return data;
+}
+
 export async function getSingleMovie(movieId: number) {
   const { data } = await axios.get<SingleMovie>(
     `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=credits&language=en-US`,
+    {
+      headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_APP_MOVIES_SECRET}`,
+      },
+    }
+  );
+
+  return data;
+}
+
+export async function getMovies(pageParam = 0, genres: string) {
+  const { data } = await axios.get<MovieResponse>(
+    `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageParam}&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=${minDate}&release_date.lte=${maxDate}&with_genres=${genres}`,
     {
       headers: {
         accept: 'application/json',
