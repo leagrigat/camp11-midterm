@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router';
 
 function GenresPage() {
   const { genres, updateGenre, selectedCount } = useContext(GenreContext);
+
   const navigate = useNavigate();
 
   return (
