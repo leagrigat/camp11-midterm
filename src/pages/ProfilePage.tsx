@@ -24,7 +24,7 @@ function ProfilePage({ name, avatarImg }: Props) {
           <img
             alt={name}
             src="https://source.unsplash.com/random/?person" //<-- should be replaced by that-> {avatarImg}
-            className="flex-grow-1 w-[220px] h-[220px] rounded-full object-cover"
+            className="w-[220px] h-[220px] rounded-full object-cover"
           />
         </div>
         <ProfileForm
