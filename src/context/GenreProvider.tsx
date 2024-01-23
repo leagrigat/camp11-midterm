@@ -21,7 +21,7 @@ export const GenreContext = createContext<ContextType>({
 //local storage
 //1. get items
 const storedGenresString = localStorage.getItem('genres');
-//2. check if we have items if not empty []
+//2. check if we have items if not empty genresLibrary is our default value
 const storedGenres = storedGenresString
   ? JSON.parse(storedGenresString)
   : genresLibrary;
@@ -47,11 +47,11 @@ function GenreProvider({ children }: Props) {
     });
 
     setGenres(updatedGenres);
-    //handing the updatedGenres to saveLocalStorage
+    //handing the updatedGenres to saveLocalStorage function
     saveLocalStorage(updatedGenres);
   }
 
-  //passing the updated genres to
+  //passing genres state to localstorage and set them in 'genres'
   const saveLocalStorage = (genres: genresLibraryType[]) => {
     localStorage.setItem('genres', JSON.stringify(genres));
   };
