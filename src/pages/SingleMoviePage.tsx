@@ -12,7 +12,7 @@ function SingleMoviePage() {
   const { movieId } = useParams();
   const { movie } = useGetSingleMovie();
 
-  //crew data
+  // crew data
   const membersData = movie ? movie.credits.crew : [];
   const writer = findCrewByRole(membersData, 'Writer');
   const director = findCrewByRole(membersData, 'Director');
@@ -36,7 +36,7 @@ function SingleMoviePage() {
     <div className="flex flex-col gap-6">
       <div className="">
         <Header
-          header={'Movie Detail'}
+          header="Movie Detail"
           icon={
             <div onClick={toggleFavorite}>
               {favorite ? (
@@ -107,7 +107,7 @@ function SingleMoviePage() {
         </button>
       </div>
       <Link to={`/movies/${movieId}/reservation`}>
-        <Button size="lg"> Get Reservation</Button>
+        <Button size="lg">Get Reservation</Button>
       </Link>
     </div>
   );
