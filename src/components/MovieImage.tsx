@@ -17,7 +17,8 @@ function MovieImage({
       to={`/movies/${movieId}`}
       className={cn(
         isRounded && 'flex-[1_0_41vw] [&>img]:snap-center [&>img]:rounded-lg',
-        !isRounded && '[&>img]:w-[157px] [&>img]:h-[237.5px] [&>img]:min-w-[157px] [&>img]:h-[237.5px]'
+        !isRounded &&
+          '[&>img]:w-[157px] [&>img]:min-w-[157px] [&>img]:h-[237.5px]'
       )}
     >
       <img src={`https://image.tmdb.org/t/p/w300/${posterPath}`} />
