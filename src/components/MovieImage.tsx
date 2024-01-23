@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { cn } from '../utils/cn';
+import notFoundImage from '../assets/404blueUnicornNotFound.png';
 
 type MovieImageProps = {
   movieId: number;
@@ -21,7 +22,13 @@ function MovieImage({
           '[&>img]:w-[157px] [&>img]:min-w-[157px] [&>img]:h-[237.5px]'
       )}
     >
-      <img src={`https://image.tmdb.org/t/p/w300/${posterPath}`} />
+      <img
+        src={
+          posterPath
+            ? `https://image.tmdb.org/t/p/w300/${posterPath}`
+            : notFoundImage
+        }
+      />
     </Link>
   );
 }
