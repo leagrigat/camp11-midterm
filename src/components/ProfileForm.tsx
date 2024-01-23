@@ -18,7 +18,7 @@ function ProfileForm({ initialData, onSubmit }) {
     <div className="flex flex-col h-full">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col flex-grow gap-5 justify-between mb-[48px]"
+        className="flex flex-col flex-grow gap-5 justify-between mb-[55px]"
       >
         <div className="flex flex-col gap-5">
           <Input
