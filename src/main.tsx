@@ -8,7 +8,6 @@ import LoginPage from './pages/LoginPage';
 import Homepage from './pages/Homepage';
 import MoviesPage from './pages/MoviesPage';
 import BookmarkedMoviesPage from './pages/BookmarkedMoviesPage';
-import SingleMoviePage from './pages/SingleMoviePage';
 import CastAndCrewPage from './pages/CastAndCrewPage';
 import ReservationPage from './pages/ReservationPage';
 import GenresPage from './pages/GenresPage';

@@ -1,12 +1,13 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { genresLibrary } from './GenreLibrary';
+import { genresLibraryType } from '../utils/genresLibraryType';
 
 type Props = {
   children: React.ReactNode;
 };
 
 type ContextType = {
-  genres: typeof genresLibrary; //autogenerate type from genresLibrary
+  genres: genresLibraryType[];
   updateGenre: (id: number) => void;
   selectedCount: number;
 };
@@ -17,8 +18,16 @@ export const GenreContext = createContext<ContextType>({
   selectedCount: 0,
 });
 
+//local storage
+//1. get items
+const storedGenresString = localStorage.getItem('genres');
+//2. check if we have items if not empty genresLibrary is our default value
+const storedGenres = storedGenresString
+  ? JSON.parse(storedGenresString)
+  : genresLibrary;
+
 function GenreProvider({ children }: Props) {
-  const [genres, setGenres] = useState(genresLibrary);
+  const [genres, setGenres] = useState<genresLibraryType[]>(storedGenres);
 
   //set count
   const [selectedCount, SetSelectedCount] = useState(0);
@@ -36,8 +45,16 @@ function GenreProvider({ children }: Props) {
       }
       return genre;
     });
+
     setGenres(updatedGenres);
+    //handing the updatedGenres to saveLocalStorage function
+    saveLocalStorage(updatedGenres);
   }
+
+  //passing genres state to localstorage and set them in 'genres'
+  const saveLocalStorage = (genres: genresLibraryType[]) => {
+    localStorage.setItem('genres', JSON.stringify(genres));
+  };
 
   return (
     <>
