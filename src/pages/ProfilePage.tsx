@@ -1,6 +1,7 @@
 import Header from '../components/Header';
 import ProfileForm from '../components/ProfileForm';
 import { Props } from '../components/HomePageHeader';
+import { FormData } from '../components/ProfileForm';
 
 function ProfilePage({ name, avatarImg }: Props) {
   const initialProfileData = {
@@ -10,7 +11,7 @@ function ProfilePage({ name, avatarImg }: Props) {
     email: 'fairyworld@bicycleDay.net',
   };
 
-  const handleProfileSubmit = formData => {
+  const handleProfileSubmit = (formData: FormData) => {
     console.log(formData);
   };
 

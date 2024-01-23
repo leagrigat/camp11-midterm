@@ -2,14 +2,21 @@ import { useState } from 'react';
 import Input from './Input';
 import Button from './Button';
 
-function ProfileForm({ initialData, onSubmit }) {
-  const [formData, setFormData] = useState(initialData);
+export type FormData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+};
 
-  const handleChange = (field, value) => {
-    setFormData({ ...formData, [field]: value });
-  };
+type ProfileProps = {
+  initialData: FormData;
+  onSubmit: (data: FormData) => void;
+};
 
-  const handleSubmit = e => {
+function ProfileForm({ initialData, onSubmit }: ProfileProps) {
+  const [formData, setFormData] = useState<FormData>(initialData);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit(formData);
   };
@@ -17,7 +24,7 @@ function ProfileForm({ initialData, onSubmit }) {
   return (
     <div className="flex flex-col h-full">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={e => handleSubmit(e)}
         className="flex flex-col flex-grow gap-5 justify-between mb-[55px]"
       >
         <div className="flex flex-col gap-5">
@@ -27,7 +34,9 @@ function ProfileForm({ initialData, onSubmit }) {
             placeholder="First Name"
             name="firstName"
             value={formData.firstName}
-            onChange={e => handleChange('firstName', e.target.value)}
+            onChange={e =>
+              setFormData({ ...formData, firstName: e.target.value })
+            }
           />
           <Input
             id="lastName"
@@ -35,7 +44,9 @@ function ProfileForm({ initialData, onSubmit }) {
             placeholder="Last Name"
             name="lastName"
             value={formData.lastName}
-            onChange={e => handleChange('lastName', e.target.value)}
+            onChange={e =>
+              setFormData({ ...formData, lastName: e.target.value })
+            }
           />
           <Input
             id="email"
