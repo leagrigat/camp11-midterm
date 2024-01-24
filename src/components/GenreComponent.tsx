@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { GenreContext } from '../context/GenreProvider';
-import GenreButton from '../components/GenreButton';
+import GenreButton from './GenreButton';
 
 function GenreComponent() {
   const { genres, updateGenre } = useContext(GenreContext);
