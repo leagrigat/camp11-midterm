@@ -44,5 +44,5 @@ app.post('/reservation', (req, res, next) => {
 })
 
 app.listen(PORT, () => {
-  console.log('port is running');
+  console.log(`app is running on ${PORT}`);
 });
