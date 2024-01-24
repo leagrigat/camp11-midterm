@@ -2,11 +2,6 @@ import { Response, Request } from 'express';
 import bcrypt from 'bcrypt';
 import { create } from 'domain';
 
-type LogIn = {
-  email: string;
-  password: string;
-};
-
 type Register = {
   id: number;
   firstName: string;
@@ -17,7 +12,6 @@ type Register = {
 };
 
 let REGISTER_NEW_USER: Register[] = [];
-//let REGISTERED_USER: LogIn[] = [];
 
 //Create new User
 export const createUser = (req: Request, res: Response) => {
