@@ -22,14 +22,6 @@ function Modal({
   updateSeatInfo,
   ticketInfo,
 }: ModalType) {
-  function doubleFunction() {
-    updateSeatInfo({
-      ...ticketInfo,
-      price: totalPrice,
-      seat: selectedSeats.map(seat => String(seat.name)),
-    });
-    onNextClick();
-  }
   const frontSeats = selectedSeats.filter(
     seat => seat.name && seat.name[0] === 'A'
   );
@@ -88,7 +80,18 @@ function Modal({
             <span className="text-white-dimmed text-xs">Total Price</span>
             <span className="text-white font-bold text-xl">${totalPrice}</span>
           </div>
-          <Button variant="primary" size="lg" onClick={doubleFunction}>
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={() => {
+              updateSeatInfo({
+                ...ticketInfo,
+                price: totalPrice,
+                seat: selectedSeats.map(seat => String(seat.name)),
+              });
+              onNextClick();
+            }}
+          >
             {selectedSeats.length <= 1
               ? 'Book Ticket' || selectedSeats.length >= 2
               : 'Book Tickets'}
