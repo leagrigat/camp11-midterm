@@ -6,6 +6,7 @@ import Score from '../components/Score';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { useState } from 'react';
 import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
+import notFoundImage from '../assets/whiteScreen_404unicornNotFound.png';
 
 function SingleMoviePage() {
   //SingleMovie data
@@ -53,7 +54,11 @@ function SingleMoviePage() {
         <img
           key={movie.id}
           className="rounded-lg"
-          src={`https://image.tmdb.org/t/p/w300/${movie.backdrop_path}`}
+          src={
+            movie.backdrop_path
+              ? `https://image.tmdb.org/t/p/w300/${movie.backdrop_path}`
+              : notFoundImage
+          }
         />
       )}
 

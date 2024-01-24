@@ -1,12 +1,20 @@
 import Button from '../Button';
 import { Seat } from '../../components/reservation/SelectSeatsPage';
+import { TicketInfo } from '../../pages/ReservationPage';
 
 export type ModalType = {
   selectedSeats: Seat[];
   onNextClick: () => void;
+  updateSeatInfo: (seats: TicketInfo) => void;
+  ticketInfo: TicketInfo;
 };
 
-function Modal({ selectedSeats, onNextClick }: ModalType) {
+function Modal({
+  selectedSeats,
+  onNextClick,
+  updateSeatInfo,
+  ticketInfo,
+}: ModalType) {
   const frontSeats = selectedSeats.filter(
     seat => seat.name && seat.name[0] === 'A'
   );
@@ -33,7 +41,7 @@ function Modal({ selectedSeats, onNextClick }: ModalType) {
               <div className="text-white">Seat - Front</div>
             </div>
             <div className="flex gap-[4px]">
-              <div className="text-white">${frontPrice}</div>
+              <div className="text-white">$12.95</div>
               <span className="text-white-dimmed">/ each</span>
             </div>
           </div>
@@ -43,7 +51,7 @@ function Modal({ selectedSeats, onNextClick }: ModalType) {
               <div className="text-white">Seat - Middle</div>
             </div>
             <div className="flex gap-[4px]">
-              <div className="text-white">${middlePrice}</div>
+              <div className="text-white">$14.95</div>
               <span className="text-white-dimmed">/ each</span>
             </div>
           </div>
@@ -53,7 +61,7 @@ function Modal({ selectedSeats, onNextClick }: ModalType) {
               <div className="text-white">Seat - Back</div>
             </div>
             <div className="flex gap-[4px]">
-              <div className="text-white">${backPrice}</div>
+              <div className="text-white">$16.95</div>
               <span className="text-white-dimmed">/ each</span>
             </div>
           </div>
@@ -65,7 +73,18 @@ function Modal({ selectedSeats, onNextClick }: ModalType) {
             <span className="text-white-dimmed text-xs">Total Price</span>
             <span className="text-white font-bold text-xl">${totalPrice}</span>
           </div>
-          <Button variant="primary" size="lg" onClick={onNextClick}>
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={() => {
+              updateSeatInfo({
+                ...ticketInfo,
+                price: totalPrice,
+                seat: selectedSeats.map(seat => String(seat.name)),
+              });
+              onNextClick();
+            }}
+          >
             {selectedSeats.length <= 1
               ? 'Book Ticket' || selectedSeats.length >= 2
               : 'Book Tickets'}
