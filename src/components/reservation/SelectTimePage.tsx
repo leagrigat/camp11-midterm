@@ -4,9 +4,19 @@ import DateTimeButton from '../DateTimeButton';
 import Button from '../Button';
 import { format, add } from 'date-fns';
 
+type ticketInfo = {
+  movieId: string;
+  date: string;
+  price: string;
+  seat: string[];
+  time: string;
+};
+
 //props onClick to change the ui component
 type SelectTimePageProps = {
   onNextClick: () => void;
+  updateTimeInfo: (seats: ticketInfo) => void;
+  ticketInfo: ticketInfo;
 };
 
 // bindings for our date and time formats
@@ -41,9 +51,14 @@ const isTimesButtonDisabled = (activeDateButton: string, time: string) => {
   );
 };
 
-function SelectTimePage({ onNextClick }: SelectTimePageProps) {
+function SelectTimePage({
+  onNextClick,
+  updateTimeInfo,
+  ticketInfo,
+}: SelectTimePageProps) {
   const [activeDateButton, setActiveDateButton] = useState('');
   const [activeTimeButton, setActiveTimeButton] = useState('');
+  const [disabledConfirmButton, setDisabledConfirmButton] = useState(true);
 
   return (
     <div className="flex flex-col bg-dark h-full">
@@ -56,6 +71,12 @@ function SelectTimePage({ onNextClick }: SelectTimePageProps) {
             dateTime={date}
             onClick={() => {
               setActiveDateButton(date);
+              setActiveTimeButton('');
+              setDisabledConfirmButton(true);
+              updateTimeInfo({
+                ...ticketInfo,
+                date: date,
+              });
             }}
             active={activeDateButton === date}
           >
@@ -73,6 +94,11 @@ function SelectTimePage({ onNextClick }: SelectTimePageProps) {
             key={time}
             onClick={() => {
               setActiveTimeButton(time);
+              setDisabledConfirmButton(false);
+              updateTimeInfo({
+                ...ticketInfo,
+                time: time,
+              });
             }}
             active={activeTimeButton === time}
             dateTime={time}
@@ -83,7 +109,7 @@ function SelectTimePage({ onNextClick }: SelectTimePageProps) {
         ))}
       </div>
       <div className="h-full"></div>
-      <Button size="lg" onClick={onNextClick}>
+      <Button size="lg" onClick={onNextClick} disabled={disabledConfirmButton}>
         Select Seat
       </Button>
     </div>

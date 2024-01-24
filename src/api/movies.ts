@@ -61,7 +61,6 @@ type Array = {
 };
 
 export async function getNowPlayingMovies() {
-  console.log(minDate, maxDate);
   const { data } = await axios.get<MovieResponse>(
     `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_release_type=2|3&release_date.gte=${minDate}&release_date.lte=${maxDate}`,
     {
@@ -85,7 +84,6 @@ export async function getNowPlayingByGenre(pageParam = 1, genres: string) {
       },
     }
   );
-  console.log(data);
   return data;
 }
 

@@ -1,12 +1,35 @@
 import Button from '../Button';
 import { Seat } from '../../components/reservation/SelectSeatsPage';
 
+type ticketInfo = {
+  movieId: string;
+  date: string;
+  price: string;
+  seat: string[];
+  time: string;
+};
+
 export type ModalType = {
   selectedSeats: Seat[];
   onNextClick: () => void;
+  updateSeatInfo: (seats: ticketInfo) => void;
+  ticketInfo: ticketInfo;
 };
 
-function Modal({ selectedSeats, onNextClick }: ModalType) {
+function Modal({
+  selectedSeats,
+  onNextClick,
+  updateSeatInfo,
+  ticketInfo,
+}: ModalType) {
+  function doubleFunction() {
+    updateSeatInfo({
+      ...ticketInfo,
+      price: totalPrice,
+      seat: selectedSeats.map(seat => String(seat.name)),
+    });
+    onNextClick();
+  }
   const frontSeats = selectedSeats.filter(
     seat => seat.name && seat.name[0] === 'A'
   );
@@ -65,7 +88,7 @@ function Modal({ selectedSeats, onNextClick }: ModalType) {
             <span className="text-white-dimmed text-xs">Total Price</span>
             <span className="text-white font-bold text-xl">${totalPrice}</span>
           </div>
-          <Button variant="primary" size="lg" onClick={onNextClick}>
+          <Button variant="primary" size="lg" onClick={doubleFunction}>
             {selectedSeats.length <= 1
               ? 'Book Ticket' || selectedSeats.length >= 2
               : 'Book Tickets'}

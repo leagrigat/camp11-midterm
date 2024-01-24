@@ -8,7 +8,7 @@ type TicketInformation = {
   date: string;
   time: string;
   price: string;
-  seat: string;
+  seat: string[];
   movie: SingleMovie | undefined;
 };
 
@@ -51,7 +51,9 @@ function TicketPreviewPage({
           </div>
           <div className="px-6 pt-4 pb-6">
             <p className="text-dark">Seats</p>
-            <span className="text-white font-bold text-sm">{seat}</span>
+            <span className="text-white font-bold text-sm">
+              {seat.join(', ')}
+            </span>
           </div>
         </div>
 
