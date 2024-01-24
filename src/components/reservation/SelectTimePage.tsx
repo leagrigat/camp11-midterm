@@ -3,14 +3,7 @@ import Header from '../Header';
 import DateTimeButton from '../DateTimeButton';
 import Button from '../Button';
 import { format, add } from 'date-fns';
-
-type ticketInfo = {
-  movieId: string;
-  date: string;
-  price: string;
-  seat: string[];
-  time: string;
-};
+import { ticketInfo } from '../../pages/ReservationPage';
 
 //props onClick to change the ui component
 type SelectTimePageProps = {

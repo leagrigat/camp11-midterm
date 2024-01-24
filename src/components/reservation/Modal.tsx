@@ -1,13 +1,6 @@
 import Button from '../Button';
 import { Seat } from '../../components/reservation/SelectSeatsPage';
-
-type ticketInfo = {
-  movieId: string;
-  date: string;
-  price: string;
-  seat: string[];
-  time: string;
-};
+import { ticketInfo } from '../../pages/ReservationPage';
 
 export type ModalType = {
   selectedSeats: Seat[];

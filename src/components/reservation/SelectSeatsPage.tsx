@@ -3,14 +3,7 @@ import { useState } from 'react';
 import Modal from './Modal';
 import Header from '../../components/Header';
 import { Transition } from '@headlessui/react';
-
-type ticketInfo = {
-  movieId: string;
-  date: string;
-  price: string;
-  seat: string[];
-  time: string;
-};
+import { ticketInfo } from '../../pages/ReservationPage';
 
 //onNextClick to render new UI
 type SelectTimePageProps = {
@@ -123,7 +116,7 @@ function SelectSeatsPage({
         <Modal
           onNextClick={onNextClick}
           selectedSeats={selectedSeats}
-          updateSeatInfo={(seats) => updateSeatInfo(seats)}
+          updateSeatInfo={seats => updateSeatInfo(seats)}
           ticketInfo={ticketInfo}
         />
       </Transition>

@@ -4,11 +4,21 @@ import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
 import SelectTimePage from '../components/reservation/SelectTimePage';
 import { useState } from 'react';
 import SelectSeatsPage from '../components/reservation/SelectSeatsPage';
+import { SingleMovie } from '../api/movies';
 
 type selectPagesString =
   | 'selectTimePage'
   | 'selectSeatsPage'
   | 'ticketPreviewPage';
+
+export type ticketInfo = {
+  movieId: string;
+  date: string;
+  price: string;
+  seat: string[];
+  time: string;
+  movie: SingleMovie | undefined;
+};
 
 function ReservationPage() {
   //fetched data
@@ -27,6 +37,7 @@ function ReservationPage() {
     price: '',
     seat: [''],
     time: '',
+    movie,
   });
 
   return (
