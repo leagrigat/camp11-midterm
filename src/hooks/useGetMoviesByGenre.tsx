@@ -23,7 +23,6 @@ function getSelectedIDs(genreList: Genre[]) {
 export function useGetMoviesByGenre() {
   const { genres } = useContext(GenreContext);
   const selectedGenreIDs = getSelectedIDs(genres).join('|');
-  console.log(selectedGenreIDs);
   const { data: movies, ...rest } = useInfiniteQuery({
     queryKey: ['movies', selectedGenreIDs],
     queryFn: async ({ pageParam }) =>
@@ -34,6 +33,5 @@ export function useGetMoviesByGenre() {
       return allPages.length + 1;
     },
   });
-  console.log('HI!', {movies, ...rest});
   return { movies, ...rest };
 }

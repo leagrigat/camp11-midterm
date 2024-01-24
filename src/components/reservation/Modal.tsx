@@ -33,7 +33,7 @@ function Modal({ selectedSeats, onNextClick }: ModalType) {
               <div className="text-white">Seat - Front</div>
             </div>
             <div className="flex gap-[4px]">
-              <div className="text-white">${frontPrice}</div>
+              <div className="text-white">$12.95</div>
               <span className="text-white-dimmed">/ each</span>
             </div>
           </div>
@@ -43,7 +43,7 @@ function Modal({ selectedSeats, onNextClick }: ModalType) {
               <div className="text-white">Seat - Middle</div>
             </div>
             <div className="flex gap-[4px]">
-              <div className="text-white">${middlePrice}</div>
+              <div className="text-white">$14.95</div>
               <span className="text-white-dimmed">/ each</span>
             </div>
           </div>
@@ -53,7 +53,7 @@ function Modal({ selectedSeats, onNextClick }: ModalType) {
               <div className="text-white">Seat - Back</div>
             </div>
             <div className="flex gap-[4px]">
-              <div className="text-white">${backPrice}</div>
+              <div className="text-white">$16.95</div>
               <span className="text-white-dimmed">/ each</span>
             </div>
           </div>
