@@ -20,26 +20,26 @@ export type Crew = {
 };
 
 export type Cast = {
-  adult: boolean
-  gender: number
-  id: number
-  known_for_department: string
-  name: string
-  original_name: string
-  popularity: number
-  profile_path: string
-  cast_id: number
-  character: string
-  credit_id: string
-  order: number
-}
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+  cast_id: number;
+  character: string;
+  credit_id: string;
+  order: number;
+};
 
 export type Personell = {
-  id: number,
-  name: string,
-  profile_path: string,
-  positions: string[]
-}
+  id: number;
+  name: string;
+  profile_path: string;
+  positions: string[];
+};
 
 export type Movie = {
   adult: boolean;
@@ -120,8 +120,7 @@ export async function getSingleMovie(movieId: number) {
         Authorization: `Bearer ${import.meta.env.VITE_APP_MOVIES_SECRET}`,
       },
     }
-    );
-    console.log(data)
+  );
 
   return data;
 }
