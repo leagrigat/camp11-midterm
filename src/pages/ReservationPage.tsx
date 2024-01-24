@@ -4,11 +4,21 @@ import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
 import SelectTimePage from '../components/reservation/SelectTimePage';
 import { useState } from 'react';
 import SelectSeatsPage from '../components/reservation/SelectSeatsPage';
+import { SingleMovie } from '../api/movies';
 
 type selectPagesString =
   | 'selectTimePage'
   | 'selectSeatsPage'
   | 'ticketPreviewPage';
+
+export type TicketInfo = {
+  movieId: string;
+  date: string;
+  price: string;
+  seat: string[];
+  time: string;
+  movie: SingleMovie | undefined;
+};
 
 function ReservationPage() {
   //fetched data
@@ -20,22 +30,34 @@ function ReservationPage() {
     useState<selectPagesString>('selectTimePage');
 
   //this information can be adjusted with the right fetched data
-  const ticketInformation = {
+
+  const [ticketInformation, updateTicketInformation] = useState({
     movieId: movieId || '',
-    date: '12 Jan',
-    price: '$22.55',
-    seat: 'S-4, C-5, A-4',
-    time: '12:30',
-  };
+    date: '',
+    price: '',
+    seat: [''],
+    time: '',
+    movie,
+  });
 
   return (
     <>
       {currentPage === 'selectTimePage' && (
-        <SelectTimePage onNextClick={() => setCurrentPage('selectSeatsPage')} />
+        <SelectTimePage
+          onNextClick={() => {
+            setCurrentPage('selectSeatsPage');
+          }}
+          updateTimeInfo={dateTime => updateTicketInformation(dateTime)}
+          ticketInfo={ticketInformation}
+        />
       )}
       {currentPage === 'selectSeatsPage' && (
         <SelectSeatsPage
-          onNextClick={() => setCurrentPage('ticketPreviewPage')}
+          onNextClick={() => {
+            setCurrentPage('ticketPreviewPage');
+          }}
+          updateSeatInfo={seats => updateTicketInformation(seats)}
+          ticketInfo={ticketInformation}
         />
       )}
       {currentPage === 'ticketPreviewPage' && (
