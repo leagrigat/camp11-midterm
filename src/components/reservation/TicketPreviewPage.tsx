@@ -45,7 +45,7 @@ function TicketPreviewPage({
               </div>
               <div>
                 <p className="text-dark">Price</p>
-                <span className="text-white font-bold text-sm">{price}</span>
+                <span className="text-white font-bold text-sm">$ {price}</span>
               </div>
             </div>
           </div>
