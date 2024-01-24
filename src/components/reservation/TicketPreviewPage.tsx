@@ -1,16 +1,7 @@
 import { Link } from 'react-router-dom';
 import Button from '../Button';
-import { SingleMovie } from '../../api/movies';
 import QRCode from 'react-qr-code';
-
-type TicketInformation = {
-  movieId: string;
-  date: string;
-  time: string;
-  price: string;
-  seat: string[];
-  movie: SingleMovie | undefined;
-};
+import { TicketInfo } from '../../pages/ReservationPage';
 
 function TicketPreviewPage({
   movie,
@@ -19,7 +10,7 @@ function TicketPreviewPage({
   price,
   seat,
   movieId,
-}: TicketInformation) {
+}: TicketInfo) {
   return (
     <div className="h-full flex flex-col justify-between">
       <div className="bg-white-heavy rounded-lg mb-6 grow">

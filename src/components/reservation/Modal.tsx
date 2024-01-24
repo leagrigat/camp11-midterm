@@ -1,12 +1,12 @@
 import Button from '../Button';
 import { Seat } from '../../components/reservation/SelectSeatsPage';
-import { ticketInfo } from '../../pages/ReservationPage';
+import { TicketInfo } from '../../pages/ReservationPage';
 
 export type ModalType = {
   selectedSeats: Seat[];
   onNextClick: () => void;
-  updateSeatInfo: (seats: ticketInfo) => void;
-  ticketInfo: ticketInfo;
+  updateSeatInfo: (seats: TicketInfo) => void;
+  ticketInfo: TicketInfo;
 };
 
 function Modal({

@@ -11,7 +11,7 @@ type selectPagesString =
   | 'selectSeatsPage'
   | 'ticketPreviewPage';
 
-export type ticketInfo = {
+export type TicketInfo = {
   movieId: string;
   date: string;
   price: string;

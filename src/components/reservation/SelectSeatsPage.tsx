@@ -3,13 +3,13 @@ import { useState } from 'react';
 import Modal from './Modal';
 import Header from '../../components/Header';
 import { Transition } from '@headlessui/react';
-import { ticketInfo } from '../../pages/ReservationPage';
+import { TicketInfo } from '../../pages/ReservationPage';
 
 //onNextClick to render new UI
 type SelectTimePageProps = {
   onNextClick: () => void;
-  updateSeatInfo: (seats: ticketInfo) => void;
-  ticketInfo: ticketInfo;
+  updateSeatInfo: (seats: TicketInfo) => void;
+  ticketInfo: TicketInfo;
 };
 
 export type Seat = {

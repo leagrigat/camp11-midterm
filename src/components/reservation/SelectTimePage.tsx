@@ -3,13 +3,13 @@ import Header from '../Header';
 import DateTimeButton from '../DateTimeButton';
 import Button from '../Button';
 import { format, add } from 'date-fns';
-import { ticketInfo } from '../../pages/ReservationPage';
+import { TicketInfo } from '../../pages/ReservationPage';
 
 //props onClick to change the ui component
 type SelectTimePageProps = {
   onNextClick: () => void;
-  updateTimeInfo: (seats: ticketInfo) => void;
-  ticketInfo: ticketInfo;
+  updateTimeInfo: (seats: TicketInfo) => void;
+  ticketInfo: TicketInfo;
 };
 
 // bindings for our date and time formats
