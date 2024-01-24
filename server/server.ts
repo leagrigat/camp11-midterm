@@ -1,6 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
+import { LogInUser, createUser } from './controllers';
 //import { LogIn, Register } from './controllers';
 
 //serverport
@@ -11,16 +12,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-//route logIn Page
-app.get('/', (req, res, next) => {
-  res.json({ success: 'Yay we are best' });
-});
+//post request
+app.post('/register', createUser);
+app.post('/login', LogInUser);
 
-//route register Page
-app.get('/register', (req, res, next) => {
-  res.json({ success: 'Yay we are best' });
-});
-
+//start server
 app.listen(PORT, () => {
-  console.log('port is running');
+  console.log(`server is running ${PORT}`);
 });

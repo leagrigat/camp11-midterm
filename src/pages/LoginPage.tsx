@@ -13,14 +13,24 @@ function LoginPage() {
   });
 
   // changed to const convention like in RegistrationForm so function submitHandler could be deleted
-  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(inputVal); // do we need to keep the console.log?
+
+    try {
+      const response = await fetch('http://localhost:8000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(inputVal),
+      });
+
+      const data = await response.json();
+      console.log(data); // handle the response data
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
-  /*   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    console.log(inputVal); // do we need to keep the console.log?
-  } */
 
   return (
     <div className="flex flex-col h-full">
