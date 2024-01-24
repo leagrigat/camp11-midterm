@@ -3,10 +3,13 @@ import { useState } from 'react';
 import Modal from './Modal';
 import Header from '../../components/Header';
 import { Transition } from '@headlessui/react';
+import { TicketInfo } from '../../pages/ReservationPage';
 
 //onNextClick to render new UI
 type SelectTimePageProps = {
   onNextClick: () => void;
+  updateSeatInfo: (seats: TicketInfo) => void;
+  ticketInfo: TicketInfo;
 };
 
 export type Seat = {
@@ -31,7 +34,11 @@ function generateSeats() {
   return seatObj;
 }
 
-function SelectSeatsPage({ onNextClick }: SelectTimePageProps) {
+function SelectSeatsPage({
+  onNextClick,
+  updateSeatInfo,
+  ticketInfo,
+}: SelectTimePageProps) {
   const [seatsInfo, setSeatsInfo] = useState(() => generateSeats());
   const [isShown, setIsShown] = useState(false);
 
@@ -106,7 +113,12 @@ function SelectSeatsPage({ onNextClick }: SelectTimePageProps) {
         leaveTo="opacity-0 translate-y-[250px]"
         className="fixed bottom-0"
       >
-        <Modal onNextClick={onNextClick} selectedSeats={selectedSeats} />
+        <Modal
+          onNextClick={onNextClick}
+          selectedSeats={selectedSeats}
+          updateSeatInfo={seats => updateSeatInfo(seats)}
+          ticketInfo={ticketInfo}
+        />
       </Transition>
     </>
   );

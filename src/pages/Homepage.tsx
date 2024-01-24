@@ -7,7 +7,7 @@ import { useGetMovies } from '../hooks/useGetMovies';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { Combobox, Transition } from '@headlessui/react';
 import { useEffect, useState } from 'react';
-import { FaCheck } from 'react-icons/fa';
+
 import { Movie } from '../api/movies';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,8 +16,6 @@ function Homepage() {
   const [selected, setSelected] = useState<Movie | null>(null);
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
-
-  console.log({ selected, query });
 
   useEffect(() => {
     if (selected) {
