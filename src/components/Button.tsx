@@ -8,7 +8,7 @@ interface Props extends ButtonProps {
   size: 'sm' | 'md' | 'lg';
 }
 
-// as an alternative to writing each style in a single line | Nachschlageobjects - try with cva
+// as an alternative to writing each style in a single line | Nachschlageobjects - we could try with cva
 /* const styleDictionary = {
   sm: 'text-[12px] h-[38px]',
   md: '',

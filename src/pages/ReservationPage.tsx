@@ -5,16 +5,19 @@ import SelectTimePage from '../components/reservation/SelectTimePage';
 import { useState } from 'react';
 import SelectSeatsPage from '../components/reservation/SelectSeatsPage';
 
+type selectPagesString =
+  | 'selectTimePage'
+  | 'selectSeatsPage'
+  | 'ticketPreviewPage';
+
 function ReservationPage() {
   //fetched data
   const { movieId } = useParams();
   const { movie } = useGetSingleMovie();
 
   //change current page
-
-  const [currentPage, setCurrentPage] = useState<
-    'selectTimePage' | 'selectSeatsPage' | 'ticketPreviewPage'
-  >('selectTimePage');
+  const [currentPage, setCurrentPage] =
+    useState<selectPagesString>('selectTimePage');
 
   //this information can be adjusted with the right fetched data
 

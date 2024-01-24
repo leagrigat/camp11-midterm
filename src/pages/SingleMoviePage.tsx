@@ -6,13 +6,14 @@ import Score from '../components/Score';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { useState } from 'react';
 import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
+import notFoundImage from '../assets/whiteScreen_404unicornNotFound.png';
 
 function SingleMoviePage() {
   //SingleMovie data
   const { movieId } = useParams();
   const { movie } = useGetSingleMovie();
 
-  //crew data
+  // crew data
   const membersData = movie ? movie.credits.crew : [];
   const writer = findCrewByRole(membersData, 'Writer');
   const director = findCrewByRole(membersData, 'Director');
@@ -36,7 +37,7 @@ function SingleMoviePage() {
     <div className="flex flex-col gap-6">
       <div className="">
         <Header
-          header={'Movie Detail'}
+          header="Movie Detail"
           icon={
             <div onClick={toggleFavorite}>
               {favorite ? (
@@ -53,7 +54,11 @@ function SingleMoviePage() {
         <img
           key={movie.id}
           className="rounded-lg"
-          src={`https://image.tmdb.org/t/p/w300/${movie.backdrop_path}`}
+          src={
+            movie.backdrop_path
+              ? `https://image.tmdb.org/t/p/w300/${movie.backdrop_path}`
+              : notFoundImage
+          }
         />
       )}
 
@@ -107,7 +112,7 @@ function SingleMoviePage() {
         </button>
       </div>
       <Link to={`/movies/${movieId}/reservation`}>
-        <Button size="lg"> Get Reservation</Button>
+        <Button size="lg">Get Reservation</Button>
       </Link>
     </div>
   );

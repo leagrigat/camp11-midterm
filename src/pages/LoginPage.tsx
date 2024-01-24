@@ -15,12 +15,7 @@ function LoginPage() {
   // changed to const convention like in RegistrationForm so function submitHandler could be deleted
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(inputVal); // do we need to keep the console.log?
   };
-  /*   function submitHandler(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    console.log(inputVal); // do we need to keep the console.log?
-  } */
 
   return (
     <div className="flex flex-col h-full">
