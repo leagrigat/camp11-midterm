@@ -5,7 +5,6 @@ import LoadingSpinner from '../components/LoadingSpinner';
 
 function BookmarkedMoviesPage() {
   const { movies, isLoading } = useGetMoviesById();
-  console.log(movies);
   function getMovieImage(movie: Movie) {
     return (
       <MovieImage

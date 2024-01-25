@@ -152,7 +152,6 @@ export async function getMoviesByID() {
       );
 
       const data = await response.json();
-      console.log(data); // handle the response data
       return data.message;
     } catch (error) {
       console.error('Error:', error);
