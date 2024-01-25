@@ -4,6 +4,7 @@ import Modal from './Modal';
 import Header from '../../components/Header';
 import { Transition } from '@headlessui/react';
 import { TicketInfo } from '../../pages/ReservationPage';
+import { cn } from '../../utils/cn';
 
 //onNextClick to render new UI
 type SelectTimePageProps = {
@@ -70,9 +71,9 @@ function SelectSeatsPage({
 
           return (
             <button
-              className={`w-[28px] h-[28px] text-white-dimmed rounded text-xs ${
+              className={cn('w-[28px] h-[28px] text-white-dimmed rounded text-xs',
                 seat.isSelected ? 'bg-[#FFB43A]' : 'bg-dark-light'
-              }`}
+              )}
               key={idx}
               onClick={() => {
                 handleClick(idx);

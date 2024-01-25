@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 
 import { Movie } from '../api/movies';
 import { useNavigate } from 'react-router-dom';
+import { cn } from '../utils/cn';
 
 function Homepage() {
   const { movies, isLoading, isError, error } = useGetMovies();
@@ -68,22 +69,21 @@ function Homepage() {
                     filteredMovies?.map(movie => (
                       <Combobox.Option
                         key={movie.id}
-                        className={({ active }) =>
-                          `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                        className={({ active }) => (cn(
+                          'relative cursor-default select-none py-2 pl-10 pr-4',
                             active
                               ? 'bg-[#FFB43A] text-black'
                               : 'text-white opacity-60'
-                          }`
-                        }
+                    ))}
                         value={movie.id}
                       >
                         {({ selected }) => (
                           <>
                             {
                               <span
-                                className={`block truncate ${
+                                className={cn('block truncate',
                                   selected ? 'font-extrabold' : 'font-medium'
-                                }`}
+                                )}
                               >
                                 {movie.title}
                               </span>

@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from './Button';
-import { Seat } from '../pages/ReservationPage';
+import { Seat } from '../components/reservation/SelectSeatsPage';
 
 export type ModalType = {
   selectedSeats: Seat[];
@@ -8,16 +8,16 @@ export type ModalType = {
 
 function Modal({ selectedSeats }: ModalType) {
   //   console.log(selectedSeats);
-  const aRowSeats = selectedSeats.filter(seat => seat.name[0] === 'A');
-  const bRowSeats = selectedSeats.filter(seat => seat.name[0] === 'B');
+  const aRowSeats = selectedSeats.filter(seat => seat.name && seat.name[0] === 'A');
+  const bRowSeats = selectedSeats.filter(seat => seat.name && seat.name[0] === 'B');
   const frontSeats = aRowSeats.concat(bRowSeats);
 
-  const cRowSeats = selectedSeats.filter(seat => seat.name[0] === 'C');
-  const dRowSeats = selectedSeats.filter(seat => seat.name[0] === 'D');
+  const cRowSeats = selectedSeats.filter(seat => seat.name && seat.name[0] === 'C');
+  const dRowSeats = selectedSeats.filter(seat => seat.name && seat.name[0] === 'D');
   const middleSeats = cRowSeats.concat(dRowSeats);
 
-  const eRowSeats = selectedSeats.filter(seat => seat.name[0] === 'E');
-  const fRowSeats = selectedSeats.filter(seat => seat.name[0] === 'F');
+  const eRowSeats = selectedSeats.filter(seat => seat.name && seat.name[0] === 'E');
+  const fRowSeats = selectedSeats.filter(seat => seat.name && seat.name[0] === 'F');
   const backSeats = eRowSeats.concat(fRowSeats);
 
   //   const middleSeats = 'all other seats which are not a or f row 3';
