@@ -135,3 +135,44 @@ export async function getMovies(pageParam = 0, genres: string) {
 
   return data;
 }
+
+export async function getMoviesByID() {
+  const PORT = 8000;
+
+  const fetchFavData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:${PORT}/bookmarked-movies/`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log(data); // handle the response data
+      return data.message;
+    } catch (error) {
+      console.error('Error:', error);
+      return [];
+    }
+  };
+
+  const movies = [];
+
+  for (let movieId of await fetchFavData()) {
+    const { data } = await axios.get<SingleMovie>(
+      `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=credits&language=en-US`,
+      {
+        headers: {
+          accept: 'application/json',
+          Authorization: `Bearer ${import.meta.env.VITE_APP_MOVIES_SECRET}`,
+        },
+      }
+    );
+    movies.push(data);
+  }
+  return movies;
+}

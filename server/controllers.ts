@@ -1,6 +1,5 @@
 import { Response, Request } from 'express';
 import bcrypt from 'bcrypt';
-import { create } from 'domain';
 
 type Register = {
   id: number;
@@ -12,6 +11,8 @@ type Register = {
 };
 
 let REGISTER_NEW_USER: Register[] = [];
+
+let favorites: string[] = [];
 
 //Create new User
 export const createUser = (req: Request, res: Response) => {
@@ -74,4 +75,39 @@ export const LogInUser = (req: Request, res: Response) => {
     });
   }
   console.log(existingUser);
+};
+
+export const getFavData = (req: Request, res: Response) => {
+  const movieId = req.params.movieId;
+  if (favorites.includes(movieId)) {
+    res.status(200).json({
+      message: true,
+    });
+  } else {
+    res.status(200).json({
+      message: false,
+    });
+  }
+};
+
+export const switchFavData = (req: Request, res: Response) => {
+  const movieId = req.params.movieId;
+  if (favorites.includes(movieId)) {
+    favorites = favorites.filter(el => el !== movieId);
+    res.status(200).json({
+      message: false,
+    });
+  } else {
+    favorites.push(movieId);
+    res.status(201).json({
+      message: true,
+    });
+  }
+};
+
+export const getAllFavData = (req: Request, res: Response) => {
+  res.status(200).json({
+      message: favorites,
+    });
+  
 };
