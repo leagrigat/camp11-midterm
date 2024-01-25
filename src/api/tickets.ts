@@ -3,7 +3,7 @@ import { TicketInfo } from "../pages/ReservationPage";
 
 export async function handleBookTicket(ticketInfo: TicketInfo) {
     try {
-        const response = await axios.post('http://localhost:8080/reservation', ticketInfo, {
+        const response = await axios.post('http://localhost:8000/reservation', ticketInfo, {
             headers: {
                 accept: 'application/json',
             },
