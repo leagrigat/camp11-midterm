@@ -76,6 +76,7 @@ function Modal({
           <Button
             variant="primary"
             size="lg"
+            // implement axios request here
             onClick={() => {
               updateSeatInfo({
                 ...ticketInfo,
