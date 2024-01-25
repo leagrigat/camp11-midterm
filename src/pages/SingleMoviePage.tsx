@@ -7,6 +7,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
 import notFoundImage from '../assets/whiteScreen_404unicornNotFound.png';
+import { cn } from '../utils/cn';
 
 function SingleMoviePage() {
   //SingleMovie data
@@ -147,9 +148,9 @@ function SingleMoviePage() {
       <div className="flex flex-col gap-2 items-start">
         <span className="text-white font-bold text-sm">Synopsis</span>
         <p
-          className={`text-white-dimmed text-sm ${
-            isOpen ? 'none' : 'line-clamp-2'
-          }`}
+          className={cn('text-white-dimmed text-sm',
+          isOpen && 'line-clamp-2'
+        )}
         >
           {movie?.overview}
         </p>
