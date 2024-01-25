@@ -7,9 +7,11 @@ import { LogInUser, createUser } from './controllers';
 interface ReservationData {
   movieId: number,
   title: string,
+  movie: string,
   date: string,
-  seats: string[],
-  totalPrice: number
+  time: string,
+  seat: string[],
+  price: number
 }
 
 //serverport
@@ -26,16 +28,16 @@ app.post('/login', LogInUser);
 
 // route reservation
 app.post('/reservation', (req, res, next) => {
-  const {movieId, title, date, seats, totalPrice}: ReservationData = req.body;
+  const {movieId, title, date, time, seat, price}: ReservationData = req.body;
 
-  console.log("Movie ID", movieId);
-  console.log("Title", title);
-  console.log("Date", date);
-  console.log("Seats", seats);
-  console.log("Total Price", totalPrice);
+  console.log("Movie ID:", movieId);
+  console.log("Title:", title);
+  console.log("Date:", date);
+  console.log("Time:", time);
+  console.log("Seats:", seat);
+  console.log("Total Price:", price);
 
   res.status(201).json({message: "Reservation successful"});
-
 });
 
 //start server
