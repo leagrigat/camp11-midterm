@@ -1,18 +1,13 @@
 import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
-import { LogInUser, createUser } from './controllers';
-//import { LogIn, Register } from './controllers';
+import { LogInUser, createUser, createTicket } from './controllers';
+import { PrismaClient } from '@prisma/client';
 
-interface ReservationData {
-  movieId: number,
-  title: string,
-  movie: string,
-  date: string,
-  time: string,
-  seat: string[],
-  price: number
-}
+const prisma = new PrismaClient();
+
+
+//import { LogIn, Register } from './controllers';
 
 //serverport
 const PORT = process.env.PORT;
@@ -25,20 +20,7 @@ app.use(cors());
 //post request
 app.post('/register', createUser);
 app.post('/login', LogInUser);
-
-// route reservation
-app.post('/reservation', (req, res, next) => {
-  const {movieId, title, date, time, seat, price}: ReservationData = req.body;
-
-  console.log("Movie ID:", movieId);
-  console.log("Title:", title);
-  console.log("Date:", date);
-  console.log("Time:", time);
-  console.log("Seats:", seat);
-  console.log("Total Price:", price);
-
-  res.status(201).json({message: "Reservation successful"});
-});
+app.post('/reservation', createTicket);
 
 //start server
 app.listen(PORT, () => {
