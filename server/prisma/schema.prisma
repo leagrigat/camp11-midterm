@@ -22,6 +22,6 @@ model Ticket {
   movieId Int
   Title   String
   Date    DateTime
-  Seat    String
+  Seat    String[]
   Price   Decimal
 }
