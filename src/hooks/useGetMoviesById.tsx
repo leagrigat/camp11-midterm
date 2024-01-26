@@ -6,5 +6,6 @@ export function useGetMoviesById() {
     queryKey: ['favmovies'],
     queryFn: async () => await getMoviesByID(),
   });
+  console.log({ movies, ...rest });
   return { movies, ...rest };
 }

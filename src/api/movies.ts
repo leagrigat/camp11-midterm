@@ -152,6 +152,7 @@ export async function getMoviesByID() {
       );
 
       const data = await response.json();
+      console.log(data.message);
       return data.message;
     } catch (error) {
       console.error('Error:', error);
@@ -161,9 +162,10 @@ export async function getMoviesByID() {
 
   const movies = [];
 
-  for (let movieId of await fetchFavData()) {
+  for (let movie of await fetchFavData()) {
+    console.log(movie);
     const { data } = await axios.get<SingleMovie>(
-      `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=credits&language=en-US`,
+      `https://api.themoviedb.org/3/movie/${movie.movieId}?append_to_response=credits&language=en-US`,
       {
         headers: {
           accept: 'application/json',

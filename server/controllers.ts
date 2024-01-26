@@ -4,8 +4,6 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-let favorites: string[] = [];
-
 //Create new User
 export const createUser = async (req: Request, res: Response) => {
   try {
@@ -81,37 +79,63 @@ export const LogInUser = async (req: Request, res: Response) => {
   console.log(existingUser);
 };
 
-export const getFavData = (req: Request, res: Response) => {
+export const switchFavData = async (req: Request, res: Response) => {
   const movieId = req.params.movieId;
-  if (favorites.includes(movieId)) {
+  const favMovies = await prisma.favorite.findMany({
+    select: { movieId: true },
+  });
+  const favMovie = await prisma.favorite.findUnique({
+    where: {
+      movieId: movieId,
+    },
+  });
+
+  if (!favMovie) {
+    const newFav = await prisma.favorite.create({
+      data: {
+        movieId: movieId,
+      },
+    });
     res.status(200).json({
       message: true,
+      fav: newFav,
     });
   } else {
+    await prisma.favorite.delete({
+      where: {
+        movieId: movieId,
+      },
+    });
     res.status(200).json({
       message: false,
+      movies: favMovies,
     });
   }
 };
 
-export const switchFavData = (req: Request, res: Response) => {
+export const getFavData = async (req: Request, res: Response) => {
   const movieId = req.params.movieId;
-  if (favorites.includes(movieId)) {
-    favorites = favorites.filter(el => el !== movieId);
+  const favMovie = await prisma.favorite.findUnique({
+    where: {
+      movieId: movieId,
+    },
+  });
+  if (!favMovie) {
     res.status(200).json({
       message: false,
     });
   } else {
-    favorites.push(movieId);
     res.status(201).json({
       message: true,
     });
   }
 };
 
-export const getAllFavData = (req: Request, res: Response) => {
+export const getAllFavData = async (req: Request, res: Response) => {
+  const favMovies = await prisma.favorite.findMany();
+  console.log('favMovies: ', favMovies);
   res.status(200).json({
-      message: favorites,
-    });
-  
+    message: favMovies,
+    movies: favMovies,
+  });
 };
