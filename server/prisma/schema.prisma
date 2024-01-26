@@ -18,11 +18,10 @@ model User {
 }
 
 model Ticket {
-  id      Int    @id @default(autoincrement())
+  id      Int      @id @default(autoincrement())
   movieId Int
   Title   String
-  Date    String
-  Time    String
+  Date    DateTime
   Seat    String
-  Price   Int
+  Price   Decimal
 }
