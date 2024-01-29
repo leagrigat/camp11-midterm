@@ -48,7 +48,7 @@ function SingleMoviePage() {
       );
 
       const data = await response.json();
-      console.log(data); // handle the response data
+      // console.log(data);
       setFavorite(data.message);
       return data.message;
     } catch (error) {
@@ -69,7 +69,7 @@ function SingleMoviePage() {
       );
 
       const data = await response.json();
-      console.log(data); // handle the response data
+//      console.log(data);
       setFavorite(data.message);
     } catch (error) {
       console.error('Error:', error);

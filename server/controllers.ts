@@ -49,93 +49,122 @@ export const createUser = async (req: Request, res: Response) => {
 
 //LogIn User
 export const LogInUser = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const existingUser = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
-
-  //check if user exists, if yes move on to password
-  if (!existingUser) {
-    return res.status(401).json({
-      message: 'Login failed. Invalid credentials.',
-    });
-  }
-
-  //check if password and user email match for login
-  const passwordMatches = bcrypt.compareSync(password, existingUser.password);
-
-  if (passwordMatches) {
-    res.status(200).json({
-      message: 'User is logged in.',
-    });
-  } else {
-    res.status(401).json({
-      message: 'Login failed. Invalid credentials.',
-    });
-  }
-  console.log(existingUser);
-};
-
-export const switchFavData = async (req: Request, res: Response) => {
-  const movieId = req.params.movieId;
-  const favMovies = await prisma.favorite.findMany({
-    select: { movieId: true },
-  });
-  const favMovie = await prisma.favorite.findUnique({
-    where: {
-      movieId: movieId,
-    },
-  });
-
-  if (!favMovie) {
-    const newFav = await prisma.favorite.create({
-      data: {
-        movieId: movieId,
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email,
       },
     });
-    res.status(200).json({
-      message: true,
-      fav: newFav,
+
+    //check if user exists, if yes move on to password
+    if (!existingUser) {
+      return res.status(401).json({
+        message: 'Login failed. Invalid credentials.',
+      });
+    }
+
+    //check if password and user email match for login
+    const passwordMatches = bcrypt.compareSync(password, existingUser.password);
+
+    if (passwordMatches) {
+      res.status(200).json({
+        message: 'User is logged in.',
+      });
+    } else {
+      res.status(401).json({
+        message: 'Login failed. Invalid credentials.',
+      });
+    }
+    console.log(existingUser);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'unknown error',
     });
-  } else {
-    await prisma.favorite.delete({
+  }
+};
+
+// if movie ID is found in database, delete it and return false, if it is not found, create it and return true
+
+export const switchFavData = async (req: Request, res: Response) => {
+  try {
+    const movieId = req.params.movieId;
+    const favMovie = await prisma.favorite.findUnique({
       where: {
         movieId: movieId,
       },
     });
-    res.status(200).json({
-      message: false,
-      movies: favMovies,
+
+    if (!favMovie) {
+      const newFav = await prisma.favorite.create({
+        data: {
+          movieId: movieId,
+        },
+      });
+      res.status(200).json({
+        message: true,
+      });
+    } else {
+      await prisma.favorite.delete({
+        where: {
+          movieId: movieId,
+        },
+      });
+      res.status(200).json({
+        message: false,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'unknown error',
     });
   }
 };
+
+// if movie ID is found in database return true, if it is not found return false
 
 export const getFavData = async (req: Request, res: Response) => {
-  const movieId = req.params.movieId;
-  const favMovie = await prisma.favorite.findUnique({
-    where: {
-      movieId: movieId,
-    },
-  });
-  if (!favMovie) {
-    res.status(200).json({
-      message: false,
+  try {
+    const movieId = req.params.movieId;
+    const favMovie = await prisma.favorite.findUnique({
+      where: {
+        movieId: movieId,
+      },
     });
-  } else {
-    res.status(201).json({
-      message: true,
+    if (!favMovie) {
+      res.status(200).json({
+        message: false,
+      });
+    } else {
+      res.status(201).json({
+        message: true,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'unknown error',
     });
   }
 };
 
+// return a list of all favorited movie IDs
+
 export const getAllFavData = async (req: Request, res: Response) => {
-  const favMovies = await prisma.favorite.findMany();
-  console.log('favMovies: ', favMovies);
-  res.status(200).json({
-    message: favMovies,
-    movies: favMovies,
-  });
+  try {
+    const favMovies = await prisma.favorite.findMany();
+    console.log('favMovies: ', favMovies);
+    res.status(200).json({
+      message: favMovies,
+      movies: favMovies,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: 'unknown error',
+    });
+  }
 };
