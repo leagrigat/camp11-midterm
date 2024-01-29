@@ -26,6 +26,7 @@ export const createUser = async (req: Request, res: Response) => {
       });
     }
 
+    //create new user
     const newUser = await prisma.user.create({
       data: {
         firstName,
@@ -35,6 +36,7 @@ export const createUser = async (req: Request, res: Response) => {
       },
     });
 
+    //return userID
     res.status(201).json({
       message: 'User has been registered.',
       user: newUser,
