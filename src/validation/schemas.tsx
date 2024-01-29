@@ -23,7 +23,6 @@ const nameSchema = z
     'Name may not contain special characters!'
   );
 
-//
 // const looseOptional = <T extends z.ZodTypeAny>(schema: T) =>
 //   z.preprocess(
 //     (value: unknown) =>
