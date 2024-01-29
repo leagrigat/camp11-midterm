@@ -25,3 +25,8 @@ model Ticket {
   seat    String[]
   price   Decimal
 }
+
+model Favorite {
+  id      String @id @default(uuid())
+  movieId String @unique
+}

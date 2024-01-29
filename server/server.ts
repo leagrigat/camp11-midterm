@@ -1,12 +1,14 @@
 import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
-import { LogInUser, createUser, createTicket } from './controllers';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
-
+import {
+  getAllFavData,
+  switchFavData,
+  getFavData,
+  LogInUser,
+  createUser,
+  createTicket
+} from './controllers';
 //import { LogIn, Register } from './controllers';
 
 //serverport
@@ -26,3 +28,9 @@ app.post('/reservation', createTicket);
 app.listen(PORT, () => {
   console.log(`server is running ${PORT}`);
 });
+
+//bookmarked movies logic
+app.get('/movies/:movieId', getFavData);
+app.post('/movies/:movieId', switchFavData);
+app.delete('/movies/:movieId', switchFavData);
+app.get('/bookmarked-movies', getAllFavData);
