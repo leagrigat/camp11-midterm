@@ -175,7 +175,7 @@ export const createTicket = async (req: Request, res: Response) => {
   let { movieId, title, date, time, seat, price } = req.body;
 
   // convert movieId to a number
-  movieId = +movieId
+  // movieId = +movieId
 
   // create new ticket in database
   const newTicket = await prisma.ticket.create({
@@ -188,7 +188,7 @@ export const createTicket = async (req: Request, res: Response) => {
     }
   });
 
-  // part of the task to console.log those - can eventually be deleted
+  // it was part of the task to console.log those - can eventually be deleted
   console.log("Movie ID:", movieId);
   console.log("Title:", title);
   console.log("Date:", date);
@@ -204,7 +204,17 @@ export const createTicket = async (req: Request, res: Response) => {
 }};
 
 // Get reservations of movie
-
 export const getReservation = async (req: Request, res: Response) => {
-  
+  try {
+    const movieId = req.params.movieId;
+    const reservations = await prisma.ticket.findMany({
+      where: {
+        movieId: movieId
+      }
+    });
+    res.status(201).json({reservations});
+  } catch (err) {
+    console.log("Error fetching reservations:", err);
+    res.status(500).json({message: "Error fetching reservations"})
+  }
 }

@@ -7,3 +7,42 @@ GET  http://localhost:8000/login HTTP/1.1
 POST http://localhost:8000/reservation HTTP/1.1
 Content-Type: application/json
 
+// created to create several reservations for one movie
+###
+POST http://localhost:8000/reservation HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "1",
+    "movieId": "940551",
+    "title": "Migration", 
+    "date": "2024-01-29T13:24:40.385Z",
+    "seat" : ["A1", "D4"],
+    "price": 10
+}
+
+###
+POST http://localhost:8000/reservation HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "2",
+    "movieId": "940551",
+    "title": "Migration", 
+    "date": "2024-01-29T13:24:40.385Z",
+    "seat" : ["B2", "B3"],
+    "price": 10
+}
+
+###
+POST http://localhost:8000/reservation HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": "3",
+    "movieId": "940551",
+    "title": "Migration", 
+    "date": "2024-01-29T13:24:40.385Z",
+    "seat" : ["D6", "F6"],
+    "price": 10
+}

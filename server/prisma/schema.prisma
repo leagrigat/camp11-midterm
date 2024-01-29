@@ -19,7 +19,7 @@ model User {
 
 model Ticket {
   id      Int      @id @default(autoincrement())
-  movieId Int
+  movieId String
   title   String
   date    DateTime
   seat    String[]
