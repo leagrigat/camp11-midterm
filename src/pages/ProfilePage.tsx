@@ -6,36 +6,30 @@ import { Props } from '../components/HomePageHeader';
 import { FormData } from '../components/ProfileForm';
 import { BsMailbox } from 'react-icons/bs';
 
-interface UserData {
-  firstName: string;
-  lastName: string;
-  email: string;
-}
-
 function ProfilePage({ name, avatarImg }: Props) {
-  const [user, setUser] = useState<UserData | null>(null);
+  const [user, setUser] = useState<FormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+  });
+  console.log(user);
 
   useEffect(() => {
-    // Replace 'userId' with the actual user ID you want to retrieve
-    const userId = 1;
+    const userId = '8985e017-6bf1-461d-ad6d-b2986d55e13c';
 
     axios
-      .get(`/api/user/${userId}`)
+      .get(`http://localhost:8000/user/${userId}`)
       .then(response => {
-        const userData = response.data as UserData;
-        setUser(userData);
+        const user = response.data as FormData;
+        console.log(user);
+        setUser(user);
       })
       .catch(error => {
         console.error('Error fetching user:', error);
       });
   }, []);
 
-  const initialProfileData = {
-    // This is DummyData, will be overridden if user data is available
-    firstName: 'Fluffy',
-    lastName: 'Unicorn',
-    email: 'fairyworld@bicycleDay.net',
-  };
+  // put initialProfileData in useState-Hook to display it if there is no other userData is
 
   const handleProfileSubmit = (formData: FormData) => {
     console.log(formData);
@@ -47,7 +41,7 @@ function ProfilePage({ name, avatarImg }: Props) {
       <div className="h-full flex flex-col justify-between gap-5">
         <Header header="Profile"></Header>
         <div className="flex justify-center">
-          {user ? (
+          {user !== null ? (
             <img
               alt={name}
               src={`https://source.unsplash.com/random/?person`} // <-- Adjust as needed, should be replaced by that-> {avatarImg}
@@ -58,7 +52,8 @@ function ProfilePage({ name, avatarImg }: Props) {
           )}
         </div>
         <ProfileForm
-          initialData={user || initialProfileData}
+          initialData={user}
+          onChange={setUser}
           onSubmit={handleProfileSubmit}
         />
       </div>
