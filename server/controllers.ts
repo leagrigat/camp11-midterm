@@ -81,8 +81,8 @@ export const LogInUser = async (req: Request, res: Response) => {
 
 // Create new Ticket
 export const createTicket = async (req: Request, res: Response) => {
-  try{
-  let {movieId, title, date, time, seat, price} = req.body;
+  try {
+  let { movieId, title, date, time, seat, price } = req.body;
 
   // convert movieId to a number
   movieId = +movieId
@@ -98,6 +98,7 @@ export const createTicket = async (req: Request, res: Response) => {
     }
   });
 
+  // part of the task to console.log those - can eventually be deleted
   console.log("Movie ID:", movieId);
   console.log("Title:", title);
   console.log("Date:", date);
