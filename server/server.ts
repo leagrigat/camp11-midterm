@@ -1,8 +1,8 @@
 import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
-import { LogInUser, createUser } from './controllers';
-//import { LogIn, Register } from './controllers';
+import { LogInUser, createUser } from './controllers/user.controller';
+import { getGenres } from './controllers/genre.controller';
 
 //serverport
 const PORT = process.env.PORT;
@@ -15,6 +15,9 @@ app.use(cors());
 //post request
 app.post('/register', createUser);
 app.post('/login', LogInUser);
+
+//get request
+app.get('/genres', getGenres);
 
 //start server
 app.listen(PORT, () => {

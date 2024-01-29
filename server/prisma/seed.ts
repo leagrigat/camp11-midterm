@@ -1,100 +1,130 @@
-// No real functionality, just a stub for testing!
+import { PrismaClient } from '@prisma/client';
+import { NextFunction } from 'express';
+
+const prisma = new PrismaClient();
 
 export const genresLibrary = [
   {
     genre: 'Action',
     emoji: '🧨',
-    id: 28,
+    genreId: 28,
     isSelected: false,
   },
   {
     genre: 'Adventure',
     emoji: '💎',
-    id: 12,
+    genreId: 12,
     isSelected: false,
   },
   {
     genre: 'Animation',
     emoji: '🦁',
-    id: 16,
+    genreId: 16,
     isSelected: false,
   },
   {
     genre: 'Comedy',
     emoji: '🤣',
-    id: 35,
+    genreId: 35,
     isSelected: false,
   },
   {
     genre: 'Crime',
     emoji: '🚔',
-    id: 80,
+    genreId: 80,
     isSelected: false,
   },
   {
     genre: 'Documentary',
     emoji: '🎥',
-    id: 99,
+    genreId: 99,
     isSelected: false,
   },
   {
     genre: 'Drama',
     emoji: '🎭',
-    id: 18,
+    genreId: 18,
     isSelected: false,
   },
   {
     genre: 'Family',
     emoji: '👨‍👩‍👧',
-    id: 10751,
+    genreId: 10751,
     isSelected: false,
   },
   {
     genre: 'Fantasy',
     emoji: '🦄',
-    id: 14,
+    genreId: 14,
     isSelected: false,
   },
   {
     genre: 'History',
     emoji: '⏳',
-    id: 36,
+    genreId: 36,
     isSelected: false,
   },
   {
     genre: 'Horror',
     emoji: '🔪',
-    id: 27,
+    genreId: 27,
     isSelected: false,
   },
   {
     genre: 'Music',
     emoji: '🎧',
-    id: 10402,
+    genreId: 10402,
     isSelected: false,
   },
   {
     genre: 'Mystery',
     emoji: '🔎',
-    id: 9648,
+    genreId: 9648,
     isSelected: false,
   },
   {
     genre: 'Romance',
     emoji: '😍',
-    id: 10749,
+    genreId: 10749,
     isSelected: false,
   },
   {
     genre: 'Science Fiction',
     emoji: '👽',
-    id: 878,
+    genreId: 878,
     isSelected: false,
   },
   {
     genre: 'Thriller',
     emoji: '😱',
-    id: 53,
+    genreId: 53,
     isSelected: false,
   },
 ];
+
+async function seedGenres() {
+  try {
+    const mappedGenres = genresLibrary.map(async genreData => {
+      const { genreId, ...rest } = genreData;
+
+      return await prisma.genres.upsert({
+        where: { genreId },
+        update: rest,
+        create: { genreId, ...rest },
+      });
+    });
+    return mappedGenres;
+  } catch (err) {
+    return err;
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+seedGenres()
+  .then(res => {
+    console.log('Genres seeded successfully');
+  })
+  .catch(err => {
+    console.log(err);
+  });

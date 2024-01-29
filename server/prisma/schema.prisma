@@ -16,3 +16,11 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Genres {
+  genre      String
+  emoji      String
+  id         Int     @id @default(autoincrement())
+  isSelected Boolean
+  genreId    Int     @unique
+}
