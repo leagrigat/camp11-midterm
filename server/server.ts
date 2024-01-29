@@ -1,14 +1,15 @@
 import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
+import { getGenres } from './controllers/genre.controller';
 import {
   getAllFavData,
   switchFavData,
   getFavData,
   LogInUser,
   createUser,
-  createTicket
-} from './controllers';
+  createTicket,
+} from '../server/controllers/user.controller';
 //import { LogIn, Register } from './controllers';
 
 //serverport
@@ -23,6 +24,9 @@ app.use(cors());
 app.post('/register', createUser);
 app.post('/login', LogInUser);
 app.post('/reservation', createTicket);
+
+//get request
+app.get('/genres', getGenres);
 
 //start server
 app.listen(PORT, () => {
