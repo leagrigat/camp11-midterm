@@ -7,6 +7,7 @@ import {
   getFavData,
   LogInUser,
   createUser,
+  createTicket
 } from './controllers';
 //import { LogIn, Register } from './controllers';
 
@@ -21,6 +22,7 @@ app.use(cors());
 //post request
 app.post('/register', createUser);
 app.post('/login', LogInUser);
+app.post('/reservation', createTicket);
 
 //start server
 app.listen(PORT, () => {

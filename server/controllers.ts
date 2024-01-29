@@ -168,3 +168,37 @@ export const getAllFavData = async (req: Request, res: Response) => {
     });
   }
 };
+
+// Create new Ticket
+export const createTicket = async (req: Request, res: Response) => {
+  try {
+  let { movieId, title, date, time, seat, price } = req.body;
+
+  // convert movieId to a number
+  movieId = +movieId
+
+  // create new ticket in database
+  const newTicket = await prisma.ticket.create({
+    data: {
+      movieId,
+      title,
+      date: new Date,
+      seat,
+      price
+    }
+  });
+
+  // part of the task to console.log those - can eventually be deleted
+  console.log("Movie ID:", movieId);
+  console.log("Title:", title);
+  console.log("Date:", date);
+  console.log("Time:", time);
+  console.log("Seats:", seat);
+  console.log("Total Price:", price);
+
+  console.log("New ticket created:", newTicket)
+  res.status(201).json({message: "Reservation successful", ticket: newTicket});
+} catch (err) {
+  console.log("Error creating reservation:", err);
+  res.status(500).json({message: "Error creating reservation"})
+}};

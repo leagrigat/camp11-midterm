@@ -148,9 +148,7 @@ function SingleMoviePage() {
       <div className="flex flex-col gap-2 items-start">
         <span className="text-white font-bold text-sm">Synopsis</span>
         <p
-          className={cn('text-white-dimmed text-sm',
-          isOpen && 'line-clamp-2'
-        )}
+          className={cn('text-white-dimmed text-sm', isOpen && 'line-clamp-2')}
         >
           {movie?.overview}
         </p>

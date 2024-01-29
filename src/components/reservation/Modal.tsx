@@ -1,6 +1,7 @@
 import Button from '../Button';
 import { Seat } from '../../components/reservation/SelectSeatsPage';
 import { TicketInfo } from '../../pages/ReservationPage';
+import { handleBookTicket } from '../../api/tickets';
 
 export type ModalType = {
   selectedSeats: Seat[];
@@ -76,8 +77,14 @@ function Modal({
           <Button
             variant="primary"
             size="lg"
-            onClick={() => {
+            // implement axios request here
+            onClick={async () => {
               updateSeatInfo({
+                ...ticketInfo,
+                price: totalPrice,
+                seat: selectedSeats.map(seat => String(seat.name)),
+              });
+              await handleBookTicket({
                 ...ticketInfo,
                 price: totalPrice,
                 seat: selectedSeats.map(seat => String(seat.name)),

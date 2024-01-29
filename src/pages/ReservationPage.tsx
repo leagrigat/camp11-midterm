@@ -18,6 +18,7 @@ export type TicketInfo = {
   seat: string[];
   time: string;
   movie: SingleMovie | undefined;
+  title: string;
 };
 
 function ReservationPage() {
@@ -38,6 +39,7 @@ function ReservationPage() {
     seat: [''],
     time: '',
     movie,
+    title: movie?.title || '',
   });
 
   return (
