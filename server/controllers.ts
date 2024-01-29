@@ -198,7 +198,13 @@ export const createTicket = async (req: Request, res: Response) => {
 
   console.log("New ticket created:", newTicket)
   res.status(201).json({message: "Reservation successful", ticket: newTicket});
-} catch (err) {
+  } catch (err) {
   console.log("Error creating reservation:", err);
   res.status(500).json({message: "Error creating reservation"})
 }};
+
+// Get reservations of movie
+
+export const getReservation = async (req: Request, res: Response) => {
+  
+}

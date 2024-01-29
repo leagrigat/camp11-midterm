@@ -7,7 +7,8 @@ import {
   getFavData,
   LogInUser,
   createUser,
-  createTicket
+  createTicket,
+  getReservation
 } from './controllers';
 //import { LogIn, Register } from './controllers';
 
@@ -22,12 +23,16 @@ app.use(cors());
 //post request
 app.post('/register', createUser);
 app.post('/login', LogInUser);
-app.post('/reservation', createTicket);
+
 
 //start server
 app.listen(PORT, () => {
   console.log(`server is running ${PORT}`);
 });
+
+// reservation logic
+app.post('/reservation', createTicket);
+app.get('/movies/:movieId', getReservation)
 
 //bookmarked movies logic
 app.get('/movies/:movieId', getFavData);
