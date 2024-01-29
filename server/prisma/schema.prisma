@@ -17,7 +17,24 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model Genres {
+  genre      String
+  emoji      String
+  id         Int     @id @default(autoincrement())
+  isSelected Boolean
+  genreId    Int     @unique
+}
+
+model Ticket {
+  id      Int      @id @default(autoincrement())
+  movieId Int
+  title   String
+  date    DateTime
+  seat    String[]
+  price   Decimal
+}
+
 model Favorite {
-  id        String   @id @default(uuid())
-  movieId   String   @unique
+  id      String @id @default(uuid())
+  movieId String @unique
 }
