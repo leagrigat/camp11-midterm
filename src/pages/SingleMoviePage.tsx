@@ -4,7 +4,7 @@ import { findCrewByRole } from '../utils/findCrewByRole';
 import Button from '../components/Button';
 import Score from '../components/Score';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
 import notFoundImage from '../assets/whiteScreen_404unicornNotFound.png';
 import { cn } from '../utils/cn';
@@ -13,6 +13,7 @@ function SingleMoviePage() {
   //SingleMovie data
   const { movieId } = useParams();
   const { movie } = useGetSingleMovie();
+  const PORT = '8000';
 
   // crew data
   const membersData = movie ? movie.credits.crew : [];
@@ -30,9 +31,54 @@ function SingleMoviePage() {
     setIsOpen(!isOpen);
   };
 
-  //toggle favorite
-  const [favorite, setFavorite] = useState(true);
-  const toggleFavorite = () => setFavorite(status => !status);
+  // const clickHandler = () => {}
+
+  const [favorite, setFavorite] = useState(false);
+
+  const fetchFavData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:${PORT}/movies/${movieId}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const data = await response.json();
+      // console.log(data);
+      setFavorite(data.message);
+      return data.message;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const switchFavData = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:${PORT}/movies/${movieId}`,
+        {
+          method: favorite ? 'DELETE' : 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const data = await response.json();
+      // console.log(data);
+      setFavorite(data.message);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFavData();
+  }, []);
 
   return (
     <div className="flex flex-col gap-6">
@@ -40,12 +86,12 @@ function SingleMoviePage() {
         <Header
           header="Movie Detail"
           icon={
-            <div onClick={toggleFavorite}>
-              {cn(favorite ? (
-                <FaRegHeart className="text-error" />
-              ) : (
+            <div onClick={switchFavData}>
+              {favorite ? (
                 <FaHeart className="text-error" />
-              ))}
+              ) : (
+                <FaRegHeart className="text-error" />
+              )}
             </div>
           }
         />
@@ -102,9 +148,7 @@ function SingleMoviePage() {
       <div className="flex flex-col gap-2 items-start">
         <span className="text-white font-bold text-sm">Synopsis</span>
         <p
-          className={cn('text-white-dimmed text-sm',
-            isOpen && 'line-clamp-2'
-          )}
+          className={cn('text-white-dimmed text-sm', isOpen && 'line-clamp-2')}
         >
           {movie?.overview}
         </p>

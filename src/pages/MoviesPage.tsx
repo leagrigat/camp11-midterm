@@ -43,6 +43,7 @@ function MoviesPage() {
                 if (index === 9 && hasNextPage) {
                   return (
                     <InView
+                      key={movie.id}
                       onChange={(inView, entry) => {
                         inView ? fetchNextPage() : null;
                       }}
@@ -52,24 +53,11 @@ function MoviesPage() {
                     </InView>
                   );
                 } else {
-                  return <div>{getMovieImage(movie)}</div>;
+                  return <div key={movie.id}>{getMovieImage(movie)}</div>;
                 }
               })
             )}
           </div>
-
-          {/* <div className="flex flex-wrap justify-between sticky bottom-[80px]">
-            <button
-              onClick={() => fetchNextPage()}
-              disabled={!hasNextPage || isFetchingNextPage}
-            >
-              {isFetchingNextPage
-                ? 'Loading more...'
-                : hasNextPage
-                ? 'Load More'
-                : 'Nothing more to load'}
-            </button>
-          </div> */}
         </>
       )}
     </div>

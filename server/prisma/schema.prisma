@@ -24,3 +24,17 @@ model Genres {
   isSelected Boolean
   genreId    Int     @unique
 }
+
+model Ticket {
+  id      Int      @id @default(autoincrement())
+  movieId Int
+  title   String
+  date    DateTime
+  seat    String[]
+  price   Decimal
+}
+
+model Favorite {
+  id      String @id @default(uuid())
+  movieId String @unique
+}
