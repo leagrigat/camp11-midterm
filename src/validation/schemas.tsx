@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const passwordSchema = z
+const passwordSchema = z
   .string()
   .refine(
     value => value.length >= 7,
@@ -15,7 +15,7 @@ export const passwordSchema = z
     'Password must contain at least one special character!'
   );
 
-export const nameSchema = z
+const nameSchema = z
   .string()
   .min(1, 'Please specify a name!')
   .refine(
@@ -23,11 +23,37 @@ export const nameSchema = z
     'Name may not contain special characters!'
   );
 
-export const looseOptional = <T extends z.ZodTypeAny>(schema: T) =>
-  z.preprocess(
-    (value: unknown) =>
-      value === null || (typeof value === 'string' && value === '')
-        ? undefined
-        : value,
-    schema.optional()
-  );
+//
+// const looseOptional = <T extends z.ZodTypeAny>(schema: T) =>
+//   z.preprocess(
+//     (value: unknown) =>
+//       value === null || (typeof value === 'string' && value === '')
+//         ? undefined
+//         : value,
+//     schema.optional()
+//   );
+
+export const LoginSchema = z.object({
+  email: z
+    .string()
+    .min(1, 'Please specify an email!')
+    .email('Please specify a valid email!'),
+  password: passwordSchema,
+});
+
+export const RegisterSchema = LoginSchema.extend({
+  firstName: nameSchema,
+  lastName: nameSchema,
+  passwordRepeat: z.string().min(1, 'Please repeat the password!'),
+}).superRefine((values, ctx) => {
+  if (values.password !== values.passwordRepeat) {
+    ctx.addIssue({
+      message: "Passwords don't match!",
+      code: z.ZodIssueCode.custom,
+      path: ['passwordRepeat'],
+    });
+  }
+});
+
+export type TRegisterSchema = z.infer<typeof RegisterSchema>;
+export type TLoginSchema = z.infer<typeof LoginSchema>;

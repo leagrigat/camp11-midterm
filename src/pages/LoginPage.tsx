@@ -1,64 +1,24 @@
 import Button from '../components/Button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { passwordSchema } from '../validation/schemas';
-import InputControlled from '../components/InputControlled';
-
-const loginSchema = z.object({
-  email: z
-    .string()
-    .min(1, 'Please specify an email!')
-    .email('Please specify a valid email!'),
-  password: passwordSchema,
-});
-
-type FormFields = z.infer<typeof loginSchema>;
+import { TLoginSchema, LoginSchema } from '../validation/schemas';
+import Input from '../components/Input';
 
 function LoginPage() {
-  const { control, handleSubmit } = useForm<FormFields>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TLoginSchema>({
     mode: 'onTouched',
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: '',
       password: '',
     },
   });
 
-  const handleDefault = (
-    value: string,
-    onChange: (...event: string[]) => void
-  ) => {
-    onChange(value);
-  };
-
-  type InputField = {
-    name: 'email' | 'password' ;
-    placeholder: string;
-    type: string;
-    autocomplete: string;
-    ocTrigger: (value: string, onChange: (...event: string[]) => void) => void;
-    obTrigger: (value: string, onChange: (...event: string[]) => void) => void;
-  };
-
-  const inputFields: InputField[] = [
-    {
-      name: 'email',
-      placeholder: 'Your Email',
-      type: 'email',
-      autocomplete: 'email',
-      ocTrigger: handleDefault,
-      obTrigger: handleDefault,
-    },
-    {
-      name: 'password',
-      placeholder: 'Your Password',
-      type: 'password',
-      autocomplete: 'current-password',
-      ocTrigger: handleDefault,
-      obTrigger: handleDefault,
-    },
-  ];
+  const onSubmit = (data: TLoginSchema) => console.log(data);
 
   return (
     <div className="px-5 py-8 flex flex-col h-full">
@@ -71,27 +31,28 @@ function LoginPage() {
           your watchlist.
         </p>
       </div>
-
-      <form
-        onSubmit={handleSubmit(e => console.log(e))}
-        className="flex flex-grow flex-col justify-between"
-      >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="text-white-dimmed flex flex-col gap-3">
-        {inputFields.map(inputField => (
-            <InputControlled
-              control={control}
-              name={inputField.name}
-              placeholder={inputField.placeholder}
-              type={inputField.type}
-              autocomplete={inputField.autocomplete}
-              ocTrigger={inputField.ocTrigger}
-              obTrigger={inputField.obTrigger}
-            />
-          ))}
+          <Input
+            id="email"
+            placeholder="Your Email"
+            autoComplete="email"
+            type="email"
+            error={errors.email}
+            {...register('email')}
+          />
+          <Input
+            id="password"
+            placeholder="Your Password"
+            autoComplete="current-password"
+            type="password"
+            error={errors.password}
+            {...register('password')}
+          />
+          <Button type="submit" size={'sm'}>
+            Login
+          </Button>
         </div>
-        <Button type="submit" size={'sm'}>
-          Login
-        </Button>
       </form>
     </div>
   );
