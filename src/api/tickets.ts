@@ -23,12 +23,11 @@ export async function handleBookTicket(ticketInfo: TicketInfo) {
   }
 }
 
-// fetch reservation from server
+// fetch reservations from server
 const PORT = 8000;
 
 export async function getReservations(movieId: string) {
   try {
-    // is the path correct?
     const response = await fetch(
       `http://localhost:${PORT}/reservation/${movieId}`,
       {
@@ -39,7 +38,7 @@ export async function getReservations(movieId: string) {
       }
     );
     const data = await response.json();
-    return data.message;
+    return data.reservations || [];
   } catch (err) {
     console.error('Error:', err);
     return [];

@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 import { Transition } from '@headlessui/react';
 import { TicketInfo } from '../../pages/ReservationPage';
 import { cn } from '../../utils/cn';
+import useGetReservations from '../../hooks/useGetReservations';
 
 //onNextClick to render new UI
 type SelectTimePageProps = {
@@ -43,6 +44,9 @@ function SelectSeatsPage({
   const [seatsInfo, setSeatsInfo] = useState(() => generateSeats());
   const [isShown, setIsShown] = useState(false);
 
+  const response = useGetReservations();
+  console.log(response);
+
   const selectedSeats = seatsInfo.filter(seat => seat.isSelected);
 
   function handleClick(seatId: number) {
@@ -71,7 +75,8 @@ function SelectSeatsPage({
 
           return (
             <button
-              className={cn('w-[28px] h-[28px] text-white-dimmed rounded text-xs',
+              className={cn(
+                'w-[28px] h-[28px] text-white-dimmed rounded text-xs',
                 seat.isSelected ? 'bg-[#FFB43A]' : 'bg-dark-light'
               )}
               key={idx}

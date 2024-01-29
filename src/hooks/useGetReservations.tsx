@@ -5,11 +5,11 @@ import { getReservations } from '../api/tickets';
 function useGetReservations() {
   const { movieId } = useParams();
 
-  const { data: movie, ...rest } = useQuery({
-    queryKey: ['reservation', movieId],
+  const { data: reservations, ...rest } = useQuery({
+    queryKey: ['reservations', movieId],
     queryFn: async () => await getReservations(movieId!),
   });
-  return { movie, ...rest };
+  return { reservations, ...rest };
 }
 
 export default useGetReservations;
