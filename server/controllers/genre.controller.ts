@@ -13,8 +13,6 @@ export const getGenres = async (req: Request, res: Response) => {
       });
     }
 
-    console.log('Genres:', genres);
-
     return res.status(201).json(genres);
   } catch (err) {
     console.log(err);
