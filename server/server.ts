@@ -8,7 +8,7 @@ import {
   LogInUser,
   createUser,
   createTicket,
-  getReservation
+  getReservations
 } from './controllers';
 //import { LogIn, Register } from './controllers';
 
@@ -32,7 +32,8 @@ app.listen(PORT, () => {
 
 // reservation logic
 app.post('/reservation', createTicket);
-app.get('/movies/:movieId', getReservation)
+app.get('/reservation/:movieId', getReservations);
+
 
 //bookmarked movies logic
 app.get('/movies/:movieId', getFavData);

@@ -204,7 +204,7 @@ export const createTicket = async (req: Request, res: Response) => {
 }};
 
 // Get reservations of movie
-export const getReservation = async (req: Request, res: Response) => {
+export const getReservations = async (req: Request, res: Response) => {
   try {
     const movieId = req.params.movieId;
     const reservations = await prisma.ticket.findMany({
