@@ -182,7 +182,8 @@ export const createTicket = async (req: Request, res: Response) => {
     data: {
       movieId,
       title,
-      date: new Date,
+      reservationDate: date,
+      reservationTime: time,
       seat,
       price
     }

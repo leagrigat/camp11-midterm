@@ -18,12 +18,13 @@ model User {
 }
 
 model Ticket {
-  id      Int      @id @default(autoincrement())
-  movieId String
-  title   String
-  date    DateTime
-  seat    String[]
-  price   Decimal
+  id              Int      @id @default(autoincrement())
+  movieId         String
+  title           String
+  reservationDate String
+  reservationTime String
+  seat            String[]
+  price           Decimal
 }
 
 model Favorite {
