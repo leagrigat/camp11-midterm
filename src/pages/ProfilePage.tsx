@@ -15,7 +15,7 @@ function ProfilePage({ name, avatarImg }: Props) {
   console.log(user);
 
   useEffect(() => {
-    const userId = '8985e017-6bf1-461d-ad6d-b2986d55e13c';
+    const userId = '3b4459dd-c3f7-4593-ac13-ecee419f0dac';
 
     axios
       .get(`http://localhost:8000/user/${userId}`)
@@ -28,8 +28,6 @@ function ProfilePage({ name, avatarImg }: Props) {
         console.error('Error fetching user:', error);
       });
   }, []);
-
-  // put initialProfileData in useState-Hook to display it if there is no other userData is
 
   const handleProfileSubmit = (formData: FormData) => {
     console.log(formData);
