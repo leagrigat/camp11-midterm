@@ -69,7 +69,7 @@ function SingleMoviePage() {
       );
 
       const data = await response.json();
-//      console.log(data);
+      // console.log(data);
       setFavorite(data.message);
     } catch (error) {
       console.error('Error:', error);
