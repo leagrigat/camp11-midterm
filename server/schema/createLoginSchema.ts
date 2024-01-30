@@ -25,3 +25,6 @@ export const userSchema = loginSchema.extend({
     .min(2, 'Last Name must be at least 2 characters.')
     .max(15, 'Last Name can be maximum 15 characters.'),
 });
+
+export type UserSchema = z.infer<typeof userSchema>;
+export type LoginSchema = z.infer<typeof loginSchema>;

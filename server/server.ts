@@ -6,12 +6,15 @@ import {
   getAllFavData,
   switchFavData,
   getFavData,
-  LogInUser,
+  logInUser,
   createUser,
   createTicket,
 } from '../server/controllers/user.controller';
+import { z } from 'zod';
 import { validate } from './middleware/user.middleware';
 import { loginSchema, userSchema } from './schema/createLoginSchema';
+import { type UserSchema, LoginSchema } from './schema/createLoginSchema';
+
 //import { LogIn, Register } from './controllers';
 
 //serverport
@@ -24,7 +27,7 @@ app.use(cors());
 
 //post request
 app.post('/register', validate(userSchema), createUser);
-app.post('/login', validate(loginSchema), LogInUser);
+app.post('/login', validate(loginSchema), logInUser);
 app.post('/reservation', createTicket);
 
 //get request
