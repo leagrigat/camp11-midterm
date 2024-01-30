@@ -29,7 +29,7 @@ const PORT = 8000;
 export async function getReservations(movieId: string) {
   try {
     const response = await fetch(
-      `http://localhost:${PORT}/reservation/${movieId}`,
+      `http://localhost:${PORT}/reservation/${movieId}/${showDate}/${showTime}`,
       {
         method: 'GET',
         headers: {

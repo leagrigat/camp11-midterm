@@ -32,7 +32,7 @@ app.listen(PORT, () => {
 
 // reservation logic
 app.post('/reservation', createTicket);
-app.get('/reservation/:movieId', getReservations);
+app.get('/reservation/:movieId/:showDate/:showTime', getReservations);
 
 
 //bookmarked movies logic
