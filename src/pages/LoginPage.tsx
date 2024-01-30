@@ -7,6 +7,8 @@ import { MdOutlineEmail } from 'react-icons/md';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
 import GreetingHeader from '../components/GreetingHeader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function LoginPage() {
   const {
@@ -37,7 +39,17 @@ function LoginPage() {
 
       const res = await response.json();
       console.log(res); // handle the response data
-      navigate('/home');
+      toast.success(
+        <span>
+          Login successful! <br />
+          Welcome to CineScape!
+        </span>,
+        {
+          position: 'bottom-center',
+          onClose: () => navigate('/home'),
+          autoClose: 4000,
+        }
+      );
     } catch (error) {
       console.error('Error:', error);
     }
@@ -45,6 +57,7 @@ function LoginPage() {
 
   return (
     <div className="flex flex-col h-full">
+      <ToastContainer />
       <GreetingHeader
         title="Welcome to Cine-Scape"
         description="You need to log in to be able to make reservations and add movies to your watchlist."

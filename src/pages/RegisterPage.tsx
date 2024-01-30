@@ -6,6 +6,8 @@ import { TRegisterSchema, RegisterSchema } from '../validation/schemas';
 import Input from '../components/Input';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function RegisterPage() {
   const {
@@ -50,14 +52,18 @@ function RegisterPage() {
 
       const res = await response.json();
       console.log(res); // handle the response data
+      navigate('/');
+      toast.success('Success Notification !', {
+        position: 'top-right',
+      });
     } catch (error) {
       console.error('Error:', error);
     }
-    navigate('/');
   };
 
   return (
     <div className="flex flex-col h-full">
+      <ToastContainer />
       <GreetingHeader
         title="Join Cine-Scape Today!"
         description="Register now to enjoy all our services, including making reservations and adding movies to your watchlist."
