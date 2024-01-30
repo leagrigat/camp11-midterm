@@ -12,8 +12,10 @@ import {
 } from '../server/controllers/user.controller';
 import { z } from 'zod';
 import { validate } from './middleware/user.middleware';
-import { loginSchema, userSchema } from './schema/createLoginSchema';
-import { type UserSchema, LoginSchema } from './schema/createLoginSchema';
+import {
+  loginSchema,
+  registerSchema,
+} from './schema/createLoginRegisterSchema';
 
 //import { LogIn, Register } from './controllers';
 
@@ -26,7 +28,7 @@ app.use(express.json());
 app.use(cors());
 
 //post request
-app.post('/register', validate(userSchema), createUser);
+app.post('/register', validate(registerSchema), createUser);
 app.post('/login', validate(loginSchema), logInUser);
 app.post('/reservation', createTicket);
 
