@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import ProfileForm from '../components/ProfileForm';
 import { Props } from '../components/HomePageHeader';
 import { FormData } from '../components/ProfileForm';
-import { BsMailbox } from 'react-icons/bs';
-import Button from '../components/Button';
 
 function ProfilePage({ name, avatarImg }: Props) {
   const [user, setUser] = useState<FormData>({
