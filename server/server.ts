@@ -6,10 +6,17 @@ import {
   getAllFavData,
   switchFavData,
   getFavData,
-  LogInUser,
+  logInUser,
   createUser,
   createTicket,
 } from '../server/controllers/user.controller';
+import { z } from 'zod';
+import { validate } from './middleware/user.middleware';
+import {
+  loginSchema,
+  registerSchema,
+} from './schema/createLoginRegisterSchema';
+
 //import { LogIn, Register } from './controllers';
 
 //serverport
@@ -21,8 +28,8 @@ app.use(express.json());
 app.use(cors());
 
 //post request
-app.post('/register', createUser);
-app.post('/login', LogInUser);
+app.post('/register', validate(registerSchema), createUser);
+app.post('/login', validate(loginSchema), logInUser);
 app.post('/reservation', createTicket);
 
 //get request
