@@ -1,32 +1,55 @@
-import { useState } from 'react';
-import Input from '../components/Input';
 import Button from '../components/Button';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { TLoginSchema, LoginSchema } from '../validation/schemas';
+import Input from '../components/Input';
 import { MdOutlineEmail } from 'react-icons/md';
 import { RiLockPasswordLine } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import GreetingHeader from '../components/GreetingHeader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function LoginPage() {
-  const [inputVal, setInputVal] = useState({
-    email: '',
-    password: '',
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TLoginSchema>({
+    mode: 'onTouched',
+    resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
 
-  // changed to const convention like in RegistrationForm so function submitHandler could be deleted
-  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const navigate = useNavigate();
 
+  // changed to const convention like in RegistrationForm so function submitHandler could be deleted
+  const onSubmit = async (data: TLoginSchema) => {
     try {
       const response = await fetch('http://localhost:8000/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(inputVal),
+        body: JSON.stringify(data),
       });
 
-      const data = await response.json();
-      console.log(data); // handle the response data
+      const res = await response.json();
+      console.log(res); // handle the response data
+      toast.success(
+        <span>
+          Login successful! <br />
+          Welcome to CineScape!
+        </span>,
+        {
+          position: 'bottom-center',
+          onClose: () => navigate('/home'),
+          autoClose: 4000,
+        }
+      );
     } catch (error) {
       console.error('Error:', error);
     }
@@ -34,39 +57,33 @@ function LoginPage() {
 
   return (
     <div className="flex flex-col h-full">
+      <ToastContainer />
       <GreetingHeader
         title="Welcome to Cine-Scape"
         description="You need to log in to be able to make reservations and add movies to your watchlist."
       />
 
       <form
-        onSubmit={e => submitHandler(e)}
+        onSubmit={handleSubmit(onSubmit)}
         className="flex flex-grow flex-col justify-between"
       >
         <div className="text-white-dimmed flex flex-col gap-3">
           <Input
             id="email"
-            value={inputVal.email}
-            onChange={e =>
-              setInputVal({
-                ...inputVal,
-                email: e.target.value,
-              })
-            }
-            placeholder="your@email.com"
+            placeholder="Your Email"
+            autoComplete="email"
+            type="email"
+            error={errors.email}
+            {...register('email')}
             icon={<MdOutlineEmail className="h-6 w-6" />}
           />
           <Input
-            type="password"
             id="password"
-            value={inputVal.password}
-            onChange={e =>
-              setInputVal({
-                ...inputVal,
-                password: e.target.value,
-              })
-            }
-            placeholder="Enter your Password"
+            placeholder="Your Password"
+            autoComplete="current-password"
+            type="password"
+            error={errors.password}
+            {...register('password')}
             icon={<RiLockPasswordLine className="h-6 w-6" />}
           />
           <div className="flex gap-2 justify-end text-sm text-medium">
