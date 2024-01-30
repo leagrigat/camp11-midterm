@@ -26,10 +26,10 @@ export async function handleBookTicket(ticketInfo: TicketInfo) {
 // fetch reservations from server
 const PORT = 8000;
 
-export async function getReservations(movieId: string, showDate: string, showTime: string) {
+export async function getReservations(movieId: string) {
   try {
     const response = await fetch(
-      `http://localhost:${PORT}/reservation/${movieId}/${showDate}/${showTime}`,
+      `http://localhost:${PORT}/reservation/${movieId}`,
       {
         method: 'GET',
         headers: {
@@ -37,8 +37,8 @@ export async function getReservations(movieId: string, showDate: string, showTim
         },
       }
     );
-    const data = await response.json();
-    return data.reservations || [];
+    return await response.json();
+
   } catch (err) {
     console.error('Error:', err);
     return [];

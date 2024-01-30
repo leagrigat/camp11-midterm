@@ -5,7 +5,6 @@ import Header from '../../components/Header';
 import { Transition } from '@headlessui/react';
 import { TicketInfo } from '../../pages/ReservationPage';
 import { cn } from '../../utils/cn';
-import useGetReservations from '../../hooks/useGetReservations';
 
 //onNextClick to render new UI
 type SelectTimePageProps = {
@@ -43,9 +42,6 @@ function SelectSeatsPage({
 }: SelectTimePageProps) {
   const [seatsInfo, setSeatsInfo] = useState(() => generateSeats());
   const [isShown, setIsShown] = useState(false);
-
-  const response = useGetReservations();
-  console.log(response);
 
   const selectedSeats = seatsInfo.filter(seat => seat.isSelected);
 

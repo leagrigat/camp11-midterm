@@ -207,22 +207,21 @@ export const createTicket = async (req: Request, res: Response) => {
 // Get reservations of movie
 export const getReservations = async (req: Request, res: Response) => {
   try {
-    const {movieId, showDate, showTime} = req.params;
+    const {movieId} = req.params;
     const reservations = await prisma.ticket.findMany({
       where: {
         movieId,
-        showDate,
-        showTime
       },
       select: {
-        seat: true
+        seat: true,
+        showDate: true,
+        showTime: true
       }
     });
 
-    // Flatten the array of seat arrays into a single array of seats
-    const reservatedSeats = reservations.flatMap(reservation => reservation.seat)
 
-    res.status(201).json(reservatedSeats);
+
+    res.status(200).json(reservations);
   } catch (err) {
     console.log("Error fetching reservations:", err);
     res.status(500).json({message: "Error fetching reservations"})

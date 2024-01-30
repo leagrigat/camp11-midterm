@@ -5,6 +5,7 @@ import SelectTimePage from '../components/reservation/SelectTimePage';
 import { useState } from 'react';
 import SelectSeatsPage from '../components/reservation/SelectSeatsPage';
 import { SingleMovie } from '../api/movies';
+import useGetReservations from '../hooks/useGetReservations';
 
 type selectPagesString =
   | 'selectTimePage'
@@ -41,6 +42,9 @@ function ReservationPage() {
     movie,
     title: movie?.title || '',
   });
+  //get All tickets for a given movie id
+  const response = useGetReservations();
+  console.log(response);
 
   return (
     <>
