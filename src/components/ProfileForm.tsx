@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import Input from './Input';
 import Button from './Button';
+import React from 'react';
 
 export type FormData = {
   firstName: string;
@@ -10,15 +10,15 @@ export type FormData = {
 
 type ProfileProps = {
   initialData: FormData;
+  onChange: (user: FormData) => void;
   onSubmit: (data: FormData) => void;
 };
 
-function ProfileForm({ initialData, onSubmit }: ProfileProps) {
-  const [formData, setFormData] = useState<FormData>(initialData);
-
+function ProfileForm({ initialData, onSubmit, onChange }: ProfileProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(formData);
+
+    onSubmit(initialData);
   };
 
   return (
@@ -33,9 +33,12 @@ function ProfileForm({ initialData, onSubmit }: ProfileProps) {
             type="text"
             placeholder="First Name"
             name="firstName"
-            value={formData.firstName}
+            value={initialData.firstName}
             onChange={e =>
-              setFormData({ ...formData, firstName: e.target.value })
+              onChange({
+                ...initialData,
+                firstName: e.target.value,
+              })
             }
           />
           <Input
@@ -43,9 +46,12 @@ function ProfileForm({ initialData, onSubmit }: ProfileProps) {
             type="text"
             placeholder="Last Name"
             name="lastName"
-            value={formData.lastName}
+            value={initialData.lastName}
             onChange={e =>
-              setFormData({ ...formData, lastName: e.target.value })
+              onChange({
+                ...initialData,
+                lastName: e.target.value,
+              })
             }
           />
           <Input
@@ -54,15 +60,25 @@ function ProfileForm({ initialData, onSubmit }: ProfileProps) {
             autoComplete="username"
             placeholder="Your Email"
             name="email"
-            value={formData.email}
-            onChange={e => setFormData({ ...formData, email: e.target.value })}
+            value={initialData.email}
+            onChange={e =>
+              onChange({
+                ...initialData,
+                email: e.target.value,
+              })
+            }
           />
         </div>
         <div className="flex gap-5">
           <Button variant="secondary" size="sm">
             Change Password?
           </Button>
-          <Button type="submit" variant="primary" size="sm">
+          <Button
+            //onClick={handleSubmit}
+            type="submit"
+            variant="primary"
+            size="sm"
+          >
             Save Changes
           </Button>
         </div>

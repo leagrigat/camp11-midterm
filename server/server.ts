@@ -8,7 +8,9 @@ import {
   getFavData,
   logInUser,
   createUser,
+  getUserData,
   createTicket,
+  changeUserData,
 } from '../server/controllers/user.controller';
 import { z } from 'zod';
 import { validate } from './middleware/user.middleware';
@@ -35,9 +37,13 @@ app.post('/reservation', createTicket);
 //get request
 app.get('/genres', getGenres);
 
+//user profile
+app.get('/user/:userId', getUserData);
+app.put('/user/:userId', changeUserData);
+
 //start server
 app.listen(PORT, () => {
-  console.log(`server is running ${PORT}`);
+  console.log(`server is running at port ${PORT}`);
 });
 
 //bookmarked movies logic

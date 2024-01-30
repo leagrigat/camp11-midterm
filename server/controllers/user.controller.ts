@@ -1,5 +1,5 @@
 import { Response, Request } from 'express';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -26,6 +26,7 @@ export const createUser = async (req: Request, res: Response) => {
       });
     }
 
+    //create new user
     const newUser = await prisma.user.create({
       data: {
         firstName,
@@ -35,6 +36,7 @@ export const createUser = async (req: Request, res: Response) => {
       },
     });
 
+    //return userID
     res.status(201).json({
       message: 'User has been registered.',
       user: newUser,
@@ -82,6 +84,68 @@ export const logInUser = async (req: Request, res: Response) => {
     console.log(err);
     res.status(500).json({
       message: 'unknown error',
+    });
+  }
+};
+
+//get user data
+export const getUserData = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+    // get the user ID
+    const userData = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        // select the neccessary fields
+        id: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+      },
+    });
+
+    if (!userData) {
+      return res.status(404).json({
+        message: 'User not found.',
+      });
+    }
+
+    res.status(200).json(userData);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: 'Unknown error',
+    });
+  }
+};
+
+//change user Data
+export const changeUserData = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+    const { firstName, lastName, email } = req.body;
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        firstName,
+        lastName,
+        email,
+      },
+    });
+
+    res.status(200).json({
+      message: 'User data updated successfully.',
+      user: updatedUser,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: 'something went wrong',
     });
   }
 };
