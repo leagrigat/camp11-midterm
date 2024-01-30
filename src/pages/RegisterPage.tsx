@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { TRegisterSchema, RegisterSchema } from '../validation/schemas';
 import Input from '../components/Input';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
   const {
@@ -33,9 +34,27 @@ function RegisterPage() {
     }
   }, [watch('password')]);
 
+  const navigate = useNavigate();
+
   // handle submit
 
-  const onSubmit = (data: TRegisterSchema) => console.log(data);
+  const onSubmit = async (data: TRegisterSchema) => {
+    try {
+      const response = await fetch('http://localhost:8000/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const res = await response.json();
+      console.log(res); // handle the response data
+    } catch (error) {
+      console.error('Error:', error);
+    }
+    navigate('/');
+  };
 
   return (
     <div className="flex flex-col h-full">
@@ -43,7 +62,6 @@ function RegisterPage() {
         title="Join Cine-Scape Today!"
         description="Register now to enjoy all our services, including making reservations and adding movies to your watchlist."
       />
-      
 
       <form
         onSubmit={handleSubmit(onSubmit)}

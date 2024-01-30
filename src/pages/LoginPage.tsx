@@ -5,7 +5,7 @@ import { TLoginSchema, LoginSchema } from '../validation/schemas';
 import Input from '../components/Input';
 import { MdOutlineEmail } from 'react-icons/md';
 import { RiLockPasswordLine } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import GreetingHeader from '../components/GreetingHeader';
 
 function LoginPage() {
@@ -22,21 +22,22 @@ function LoginPage() {
     },
   });
 
-  // changed to const convention like in RegistrationForm so function submitHandler could be deleted
-  const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const navigate = useNavigate();
 
+  // changed to const convention like in RegistrationForm so function submitHandler could be deleted
+  const onSubmit = async (data: TLoginSchema) => {
     try {
       const response = await fetch('http://localhost:8000/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(inputVal),
+        body: JSON.stringify(data),
       });
 
-      const data = await response.json();
-      console.log(data); // handle the response data
+      const res = await response.json();
+      console.log(res); // handle the response data
+      navigate('/home');
     } catch (error) {
       console.error('Error:', error);
     }
@@ -50,7 +51,7 @@ function LoginPage() {
       />
 
       <form
-        onSubmit={e => submitHandler(e)}
+        onSubmit={handleSubmit(onSubmit)}
         className="flex flex-grow flex-col justify-between"
       >
         <div className="text-white-dimmed flex flex-col gap-3">
