@@ -8,13 +8,14 @@ import LoginPage from './pages/LoginPage';
 import Homepage from './pages/Homepage';
 import MoviesPage from './pages/MoviesPage';
 import BookmarkedMoviesPage from './pages/BookmarkedMoviesPage';
-import SingleMoviePage from './pages/SingleMoviePage';
 import CastAndCrewPage from './pages/CastAndCrewPage';
 import ReservationPage from './pages/ReservationPage';
 import GenresPage from './pages/GenresPage';
 import RegisterPage from './pages/RegisterPage';
 import GenreProvider from './context/GenreProvider';
+import MovieDataWrapper from './components/MovieDataWrapper';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import ProfilePage from './pages/ProfilePage';
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,16 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: '/profile',
+    element: <NavbarLayout />,
+    children: [
+      {
+        index: true,
+        element: <ProfilePage />,
+      },
+    ],
+  },
+  {
     path: '/movies',
     element: <NavbarLayout />,
     children: [
@@ -66,7 +77,8 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <SingleMoviePage/>
+            element: <MovieDataWrapper />, // instead SingleMoviePage we should get directed to Wrapper Components that
+            //checks if the movieID is available: if yes, render SingleMoviePage - if no: render Not Found
           },
           {
             path: 'cast-crew',

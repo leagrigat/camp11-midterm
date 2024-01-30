@@ -18,7 +18,7 @@ function PaginationIcon({
     <button
       {...props}
       className={cn(
-        'text-center text-dark-light rounded-[2px] w-[32px] h-[32px]',
+        'text-xs text-center text-dark-light rounded-[2px] w-[32px] h-[32px]',
         variant === 'selected' && 'bg-primary',
         variant === 'unselected' && 'bg-white-dimmed'
       )}

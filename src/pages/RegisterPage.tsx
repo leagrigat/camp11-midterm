@@ -1,3 +1,4 @@
+import GreetingHeader from '../components/GreetingHeader';
 import Button from '../components/Button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -37,7 +38,13 @@ function RegisterPage() {
   const onSubmit = (data: TRegisterSchema) => console.log(data);
 
   return (
-    <div className="px-5 py-8 flex flex-col h-full">
+    <div className="flex flex-col h-full">
+      <GreetingHeader
+        title="Join Cine-Scape Today!"
+        description="Register now to enjoy all our services, including making reservations and adding movies to your watchlist."
+      />
+      
+
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-grow flex-col justify-between"

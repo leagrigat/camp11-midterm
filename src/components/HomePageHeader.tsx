@@ -1,7 +1,5 @@
-import React from 'react';
-
-type Props = {
-  name: string;
+export type Props = {
+  name?: string;
   avatarImg?: string;
 };
 
@@ -15,7 +13,7 @@ function HomePageHeader({ name, avatarImg }: Props) {
       <img
         alt={name}
         src={avatarImg}
-        className="w-[40px] h-[40px] rounded-full "
+        className="w-[40px] h-[40px] rounded-full object-cover"
       />
     </div>
   );

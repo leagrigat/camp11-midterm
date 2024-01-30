@@ -9,3 +9,23 @@
     font-family: Inter, system-ui, sans-serif;
   }
 }
+
+h1 {
+  @apply text-base font-bold text-white;
+}
+
+body {
+  @apply text-sm font-medium text-white-dimmed;
+}
+
+titel {
+  @apply text-sm font-bold text-white-dimmed;
+}
+
+subtitel {
+  @apply text-xs font-bold text-white-dimmed;
+}
+
+description {
+  @apply text-xs font-medium text-white-dimmed;
+}

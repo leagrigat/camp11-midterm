@@ -3,6 +3,7 @@ import { FaHome } from 'react-icons/fa';
 import { MdLocalMovies } from 'react-icons/md';
 import { MdFavorite } from 'react-icons/md';
 import { BsPersonFill } from 'react-icons/bs';
+import { cn } from '../utils/cn';
 
 export type NavItem = {
   icon: JSX.Element;
@@ -31,14 +32,14 @@ export const navIcons: NavItem[] = [
 function NavBar() {
   return (
     <nav className="fixed bottom-0">
-      <ul className="flex justify-center gap-12 bg-dark items-center py-8 px-16">
+      <ul className="flex justify-center gap-12 bg-transparent items-center py-8 px-16 text-2xl">
         {navIcons.map((navIcons, index) => (
           <li key={index}>
             <NavLink
               to={navIcons.path}
-              className={({ isActive }) =>
+              className={({ isActive }) => cn(
                 isActive ? 'text-white' : 'text-white-dimmed'
-              }
+        )}
             >
               {navIcons.icon}
             </NavLink>

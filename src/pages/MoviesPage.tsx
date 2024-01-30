@@ -1,56 +1,61 @@
-import { useState } from 'react';
+import { Movie } from '../api/movies';
 import LoadingSpinner from '../components/LoadingSpinner';
 import MovieImage from '../components/MovieImage';
-import PaginationIcon from '../components/PaginationIcon';
-import { useGetMovies } from '../hooks/useGetMovies';
+import { useGetMoviesByGenre } from '../hooks/useGetMoviesByGenre';
+import { InView } from 'react-intersection-observer';
 
 function MoviesPage() {
-  const { movies, isLoading, error, isError } = useGetMovies();
-  const [currentPage, setCurrentPage] = useState(1);
-  const moviesPerPage = 4;
+  const {
+    movies,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    error,
+    isError,
+  } = useGetMoviesByGenre();
 
-  const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
-  };
+  function getMovieImage(movie: Movie) {
+    return (
+      <MovieImage
+        key={movie.id}
+        movieId={movie.id}
+        posterPath={movie.poster_path}
+        isRounded={false}
+      />
+    );
+  }
 
   return (
-    <div className="h-full flex flex-col justify-around">
+    <div className="h-full flex flex-col justify-center">
       {isLoading ? (
         <div className="h-screen top-0 flex flex-col justify-center items-center">
           <LoadingSpinner />
         </div>
       ) : (
         <>
-          <div className="grid grid-rows-2 grid-cols-2 gap-5">
-            {movies
-              .slice(
-                (currentPage - 1) * moviesPerPage,
-                currentPage * moviesPerPage
-              )
-              .map(movie => (
-                <MovieImage
-                  key={movie.id}
-                  movieId={movie.id}
-                  posterPath={movie.poster_path}
-                  isRounded={false}
-                />
-              ))}
-          </div>
-
-          <div className="flex flex-wrap justify-between mb-[40px]">
-            {Array.from(
-              { length: Math.ceil(movies.length / moviesPerPage) },
-              (_, i) => (
-                <PaginationIcon
-                  key={i + 1}
-                  page={i + 1}
-                  variant={currentPage === i + 1 ? 'selected' : 'unselected'}
-                  onClick={() => handlePageChange(i + 1)}
-                  className="text-center text-dark-light rounded-[2px] w-[32px] h-[32px] cursor-pointer"
-                >
-                  {i + 1}
-                </PaginationIcon>
-              )
+          <div
+            id="movieContainer"
+            className="flex flex-col flex-wrap min-h-[275px] max-h-[800px] gap-5 overflow-x-scroll justify-center mb-8"
+          >
+            {movies?.pages.map(moviePage =>
+              moviePage.results!.map((movie, index) => {
+                if (index === 9 && hasNextPage) {
+                  return (
+                    <InView
+                      key={movie.id}
+                      onChange={(inView, entry) => {
+                        inView ? fetchNextPage() : null;
+                      }}
+                      triggerOnce
+                    >
+                      {getMovieImage(movie)}
+                    </InView>
+                  );
+                } else {
+                  return <div key={movie.id}>{getMovieImage(movie)}</div>;
+                }
+              })
             )}
           </div>
         </>
