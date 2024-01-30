@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import ProfileForm from '../components/ProfileForm';
 import { Props } from '../components/HomePageHeader';
 import { FormData } from '../components/ProfileForm';
+import { profileSchema } from '../../server/schema/profileSchema';
 
 function ProfilePage({ name, avatarImg }: Props) {
   const [user, setUser] = useState<FormData>({
@@ -13,7 +14,7 @@ function ProfilePage({ name, avatarImg }: Props) {
   });
 
   useEffect(() => {
-    const userId = '3e3012fc-d2a9-4fea-b563-0122cce9e8bc';
+    const userId = 'd7732191-1b13-4dff-87cb-894908bfe0ac';
 
     axios
       .get(`http://localhost:8000/user/${userId}`)
@@ -28,7 +29,7 @@ function ProfilePage({ name, avatarImg }: Props) {
 
   const handleProfileSubmit = async (user: FormData) => {
     try {
-      const userId = '3e3012fc-d2a9-4fea-b563-0122cce9e8bc';
+      const userId = 'd7732191-1b13-4dff-87cb-894908bfe0ac';
 
       await axios.put(`http://localhost:8000/user/${userId}`, user);
 
