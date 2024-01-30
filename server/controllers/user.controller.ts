@@ -121,6 +121,35 @@ export const getUserData = async (req: Request, res: Response) => {
   }
 };
 
+//change user Data
+export const changeUserData = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+    const { firstName, lastName, email } = req.body;
+
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        firstName,
+        lastName,
+        email,
+      },
+    });
+
+    res.status(200).json({
+      message: 'User data updated successfully.',
+      user: updatedUser,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: 'something went wrong',
+    });
+  }
+};
+
 // if movie ID is found in database, delete it and return false, if it is not found, create it and return true
 
 export const switchFavData = async (req: Request, res: Response) => {

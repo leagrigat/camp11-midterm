@@ -15,7 +15,7 @@ function ProfilePage({ name, avatarImg }: Props) {
   });
 
   useEffect(() => {
-    const userId = '7c8aab53-92bd-47fa-a197-bdee653fa7bf';
+    const userId = '3e3012fc-d2a9-4fea-b563-0122cce9e8bc';
 
     axios
       .get(`http://localhost:8000/user/${userId}`)
@@ -30,7 +30,9 @@ function ProfilePage({ name, avatarImg }: Props) {
 
   const handleProfileSubmit = async (user: FormData) => {
     try {
-      await axios.put(`http://localhost:8000/user/${user}`, user);
+      const userId = '3e3012fc-d2a9-4fea-b563-0122cce9e8bc';
+
+      await axios.put(`http://localhost:8000/user/${userId}`, user);
 
       setUser(user);
 

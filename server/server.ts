@@ -10,6 +10,7 @@ import {
   createUser,
   getUserData,
   createTicket,
+  changeUserData,
 } from '../server/controllers/user.controller';
 //import { LogIn, Register } from './controllers';
 
@@ -31,6 +32,7 @@ app.get('/genres', getGenres);
 
 //user profile
 app.get('/user/:userId', getUserData);
+app.put('/user/:userId', changeUserData);
 
 //start server
 app.listen(PORT, () => {
