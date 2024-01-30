@@ -5,6 +5,7 @@ import ProfileForm from '../components/ProfileForm';
 import { Props } from '../components/HomePageHeader';
 import { FormData } from '../components/ProfileForm';
 import { BsMailbox } from 'react-icons/bs';
+import Button from '../components/Button';
 
 function ProfilePage({ name, avatarImg }: Props) {
   const [user, setUser] = useState<FormData>({
@@ -12,16 +13,14 @@ function ProfilePage({ name, avatarImg }: Props) {
     lastName: '',
     email: '',
   });
-  console.log(user);
 
   useEffect(() => {
-    const userId = '3b4459dd-c3f7-4593-ac13-ecee419f0dac';
+    const userId = '7c8aab53-92bd-47fa-a197-bdee653fa7bf';
 
     axios
       .get(`http://localhost:8000/user/${userId}`)
       .then(response => {
         const user = response.data as FormData;
-        console.log(user);
         setUser(user);
       })
       .catch(error => {
@@ -29,9 +28,16 @@ function ProfilePage({ name, avatarImg }: Props) {
       });
   }, []);
 
-  const handleProfileSubmit = (formData: FormData) => {
-    console.log(formData);
-    // Add logic to send the updated profile data to the server if needed
+  const handleProfileSubmit = async (user: FormData) => {
+    try {
+      await axios.put(`http://localhost:8000/user/${user}`, user);
+
+      setUser(user);
+
+      console.log('Profile data updated successfully!');
+    } catch (error) {
+      console.error('Error updating profile data:', error);
+    }
   };
 
   return (
@@ -49,6 +55,7 @@ function ProfilePage({ name, avatarImg }: Props) {
             <div>Loading...</div>
           )}
         </div>
+
         <ProfileForm
           initialData={user}
           onChange={setUser}

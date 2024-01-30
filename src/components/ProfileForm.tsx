@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Input from './Input';
 import Button from './Button';
 import React from 'react';
+import handleProfileSubmit from '../pages/ProfilePage';
+import user from '../pages/ProfilePage';
 
 export type FormData = {
   firstName: string;
@@ -20,6 +22,10 @@ function ProfileForm({ initialData, onSubmit, onChange }: ProfileProps) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  };
+
+  const handleSaveClick = () => {
+    handleProfileSubmit(user);
   };
 
   return (
@@ -74,7 +80,12 @@ function ProfileForm({ initialData, onSubmit, onChange }: ProfileProps) {
           <Button variant="secondary" size="sm">
             Change Password?
           </Button>
-          <Button type="submit" variant="primary" size="sm">
+          <Button
+            onClick={handleSaveClick}
+            type="submit"
+            variant="primary"
+            size="sm"
+          >
             Save Changes
           </Button>
         </div>
