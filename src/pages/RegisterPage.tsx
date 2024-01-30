@@ -24,7 +24,7 @@ function RegisterPage() {
     },
   });
 
-  // if the passwordRepeat has been touched and password changes, re-evaluate passwordRepeat (took me hours to come up with this tiny bit of code...)
+  // if the passwordRepeat has been touched and password is changed, re-evaluate passwordRepeat validity (took me hours to come up with this tiny bit of code...)
 
   useEffect(() => {
     if (touchedFields.passwordRepeat) {
