@@ -26,7 +26,7 @@ export async function handleBookTicket(ticketInfo: TicketInfo) {
 // fetch reservations from server
 const PORT = 8000;
 
-export async function getReservations(movieId: string) {
+export async function getReservations(movieId: string, showDate: string, showTime: string) {
   try {
     const response = await fetch(
       `http://localhost:${PORT}/reservation/${movieId}/${showDate}/${showTime}`,
