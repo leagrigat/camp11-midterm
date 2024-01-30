@@ -10,6 +10,8 @@ import {
   createUser,
   createTicket,
 } from '../server/controllers/user.controller';
+import { validate } from './middleware/user.middleware';
+import { loginSchema, userSchema } from './schema/createLoginSchema';
 //import { LogIn, Register } from './controllers';
 
 //serverport
@@ -21,8 +23,8 @@ app.use(express.json());
 app.use(cors());
 
 //post request
-app.post('/register', createUser);
-app.post('/login', LogInUser);
+app.post('/register', validate(userSchema), createUser);
+app.post('/login', validate(loginSchema), LogInUser);
 app.post('/reservation', createTicket);
 
 //get request
