@@ -11,6 +11,7 @@ import {
   getUserData,
   createTicket,
   changeUserData,
+  getReservations
 } from '../server/controllers/user.controller';
 import { validate } from './middleware/user.middleware';
 import {
@@ -60,6 +61,11 @@ app.get('/genres', getGenres);
 //user profile
 app.get('/user/:userId', getUserData);
 app.put('/user/:userId', changeUserData);
+
+// reservation logic
+app.post('/reservation', createTicket);
+app.get('/reservation/:movieId', getReservations);
+
 
 //bookmarked movies logic
 app.get('/movies/:movieId', getFavData);
