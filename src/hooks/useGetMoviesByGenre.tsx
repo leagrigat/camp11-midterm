@@ -17,7 +17,6 @@ function getSelectedIDs(genreList: genresLibraryType[]) {
 export function useGetMoviesByGenre() {
   const { genres } = useContext(GenreContext);
   const selectedGenreIDs = getSelectedIDs(genres).join('|');
-  console.log(selectedGenreIDs);
   const { data: movies, ...rest } = useInfiniteQuery({
     queryKey: ['movies', selectedGenreIDs],
     queryFn: async ({ pageParam }) =>
