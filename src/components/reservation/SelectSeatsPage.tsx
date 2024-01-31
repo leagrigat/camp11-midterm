@@ -7,7 +7,7 @@ import { TicketInfo } from '../../pages/ReservationPage';
 import { cn } from '../../utils/cn';
 
 //onNextClick to render new UI
-type SelectTimePageProps = {
+type SelectSeatsPageProps = {
   onNextClick: () => void;
   updateSeatInfo: (seats: TicketInfo) => void;
   ticketInfo: TicketInfo;
@@ -41,13 +41,15 @@ function SelectSeatsPage({
   updateSeatInfo,
   ticketInfo,
   reservationInfo,
-}: SelectTimePageProps) {
+}: SelectSeatsPageProps) {
   const [seatsInfo, setSeatsInfo] = useState(() => generateSeats());
   const [isShown, setIsShown] = useState(false);
 
-  console.log(reservationInfo);
-
   const selectedSeats = seatsInfo.filter(seat => seat.isSelected);
+
+  // check via seatsName if seats are reserved
+  const isSeatReserved = (seatName: string) =>
+    reservationInfo.includes(seatName);
 
   function handleClick(seatId: number) {
     setSeatsInfo(prevSeats =>
@@ -70,12 +72,20 @@ function SelectSeatsPage({
       </div>
       <div className="grid grid-cols-9 gap-3 auto-rows-max">
         {seatsInfo.map((seat, idx) => {
-          if (!seat.name)
+          if (!seat.name) {
             return <div className="w-[28px] h-[28px]" key={idx}></div>;
-          // if reservationInfo.includes(seat)
-          // return different look. maybe not a button, too
-          // you can also verwurschtel it into the same return with a ternary
-          return (
+          }
+          // we call isSeatReserved in here to determine if the current seat that gets rendered is reserved
+          const seatReserved = isSeatReserved(seat.name);
+
+          return seatReserved ? (
+            <div
+              className="w-[28px] h-[28px] bg-white text-white rounded text-xs"
+              key={idx}
+            >
+              {seat.name}
+            </div>
+          ) : (
             <button
               className={cn(
                 'w-[28px] h-[28px] text-white-dimmed rounded text-xs',
