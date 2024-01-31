@@ -13,7 +13,6 @@ import {
   changeUserData,
   getReservations,
 } from '../server/controllers/user.controller';
-import cookieParser from 'cookie-parser';
 import { validate } from './middleware/user.middleware';
 import {
   loginSchema,
