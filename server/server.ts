@@ -11,13 +11,15 @@ import {
   getUserData,
   createTicket,
   changeUserData,
-  getReservations
+  getReservations,
 } from '../server/controllers/user.controller';
+import cookieParser from 'cookie-parser';
 import { validate } from './middleware/user.middleware';
 import {
   loginSchema,
   registerSchema,
 } from './schema/createLoginRegisterSchema';
+import { isAuth } from './middleware/auth.middleware';
 import { initEdgeStore } from '@edgestore/server';
 import { createEdgeStoreExpressHandler } from '@edgestore/server/adapters/express';
 import bodyParser from 'body-parser';
@@ -40,12 +42,13 @@ const handler = createEdgeStoreExpressHandler({
 });
 
 const corsOptions = {
-  origin: true,
+  origin: 'http://localhost:5173',
   credentials: true,
 };
 
 //Middleware
 app.use(express.json());
+
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -53,19 +56,21 @@ app.use(bodyParser.json());
 //post request
 app.post('/register', validate(registerSchema), createUser);
 app.post('/login', validate(loginSchema), logInUser);
-app.post('/reservation', createTicket);
+
+//secure
+app.post('/reservation', isAuth, createTicket);
 
 //get request
 app.get('/genres', getGenres);
 
 //user profile
+//secure
 app.get('/user/:userId', getUserData);
 app.put('/user/:userId', changeUserData);
 
 // reservation logic
 app.post('/reservation', createTicket);
 app.get('/reservation/:movieId', getReservations);
-
 
 //bookmarked movies logic
 app.get('/movies/:movieId', getFavData);
