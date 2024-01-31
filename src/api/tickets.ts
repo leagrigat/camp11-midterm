@@ -28,16 +28,13 @@ const PORT = 8000;
 
 export async function getReservations(movieId: string) {
   try {
-    const response = await fetch(
-      `http://localhost:${PORT}/reservation/${movieId}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-    return await response.json();
+    const response = await axios.get<TicketInfo[]>(`http://localhost:${PORT}/reservation/${movieId}`,
+    {
+      headers: {
+        accept: 'application/json',
+      },
+    })
+    return await response.data;
 
   } catch (err) {
     console.error('Error:', err);

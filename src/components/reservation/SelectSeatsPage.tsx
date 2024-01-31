@@ -11,6 +11,7 @@ type SelectTimePageProps = {
   onNextClick: () => void;
   updateSeatInfo: (seats: TicketInfo) => void;
   ticketInfo: TicketInfo;
+  reservationInfo: string[];
 };
 
 export type Seat = {
@@ -39,9 +40,12 @@ function SelectSeatsPage({
   onNextClick,
   updateSeatInfo,
   ticketInfo,
+  reservationInfo,
 }: SelectTimePageProps) {
   const [seatsInfo, setSeatsInfo] = useState(() => generateSeats());
   const [isShown, setIsShown] = useState(false);
+
+  console.log(reservationInfo);
 
   const selectedSeats = seatsInfo.filter(seat => seat.isSelected);
 
@@ -68,7 +72,9 @@ function SelectSeatsPage({
         {seatsInfo.map((seat, idx) => {
           if (!seat.name)
             return <div className="w-[28px] h-[28px]" key={idx}></div>;
-
+          // if reservationInfo.includes(seat)
+          // return different look. maybe not a button, too
+          // you can also verwurschtel it into the same return with a ternary
           return (
             <button
               className={cn(

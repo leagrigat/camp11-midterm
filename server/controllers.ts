@@ -182,8 +182,8 @@ export const createTicket = async (req: Request, res: Response) => {
     data: {
       movieId,
       title,
-      showDate: date,
-      showTime: time,
+      date,
+      time,
       seat,
       price
     }
@@ -214,8 +214,8 @@ export const getReservations = async (req: Request, res: Response) => {
       },
       select: {
         seat: true,
-        showDate: true,
-        showTime: true
+        date: true,
+        time: true
       }
     });
 

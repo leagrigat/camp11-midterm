@@ -26,6 +26,8 @@ function ReservationPage() {
   //fetched data
   const { movieId } = useParams();
   const { movie } = useGetSingleMovie();
+  // we need to call it reservations from useGetReservations()
+  const { reservations, isLoading, isError } = useGetReservations();
 
   //change current page
   const [currentPage, setCurrentPage] =
@@ -42,9 +44,19 @@ function ReservationPage() {
     movie,
     title: movie?.title || '',
   });
-  //get All tickets for a given movie id
-  const response = useGetReservations();
-  console.log(response);
+
+  // handle loading and error here, so we don't crash everything with undefined - also can't filter undefined reservations
+  if (isLoading || isError || !reservations) {
+    return <>Loading or Error or undefined</>;
+  }
+
+  const reservedSeats = reservations
+    .filter(
+      reservation =>
+        reservation.date === ticketInformation.date &&
+        reservation.time === ticketInformation.time
+    )
+    .flatMap(reservation => reservation.seat);
 
   return (
     <>
@@ -64,6 +76,7 @@ function ReservationPage() {
           }}
           updateSeatInfo={seats => updateTicketInformation(seats)}
           ticketInfo={ticketInformation}
+          reservationInfo={reservedSeats}
         />
       )}
       {currentPage === 'ticketPreviewPage' && (
