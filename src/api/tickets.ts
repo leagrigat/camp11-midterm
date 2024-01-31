@@ -11,10 +11,11 @@ export async function handleBookTicket(ticketInfo: TicketInfo) {
         headers: {
           accept: 'application/json',
         },
+        withCredentials: true,
       }
     );
 
-    console.log(response.data.message); // Handle success
+    console.log('RESPONSE', response.data); // Handle success
     // You can navigate to a success page or show a success message here
     return response.data;
   } catch (error) {
@@ -28,14 +29,15 @@ const PORT = 8000;
 
 export async function getReservations(movieId: string) {
   try {
-    const response = await axios.get<TicketInfo[]>(`http://localhost:${PORT}/reservation/${movieId}`,
-    {
-      headers: {
-        accept: 'application/json',
-      },
-    })
+    const response = await axios.get<TicketInfo[]>(
+      `http://localhost:${PORT}/reservation/${movieId}`,
+      {
+        headers: {
+          accept: 'application/json',
+        },
+      }
+    );
     return await response.data;
-
   } catch (err) {
     console.error('Error:', err);
     return [];

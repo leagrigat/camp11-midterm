@@ -1,6 +1,7 @@
 import { Response, Request } from 'express';
 import bcrypt from 'bcryptjs';
 import { PrismaClient } from '@prisma/client';
+import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
 
@@ -71,15 +72,19 @@ export const logInUser = async (req: Request, res: Response) => {
     const passwordMatches = bcrypt.compareSync(password, existingUser.password);
 
     if (passwordMatches) {
+      const token = jwt.sign(
+        { userId: existingUser.id },
+        process.env.JWT_SECRET!
+      );
+      res.cookie('token', token, { httpOnly: true });
       res.status(200).json({
-        message: 'User is logged in.',
+        isLoggedIn: true,
       });
     } else {
       res.status(401).json({
         message: 'Login failed. Invalid credentials.',
       });
     }
-    console.log(existingUser);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -238,28 +243,30 @@ export const createTicket = async (req: Request, res: Response) => {
   try {
     let { movieId, title, date, time, seat, price } = req.body;
 
-  // create new ticket in database
-  const newTicket = await prisma.ticket.create({
-    data: {
-      movieId,
-      date,
-      time,
-      seat,
-      price
-    }
-  });
+    // create new ticket in database
+    const newTicket = await prisma.ticket.create({
+      data: {
+        movieId,
+        date,
+        time,
+        seat,
+        price,
+        userId: res.locals.user.id,
+      },
+    });
 
-  console.log("New ticket created:", newTicket)
-  res.status(201).json({message: "Reservation successful", ticket: newTicket});
+    res
+      .status(201)
+      .json({ message: 'Reservation successful', ticket: newTicket });
   } catch (err) {
-  console.log("Error creating reservation:", err);
-  res.status(500).json({message: "Error creating reservation"})
-}};
+    res.status(500).json({ message: 'Error creating reservation' });
+  }
+};
 
 // Get reservations of movie
 export const getReservations = async (req: Request, res: Response) => {
   try {
-    const {movieId} = req.params;
+    const { movieId } = req.params;
     const reservations = await prisma.ticket.findMany({
       where: {
         movieId,
@@ -267,13 +274,13 @@ export const getReservations = async (req: Request, res: Response) => {
       select: {
         seat: true,
         date: true,
-        time: true
-      }
+        time: true,
+      },
     });
 
     res.status(200).json(reservations);
   } catch (err) {
-    console.log("Error fetching reservations:", err);
-    res.status(500).json({message: "Error fetching reservations"})
+    console.log('Error fetching reservations:', err);
+    res.status(500).json({ message: 'Error fetching reservations' });
   }
-}
+};

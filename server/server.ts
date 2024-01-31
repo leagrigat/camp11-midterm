@@ -11,14 +11,15 @@ import {
   getUserData,
   createTicket,
   changeUserData,
-  getReservations
+  getReservations,
 } from '../server/controllers/user.controller';
-import { z } from 'zod';
+import cookieParser from 'cookie-parser';
 import { validate } from './middleware/user.middleware';
 import {
   loginSchema,
   registerSchema,
 } from './schema/createLoginRegisterSchema';
+import { isAuth } from './middleware/auth.middleware';
 
 //import { LogIn, Register } from './controllers';
 
@@ -28,17 +29,26 @@ const app = express();
 
 //Middleware
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  })
+);
+app.use(cookieParser());
 
 //post request
 app.post('/register', validate(registerSchema), createUser);
 app.post('/login', validate(loginSchema), logInUser);
-app.post('/reservation', createTicket);
+
+//secure
+app.post('/reservation', isAuth, createTicket);
 
 //get request
 app.get('/genres', getGenres);
 
 //user profile
+//secure
 app.get('/user/:userId', getUserData);
 app.put('/user/:userId', changeUserData);
 
@@ -50,7 +60,6 @@ app.listen(PORT, () => {
 // reservation logic
 app.post('/reservation', createTicket);
 app.get('/reservation/:movieId', getReservations);
-
 
 //bookmarked movies logic
 app.get('/movies/:movieId', getFavData);
