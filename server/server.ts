@@ -1,15 +1,25 @@
 import express from 'express';
 import 'dotenv/config';
 import cors from 'cors';
+import { getGenres } from './controllers/genre.controller';
 import {
   getAllFavData,
   switchFavData,
   getFavData,
-  LogInUser,
+  logInUser,
   createUser,
+  getUserData,
   createTicket,
+  changeUserData,
   getReservations
-} from './controllers';
+} from '../server/controllers/user.controller';
+import { z } from 'zod';
+import { validate } from './middleware/user.middleware';
+import {
+  loginSchema,
+  registerSchema,
+} from './schema/createLoginRegisterSchema';
+
 //import { LogIn, Register } from './controllers';
 
 //serverport
@@ -21,13 +31,20 @@ app.use(express.json());
 app.use(cors());
 
 //post request
-app.post('/register', createUser);
-app.post('/login', LogInUser);
+app.post('/register', validate(registerSchema), createUser);
+app.post('/login', validate(loginSchema), logInUser);
+app.post('/reservation', createTicket);
 
+//get request
+app.get('/genres', getGenres);
+
+//user profile
+app.get('/user/:userId', getUserData);
+app.put('/user/:userId', changeUserData);
 
 //start server
 app.listen(PORT, () => {
-  console.log(`server is running ${PORT}`);
+  console.log(`server is running at port ${PORT}`);
 });
 
 // reservation logic

@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { genresLibrary } from './GenreLibrary';
 import { genresLibraryType } from '../utils/genresLibraryType';
+import axios from 'axios';
 
 type Props = {
   children: React.ReactNode;
@@ -21,16 +21,22 @@ export const GenreContext = createContext<ContextType>({
 //local storage
 //1. get items
 const storedGenresString = localStorage.getItem('genres');
-//2. check if we have items if not empty genresLibrary is our default value
-const storedGenres = storedGenresString
-  ? JSON.parse(storedGenresString)
-  : genresLibrary;
 
 function GenreProvider({ children }: Props) {
-  const [genres, setGenres] = useState<genresLibraryType[]>(storedGenres);
-
+  const [genres, setGenres] = useState<genresLibraryType[]>([]);
   //set count
   const [selectedCount, SetSelectedCount] = useState(0);
+
+  useEffect(() => {
+    axios.get<genresLibraryType[]>('http://localhost:8000/genres').then(res => {
+      //local storage
+      const storedGenres = storedGenresString
+        ? JSON.parse(storedGenresString)
+        : res.data;
+
+      setGenres(storedGenres || res.data);
+    });
+  }, []);
 
   useEffect(() => {
     const count = genres.filter(genre => genre.isSelected).length;
