@@ -28,7 +28,6 @@ model Genres {
 model Ticket {
   id      Int      @id @default(autoincrement())
   movieId String
-  title   String
   date    String
   time    String
   seat    String[]

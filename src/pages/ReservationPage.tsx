@@ -20,7 +20,6 @@ export type TicketInfo = {
   seat: string[];
   time: string;
   movie: SingleMovie | undefined;
-  title: string;
 };
 
 function ReservationPage() {
@@ -43,7 +42,6 @@ function ReservationPage() {
     seat: [''],
     time: '',
     movie,
-    title: movie?.title || '',
   });
 
   // handle loading and error here, so we don't crash everything with undefined - also can't filter undefined reservations

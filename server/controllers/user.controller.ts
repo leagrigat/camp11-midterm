@@ -242,7 +242,6 @@ export const createTicket = async (req: Request, res: Response) => {
   const newTicket = await prisma.ticket.create({
     data: {
       movieId,
-      title,
       date,
       time,
       seat,
