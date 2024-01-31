@@ -5,3 +5,5 @@ export const profileSchema = z.object({
   lastName: z.string().min(5, 'Must be at least 5 characters'),
   email: z.string().email(),
 });
+
+export type ProfileSchema = z.infer<typeof profileSchema>;
