@@ -59,7 +59,6 @@ function GenreProvider({ children }: Props) {
       return genre;
     });
     setGenres(updatedGenres);
-    console.log(genres);
     //handing the updatedGenres to saveLocalStorage function
     saveLocalStorage(updatedGenres);
   }
