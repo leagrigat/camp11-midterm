@@ -35,7 +35,7 @@ function GenreProvider({ children }: Props) {
         : res.data;
 
       setGenres(
-        storedGenres.sort((a, b) => {
+        storedGenres.sort((a: genresLibraryType, b: genresLibraryType) => {
           return a.genre < b.genre ? -1 : 1;
         }) ||
           res.data.sort((a, b) => {
