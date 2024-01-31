@@ -100,21 +100,11 @@ function RegisterPage() {
         title="Join Cine-Scape Today!"
         description="Register now to enjoy all our services, including making reservations and adding movies to your watchlist."
       />
-      <div>
-        <SingleImageDropzone
-          width={200}
-          height={200}
-          value={file}
-          onChange={file => {
-            setFile(file);
-          }}
-        />
-      </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-grow flex-col justify-between"
       >
-        <div className="text-white-dimmed flex flex-col gap-3">
+        <div className="text-white-dimmed flex flex-col gap-3 w-full">
           <Input
             id="firstName"
             placeholder="First Name"
@@ -155,6 +145,16 @@ function RegisterPage() {
             error={errors.passwordRepeat}
             {...register('passwordRepeat')}
           />
+          <div className="flex flex-col w-full items-center mb-3">
+            <SingleImageDropzone
+              width={200}
+              height={200}
+              value={file}
+              onChange={file => {
+                setFile(file);
+              }}
+            />
+          </div>
         </div>
         <Button type="submit" size="sm">
           Register
