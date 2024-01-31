@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import LoadingSpinner from '../components/LoadingSpinner';
 import TicketPreviewPage from '../components/reservation/TicketPreviewPage';
 import { useGetSingleMovie } from '../hooks/useGetSingleMovie';
 import SelectTimePage from '../components/reservation/SelectTimePage';
@@ -47,7 +48,7 @@ function ReservationPage() {
 
   // handle loading and error here, so we don't crash everything with undefined - also can't filter undefined reservations
   if (isLoading || isError || !reservations) {
-    return <>Loading or Error or undefined</>;
+    return <LoadingSpinner />;
   }
 
   const reservedSeats = reservations
