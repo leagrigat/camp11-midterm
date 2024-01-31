@@ -27,9 +27,9 @@ model Genres {
 
 model Ticket {
   id      Int      @id @default(autoincrement())
-  movieId Int
-  title   String
-  date    DateTime
+  movieId String
+  date    String
+  time    String
   seat    String[]
   price   Decimal
 }

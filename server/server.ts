@@ -11,6 +11,7 @@ import {
   getUserData,
   createTicket,
   changeUserData,
+  getReservations
 } from '../server/controllers/user.controller';
 import { z } from 'zod';
 import { validate } from './middleware/user.middleware';
@@ -45,6 +46,11 @@ app.put('/user/:userId', changeUserData);
 app.listen(PORT, () => {
   console.log(`server is running at port ${PORT}`);
 });
+
+// reservation logic
+app.post('/reservation', createTicket);
+app.get('/reservation/:movieId', getReservations);
+
 
 //bookmarked movies logic
 app.get('/movies/:movieId', getFavData);
