@@ -18,11 +18,14 @@ import {
   loginSchema,
   registerSchema,
 } from './schema/createLoginRegisterSchema';
+
 import { isAuth } from './middleware/auth.middleware';
 import { initEdgeStore } from '@edgestore/server';
 import { createEdgeStoreExpressHandler } from '@edgestore/server/adapters/express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import { profileSchema } from './schema/profileSchema';
+
 
 //import { LogIn, Register } from './controllers';
 
@@ -65,7 +68,7 @@ app.get('/genres', getGenres);
 //user profile
 //secure
 app.get('/user/:userId', getUserData);
-app.put('/user/:userId', changeUserData);
+app.put('/user/:userId', validate(profileSchema), changeUserData);
 
 // reservation logic
 app.post('/reservation', createTicket);
