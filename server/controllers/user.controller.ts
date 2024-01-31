@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 //Create new User
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, avatar } = req.body;
 
     //hash the password before pushing to database
     const hashedPassword = bcrypt.hashSync(password, 10);
@@ -33,6 +33,7 @@ export const createUser = async (req: Request, res: Response) => {
         firstName,
         lastName,
         email,
+        avatar,
         password: hashedPassword,
       },
     });
@@ -108,6 +109,7 @@ export const getUserData = async (req: Request, res: Response) => {
         firstName: true,
         lastName: true,
         email: true,
+        avatar: true,
       },
     });
 
@@ -130,7 +132,7 @@ export const getUserData = async (req: Request, res: Response) => {
 export const changeUserData = async (req: Request, res: Response) => {
   try {
     const userId = req.params.userId;
-    const { firstName, lastName, email } = req.body;
+    const { firstName, lastName, email, avatar } = req.body;
 
     const updatedUser = await prisma.user.update({
       where: {
@@ -140,6 +142,7 @@ export const changeUserData = async (req: Request, res: Response) => {
         firstName,
         lastName,
         email,
+        avatar,
       },
     });
 
