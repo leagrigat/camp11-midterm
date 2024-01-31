@@ -47,7 +47,7 @@ function SelectSeatsPage({
 
   const selectedSeats = seatsInfo.filter(seat => seat.isSelected);
 
-  // check via seatsName if seats are reserved
+  // logic for checking via seatsName if seats are reserved
   const isSeatReserved = (seatName: string) =>
     reservationInfo.includes(seatName);
 
@@ -75,6 +75,7 @@ function SelectSeatsPage({
           if (!seat.name) {
             return <div className="w-[28px] h-[28px]" key={idx}></div>;
           }
+
           // we call isSeatReserved in here to determine if the current seat that gets rendered is reserved
           const seatReserved = isSeatReserved(seat.name);
 
