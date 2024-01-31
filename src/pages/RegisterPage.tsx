@@ -34,6 +34,9 @@ function RegisterPage() {
   const [file, setFile] = useState<File>();
   const { edgestore } = useEdgeStore();
 
+  interface avatarData extends TRegisterSchema {
+    avatar: string;
+  }
   // if the passwordRepeat has been touched and password is changed, re-evaluate passwordRepeat validity (took me hours to come up with this tiny bit of code...)
 
   useEffect(() => {
@@ -47,17 +50,40 @@ function RegisterPage() {
   // handle submit
 
   const onSubmit = async (data: TRegisterSchema) => {
+    const newData: avatarData = {
+      avatar: '',
+      email: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      passwordRepeat: '',
+    };
+    Object.assign(newData, data);
     try {
+      if (file) {
+        const res = await edgestore.publicFiles.upload({
+          file,
+          onProgressChange: progress => {
+            // you can use this to show a progress bar
+            console.log(progress);
+          },
+        });
+        // you can run some server action or api here
+        // to add the necessary data to your database
+        console.log(res);
+        newData.avatar = res.url;
+      }
+      console.log(data, newData);
       const response = await fetch('http://localhost:8000/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(newData),
       });
-
       const res = await response.json();
       console.log(res); // handle the response data
+
       navigate('/');
       toast.success('Success Notification !', {
         position: 'top-right',
@@ -83,24 +109,6 @@ function RegisterPage() {
             setFile(file);
           }}
         />
-        <button
-          onClick={async () => {
-            if (file) {
-              const res = await edgestore.publicFiles.upload({
-                file,
-                onProgressChange: progress => {
-                  // you can use this to show a progress bar
-                  console.log(progress);
-                },
-              });
-              // you can run some server action or api here
-              // to add the necessary data to your database
-              console.log(res);
-            }
-          }}
-        >
-          Upload
-        </button>
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
