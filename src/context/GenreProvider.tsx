@@ -34,7 +34,14 @@ function GenreProvider({ children }: Props) {
         ? JSON.parse(storedGenresString)
         : res.data;
 
-      setGenres(storedGenres || res.data);
+      setGenres(
+        storedGenres.sort((a, b) => {
+          return a.genre < b.genre ? -1 : 1;
+        }) ||
+          res.data.sort((a, b) => {
+            return a.genre < b.genre ? -1 : 1;
+          })
+      );
     });
   }, []);
 
@@ -51,8 +58,8 @@ function GenreProvider({ children }: Props) {
       }
       return genre;
     });
-
     setGenres(updatedGenres);
+    console.log(genres);
     //handing the updatedGenres to saveLocalStorage function
     saveLocalStorage(updatedGenres);
   }

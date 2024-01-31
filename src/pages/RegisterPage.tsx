@@ -8,6 +8,9 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useState } from 'react';
+import { useEdgeStore } from '../context/EdgeStore';
+import { SingleImageDropzone } from '../components/ImageUpload';
 
 function RegisterPage() {
   const {
@@ -27,6 +30,9 @@ function RegisterPage() {
       passwordRepeat: '',
     },
   });
+
+  const [file, setFile] = useState<File>();
+  const { edgestore } = useEdgeStore();
 
   // if the passwordRepeat has been touched and password is changed, re-evaluate passwordRepeat validity (took me hours to come up with this tiny bit of code...)
 
@@ -68,7 +74,34 @@ function RegisterPage() {
         title="Join Cine-Scape Today!"
         description="Register now to enjoy all our services, including making reservations and adding movies to your watchlist."
       />
-
+      <div>
+        <SingleImageDropzone
+          width={200}
+          height={200}
+          value={file}
+          onChange={file => {
+            setFile(file);
+          }}
+        />
+        <button
+          onClick={async () => {
+            if (file) {
+              const res = await edgestore.publicFiles.upload({
+                file,
+                onProgressChange: progress => {
+                  // you can use this to show a progress bar
+                  console.log(progress);
+                },
+              });
+              // you can run some server action or api here
+              // to add the necessary data to your database
+              console.log(res);
+            }
+          }}
+        >
+          Upload
+        </button>
+      </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-grow flex-col justify-between"
