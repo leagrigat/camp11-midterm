@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import ProfileForm from '../components/ProfileForm';
-import { Props } from '../components/HomePageHeader';
 import { FormData } from '../components/ProfileForm';
 import { useEdgeStore } from '../context/EdgeStore';
 import { SingleImageDropzone } from '../components/ImageUpload';
@@ -14,7 +13,7 @@ interface UserData extends FormData {
 
 const diam = Math.floor((window.innerWidth / 320) * 125);
 
-function ProfilePage({ name }: Props) {
+function ProfilePage() {
   const [user, setUser] = useState<UserData>({
     firstName: '',
     lastName: '',
@@ -94,7 +93,7 @@ function ProfilePage({ name }: Props) {
           {user !== null ? (
             <>
               <img
-                alt={name}
+                alt={user.firstName}
                 src={user.avatar}
                 className={cn(
                   diam >= 250 ? 'w-[250px] h-[250px]' : 'w-[125px] h-[125px]',

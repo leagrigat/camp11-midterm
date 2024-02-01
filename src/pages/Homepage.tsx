@@ -37,10 +37,7 @@ function Homepage() {
   return (
     <>
       <div className="flex flex-col gap-6">
-        <HomePageHeader
-          name="Johannes"
-          avatarImg="https://source.unsplash.com/random/?person"
-        />
+        <HomePageHeader/>
         <div className="text-sm">
           <Combobox value={selected} onChange={setSelected}>
             <div className="relative">
