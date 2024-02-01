@@ -26,7 +26,6 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import { profileSchema } from './schema/profileSchema';
 
-
 //import { LogIn, Register } from './controllers';
 
 //serverport
@@ -67,11 +66,10 @@ app.get('/genres', getGenres);
 
 //user profile
 //secure
-app.get('/user/:userId', getUserData);
-app.put('/user/:userId', validate(profileSchema), changeUserData);
+app.get('/user/', isAuth, getUserData);
+app.put('/user/', isAuth, validate(profileSchema), changeUserData);
 
 // reservation logic
-app.post('/reservation', createTicket);
 app.get('/reservation/:movieId', getReservations);
 
 //bookmarked movies logic
