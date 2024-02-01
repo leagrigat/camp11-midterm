@@ -33,7 +33,10 @@ const PORT = process.env.PORT;
 const app = express();
 const es = initEdgeStore.create();
 const edgeStoreRouter = es.router({
-  publicFiles: es.fileBucket(),
+  publicFiles: es.fileBucket().beforeDelete(({ ctx, fileInfo }) => {
+    console.log('beforeDelete', ctx, fileInfo);
+    return true; // allow delete
+  }),
 });
 
 export type EdgeStoreRouter = typeof edgeStoreRouter;
@@ -79,8 +82,9 @@ app.delete('/movies/:movieId', switchFavData);
 app.get('/bookmarked-movies', getAllFavData);
 
 //edgestore router
-app.get('/edgestore/*', cors(corsOptions), handler);
+app.get('/edgestore/*', handler);
 app.post('/edgestore/*', handler);
+app.delete('/edgestore/*', handler);
 
 //start server
 app.listen(PORT, () => {

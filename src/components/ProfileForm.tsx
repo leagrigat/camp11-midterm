@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import Input from './Input';
 import Button from './Button';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { RegisterSchema, TRegisterSchema } from '../validation/schemas';
 import {
   ProfileSchema,
   profileSchema,
@@ -31,10 +30,6 @@ function ProfileForm({ initialData, onSubmit }: ProfileProps) {
     defaultValues: initialData,
   });
 
-  const onSubmitHandler = (data: FormData) => {
-    onSubmit(data);
-  };
-
   useEffect(() => {
     // Change user data, if initialData is changed
     setValue('firstName', initialData.firstName);
@@ -45,7 +40,7 @@ function ProfileForm({ initialData, onSubmit }: ProfileProps) {
   return (
     <div className="flex flex-col h-full">
       <form
-        onSubmit={handleSubmit(onSubmitHandler)}
+        onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col flex-grow gap-5 justify-between mb-[55px]"
       >
         <div className="flex flex-col gap-5">

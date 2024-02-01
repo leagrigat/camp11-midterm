@@ -4,19 +4,23 @@ import Header from '../components/Header';
 import ProfileForm from '../components/ProfileForm';
 import { Props } from '../components/HomePageHeader';
 import { FormData } from '../components/ProfileForm';
-import { profileSchema } from '../../server/schema/profileSchema';
+import { useEdgeStore } from '../context/EdgeStore';
+import { SingleImageDropzone } from '../components/ImageUpload';
 
 interface UserData extends FormData {
   avatar: string;
 }
 
-function ProfilePage({ name, avatarImg }: Props) {
+function ProfilePage({ name }: Props) {
   const [user, setUser] = useState<UserData>({
     firstName: '',
     lastName: '',
     email: '',
     avatar: '',
   });
+
+  const [file, setFile] = useState<File>();
+  const { edgestore } = useEdgeStore();
 
   useEffect(() => {
     axios
@@ -36,9 +40,33 @@ function ProfilePage({ name, avatarImg }: Props) {
       });
   }, []);
 
-  const handleProfileSubmit = async (user: FormData) => {
+  const handleProfileSubmit = async (formUser: FormData) => {
+    const newData: UserData = {
+      avatar: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+    };
+    Object.assign(newData, formUser);
     try {
-      await axios.put(`http://localhost:8000/user/`, user, {
+      if (file) {
+        await edgestore.publicFiles.delete({
+          url: user.avatar,
+        });
+
+        const res = await edgestore.publicFiles.upload({
+          file,
+          onProgressChange: progress => {
+            // you can use this to show a progress bar
+            console.log(progress);
+          },
+        });
+        // you can run some server action or api here
+        // to add the necessary data to your database
+        console.log(res);
+        newData.avatar = res.url;
+      }
+      await axios.put(`http://localhost:8000/user/`, newData, {
         headers: {
           accept: 'application/json',
         },
@@ -55,13 +83,26 @@ function ProfilePage({ name, avatarImg }: Props) {
     <>
       <div className="h-full flex flex-col justify-between gap-5">
         <Header header="Profile"></Header>
-        <div className="flex justify-center">
+        <div className="flex justify-center items-center">
           {user !== null ? (
-            <img
-              alt={name}
-              src={user.avatar} // <-- Adjust as needed, should be replaced by that-> {avatarImg}
-              className="w-[220px] h-[220px] rounded-full object-cover"
-            />
+            <>
+              <img
+                alt={name}
+                src={user.avatar}
+                className="w-[220px] h-[220px] rounded-full object-cover"
+              />
+              <div className="text-4xl">{' => '}</div>
+              <div className="w-[220px] h-[220px] rounded-full object-cover overflow-hidden">
+                <SingleImageDropzone
+                  width={220}
+                  height={220}
+                  value={file}
+                  onChange={file => {
+                    setFile(file);
+                  }}
+                />
+              </div>
+            </>
           ) : (
             <div>Loading...</div>
           )}
