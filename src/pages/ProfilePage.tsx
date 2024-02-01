@@ -6,10 +6,13 @@ import { Props } from '../components/HomePageHeader';
 import { FormData } from '../components/ProfileForm';
 import { useEdgeStore } from '../context/EdgeStore';
 import { SingleImageDropzone } from '../components/ImageUpload';
+import { cn } from '../utils/cn';
 
 interface UserData extends FormData {
   avatar: string;
 }
+
+const diam = Math.floor((window.innerWidth / 320) * 125);
 
 function ProfilePage({ name }: Props) {
   const [user, setUser] = useState<UserData>({
@@ -50,9 +53,11 @@ function ProfilePage({ name }: Props) {
     Object.assign(newData, formUser);
     try {
       if (file) {
-        await edgestore.publicFiles.delete({
-          url: user.avatar,
-        });
+        if (user.avatar) {
+          await edgestore.publicFiles.delete({
+            url: user.avatar,
+          });
+        }
 
         const res = await edgestore.publicFiles.upload({
           file,
@@ -65,6 +70,8 @@ function ProfilePage({ name }: Props) {
         // to add the necessary data to your database
         console.log(res);
         newData.avatar = res.url;
+      } else {
+        newData.avatar = user.avatar;
       }
       await axios.put(`http://localhost:8000/user/`, newData, {
         headers: {
@@ -89,19 +96,20 @@ function ProfilePage({ name }: Props) {
               <img
                 alt={name}
                 src={user.avatar}
-                className="w-[220px] h-[220px] rounded-full object-cover"
+                className={cn(
+                  diam >= 250 ? 'w-[250px] h-[250px]' : 'w-[125px] h-[125px]',
+                  'rounded-full object-cover border border-solid border-gray-400 dark:border-gray-300'
+                )}
               />
               <div className="text-4xl">{' => '}</div>
-              <div className="w-[220px] h-[220px] rounded-full object-cover overflow-hidden">
-                <SingleImageDropzone
-                  width={220}
-                  height={220}
-                  value={file}
-                  onChange={file => {
-                    setFile(file);
-                  }}
-                />
-              </div>
+              <SingleImageDropzone
+                width={diam >= 250 ? 250 : 125}
+                height={diam >= 250 ? 250 : 125}
+                value={file}
+                onChange={file => {
+                  setFile(file);
+                }}
+              />
             </>
           ) : (
             <div>Loading...</div>
