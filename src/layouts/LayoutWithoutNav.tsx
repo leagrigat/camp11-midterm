@@ -3,18 +3,22 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { checkAuthContext } from '../context/CheckAuthProvider';
 
 function LayoutWithoutNav() {
-  const { userIsLoggedIn } = useContext(checkAuthContext);
+  const { userIsLoggedIn, isAuthLoading } = useContext(checkAuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
+
   useEffect(() => {
-    if (
-      (!userIsLoggedIn && location.pathname !== '/') ||
-      (!userIsLoggedIn && location.pathname == '/register')
-    ) {
-      navigate(location.pathname === '/' ? '/' : '/register');
+    if (!isAuthLoading) {
+      if (
+        !userIsLoggedIn &&
+        location.pathname !== '/' &&
+        !userIsLoggedIn &&
+        location.pathname !== '/register'
+      ) {
+        navigate('/');
+      }
     }
-  }, []);
+  }, [isAuthLoading, userIsLoggedIn]);
   return (
     <main className="h-full">
       <Outlet />

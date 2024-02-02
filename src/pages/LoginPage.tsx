@@ -42,7 +42,7 @@ function LoginPage() {
       });
 
       const res = await response.json(); // res.data = {isLoggedIn: true}
-      setUserIsLoggedIn(res.data);
+      setUserIsLoggedIn(res.isLoggedIn);
       // handle the response data return isLogged in true or false
       //get request /checkAuth after login
       //useeffect runs [userIsLoggedIn]
