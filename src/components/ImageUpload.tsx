@@ -6,7 +6,7 @@ import { twMerge } from 'tailwind-merge';
 const variants = {
   base: 'relative rounded-md flex justify-center items-center flex-col cursor-pointer min-h-[120px] min-w-[120px] rounded-full border border-dashed border-gray-400 dark:border-gray-300 transition-colors duration-200 ease-in-out',
   image:
-    'border-0 p-0 min-h-0 min-w-0 relative shadow-md bg-slate-200 dark:bg-slate-900 rounded-md',
+    'border-0 p-0 min-h-0 min-w-0 relative shadow-md bg-slate-200 dark:bg-slate-900 rounded-full',
   active: 'border-2',
   disabled:
     'bg-gray-200 border-gray-300 cursor-default pointer-events-none bg-opacity-30 dark:bg-gray-700',
@@ -132,7 +132,7 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
           {imageUrl ? (
             // Image Preview
             <img
-              className="h-full w-full rounded-md object-cover"
+              className="h-full w-full rounded-full overflow-hidden border border-dashed"
               src={imageUrl}
               alt={acceptedFiles[0]?.name}
             />
@@ -153,7 +153,7 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
           {/* Remove Image Icon */}
           {imageUrl && !disabled && (
             <div
-              className="group absolute right-0 top-0 -translate-y-1/4 translate-x-1/4 transform"
+              className="group absolute right-3 top-3 -translate-y-1/4 translate-x-1/4 transform"
               onClick={e => {
                 e.stopPropagation();
                 void onChange?.(undefined);
