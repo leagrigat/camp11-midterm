@@ -97,7 +97,7 @@ export const logInUser = async (req: Request, res: Response) => {
 //get user data
 export const getUserData = async (req: Request, res: Response) => {
   try {
-    const userId = req.params.userId;
+    const userId = res.locals.user.id;
     // get the user ID
     const userData = await prisma.user.findUnique({
       where: {
@@ -131,7 +131,7 @@ export const getUserData = async (req: Request, res: Response) => {
 //change user Data
 export const changeUserData = async (req: Request, res: Response) => {
   try {
-    const userId = req.params.userId;
+    const userId = res.locals.user.id;
     const { firstName, lastName, email, avatar } = req.body;
 
     const updatedUser = await prisma.user.update({

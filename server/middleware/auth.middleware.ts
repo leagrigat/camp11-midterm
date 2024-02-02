@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 export async function isAuth(req: Request, res: Response, next: NextFunction) {
   const token = req.cookies.token;
   if (!token) {
-    return res.status(401).json({ message: 'not authenticated' });
+    return res.status(401).json({ message: 'not authenticated A' });
   }
   try {
     const { userId } = jwt.verify(token, process.env.JWT_SECRET!) as {
@@ -20,11 +20,11 @@ export async function isAuth(req: Request, res: Response, next: NextFunction) {
       },
     });
     if (!user) {
-      return res.status(401).json({ message: 'not authenticated' });
+      return res.status(401).json({ message: 'not authenticated B' });
     }
     res.locals.user = user;
     next();
   } catch (err) {
-    return res.status(401).json({ message: 'not authenticated' });
+    return res.status(401).json({ message: 'not authenticated C' });
   }
 }
