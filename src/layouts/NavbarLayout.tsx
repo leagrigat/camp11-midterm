@@ -4,13 +4,14 @@ import { useContext, useEffect } from 'react';
 import { checkAuthContext } from '../context/CheckAuthProvider';
 
 function NavbarLayout() {
-  const { userIsLoggedIn } = useContext(checkAuthContext);
+  const { userIsLoggedIn, isAuthLoading } = useContext(checkAuthContext);
   const navigate = useNavigate();
   useEffect(() => {
-    if (!userIsLoggedIn) {
+    console.log('before', userIsLoggedIn);
+    if (!isAuthLoading && !userIsLoggedIn) {
       navigate('/');
     }
-  }, []);
+  }, [isAuthLoading, userIsLoggedIn]);
 
   return (
     <>

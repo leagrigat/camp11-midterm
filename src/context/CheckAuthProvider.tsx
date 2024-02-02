@@ -8,31 +8,39 @@ type Props = {
 
 type ContextType = {
   userIsLoggedIn: boolean;
+  isAuthLoading: boolean;
   setUserIsLoggedIn: Dispatch<SetStateAction<boolean>>;
 };
 
 export const checkAuthContext = createContext<ContextType>({
   userIsLoggedIn: false,
+  isAuthLoading: true,
   setUserIsLoggedIn: () => {},
 });
 
 function CheckAuthProvider({ children }: Props) {
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
+  const [isAuthLoading, setisAuthLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get('http://localhost:8000/checkAuth', { withCredentials: true })
       .then(res => {
-        setUserIsLoggedIn(res.data);
+        setUserIsLoggedIn(res.data.isLoggedIn);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(() => {
+        setisAuthLoading(false);
+      });
   }, []);
 
-  console.log(userIsLoggedIn);
+  // isLoading reinbauen isAuthLoading --> und dann in den Layouts erst navigieren, wenn !isAuthLoading
 
   return (
     <>
-      <checkAuthContext.Provider value={{ userIsLoggedIn, setUserIsLoggedIn }}>
+      <checkAuthContext.Provider
+        value={{ userIsLoggedIn, isAuthLoading, setUserIsLoggedIn }}
+      >
         {children}
       </checkAuthContext.Provider>
     </>
