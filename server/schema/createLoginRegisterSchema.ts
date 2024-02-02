@@ -19,11 +19,11 @@ export const registerSchema = loginSchema.extend({
   firstName: z
     .string()
     .min(2, 'First Name must be at least 2 characters.')
-    .max(15, 'First Name can be maximum 15 characters.'),
+    .max(50, 'First Name can be maximum 15 characters.'),
   lastName: z
     .string()
     .min(2, 'Last Name must be at least 2 characters.')
-    .max(15, 'Last Name can be maximum 15 characters.'),
+    .max(50, 'Last Name can be maximum 15 characters.'),
 });
 
 export type UserSchema = z.infer<typeof registerSchema>;

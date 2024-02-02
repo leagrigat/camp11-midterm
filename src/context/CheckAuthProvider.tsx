@@ -26,6 +26,7 @@ function CheckAuthProvider({ children }: Props) {
     axios
       .get('http://localhost:8000/checkAuth', { withCredentials: true })
       .then(res => {
+        console.log(res.data);
         setUserIsLoggedIn(res.data.isLoggedIn);
       })
       .catch(err => console.log(err))

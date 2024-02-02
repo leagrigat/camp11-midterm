@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
 import bcrypt from 'bcryptjs';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
@@ -97,29 +97,14 @@ export const logInUser = async (req: Request, res: Response) => {
 //get user data
 export const getUserData = async (req: Request, res: Response) => {
   try {
-    const userId = res.locals.user.id;
-    // get the user ID
-    const userData = await prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-      select: {
-        // select the neccessary fields
-        id: true,
-        firstName: true,
-        lastName: true,
-        email: true,
-        avatar: true,
-      },
+    const user = res.locals.user as User;
+
+    res.status(200).json({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      avatar: user.avatar,
     });
-
-    if (!userData) {
-      return res.status(404).json({
-        message: 'User not found.',
-      });
-    }
-
-    res.status(200).json(userData);
   } catch (err) {
     console.error(err);
     res.status(500).json({

@@ -7,7 +7,7 @@ function HomePageHeader() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/user/`, {
+      .get(`http://localhost:8000/user`, {
         headers: {
           accept: 'application/json',
         },

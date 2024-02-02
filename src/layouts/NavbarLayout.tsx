@@ -7,7 +7,6 @@ function NavbarLayout() {
   const { userIsLoggedIn, isAuthLoading } = useContext(checkAuthContext);
   const navigate = useNavigate();
   useEffect(() => {
-    console.log('before', userIsLoggedIn);
     if (!isAuthLoading && !userIsLoggedIn) {
       navigate('/');
     }

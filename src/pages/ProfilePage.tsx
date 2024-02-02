@@ -6,6 +6,7 @@ import { FormData } from '../components/ProfileForm';
 import { useEdgeStore } from '../context/EdgeStore';
 import { SingleImageDropzone } from '../components/ImageUpload';
 import { cn } from '../utils/cn';
+import { toast } from 'react-toastify';
 
 interface UserData extends FormData {
   avatar: string;
@@ -35,7 +36,6 @@ function ProfilePage() {
       .then(response => {
         const user = response.data as UserData;
         setUser(user);
-        console.log(user);
       })
       .catch(error => {
         console.error('Error fetching user:', error);
@@ -78,10 +78,9 @@ function ProfilePage() {
         },
         withCredentials: true,
       });
-
-      console.log('Profile data updated successfully!');
+      toast.success('Profile data updated successfully!');
     } catch (error) {
-      console.error('Error updating profile data:', error);
+      toast.error('Error updating profile data, please try again later');
     }
   };
 

@@ -73,8 +73,8 @@ app.get('/genres', getGenres);
 
 //user profile
 //secure
-app.get('/user/', isAuth, getUserData);
-app.put('/user/', isAuth, validate(profileSchema), changeUserData);
+app.get('/user', isAuth, getUserData);
+app.put('/user', isAuth, validate(profileSchema), changeUserData);
 
 // reservation logic
 app.get('/reservation/:movieId', getReservations);
