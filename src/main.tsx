@@ -18,6 +18,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ProfilePage from './pages/ProfilePage';
 import CheckAuthProvider from './context/CheckAuthProvider';
 import { EdgeStoreProvider } from './context/EdgeStore';
+import { ToastContainer } from 'react-toastify';
 
 const queryClient = new QueryClient();
 
@@ -117,6 +118,17 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             </GenreProvider>
           </CheckAuthProvider>
         </div>
+        <ToastContainer
+          position="bottom-left"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          pauseOnFocusLoss
+          draggable={false}
+          pauseOnHover
+          theme="light"
+        />
       </React.StrictMode>
     </QueryClientProvider>
   </EdgeStoreProvider>

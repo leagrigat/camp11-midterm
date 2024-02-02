@@ -33,10 +33,7 @@ const nameSchema = z
 //   );
 
 export const LoginSchema = z.object({
-  email: z
-    .string()
-    .min(1, 'Please specify an email!')
-    .email('Please specify a valid email!'),
+  email: z.string().email('Please specify a valid email!'),
   password: passwordSchema,
 });
 

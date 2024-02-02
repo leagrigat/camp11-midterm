@@ -7,10 +7,11 @@ import { MdOutlineEmail } from 'react-icons/md';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { Link, useNavigate } from 'react-router-dom';
 import GreetingHeader from '../components/GreetingHeader';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useContext } from 'react';
 import { checkAuthContext } from '../context/CheckAuthProvider';
+import { loginUser } from '../api/user';
 
 function LoginPage() {
   const { setUserIsLoggedIn } = useContext(checkAuthContext);
@@ -32,17 +33,8 @@ function LoginPage() {
   // changed to const convention like in RegistrationForm so function submitHandler could be deleted
   const onSubmit = async (data: TLoginSchema) => {
     try {
-      const response = await fetch('http://localhost:8000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-        credentials: 'include',
-      });
-
-      const res = await response.json(); // res.data = {isLoggedIn: true}
-      setUserIsLoggedIn(res.isLoggedIn);
+      const res = await loginUser(data); // res.data = {isLoggedIn: true}
+      setUserIsLoggedIn(res.data.isLoggedIn);
       // handle the response data return isLogged in true or false
       //get request /checkAuth after login
       //useeffect runs [userIsLoggedIn]
@@ -51,21 +43,21 @@ function LoginPage() {
         <span>
           Login successful! <br />
           Welcome to CineScape!
-        </span>,
-        {
-          position: 'bottom-center',
-          onClose: () => navigate('/home'),
-          autoClose: 4000,
-        }
+        </span>
       );
+      navigate('/home');
     } catch (error) {
-      console.error('Error:', error);
+      toast.error(
+        <span>
+          Login failed! <br />
+          Please try again.
+        </span>
+      );
     }
   };
 
   return (
     <div className="flex flex-col h-full">
-      <ToastContainer />
       <GreetingHeader
         title="Welcome to Cine-Scape"
         description="You need to log in to be able to make reservations and add movies to your watchlist."
