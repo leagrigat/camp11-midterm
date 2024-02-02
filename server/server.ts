@@ -20,6 +20,7 @@ import {
   registerSchema,
 } from './schema/createLoginRegisterSchema';
 import { isAuth } from './middleware/auth.middleware';
+import { checkAuth } from './controllers/checkAuth';
 
 //import { LogIn, Register } from './controllers';
 
@@ -36,6 +37,9 @@ app.use(
   })
 );
 app.use(cookieParser());
+
+//checkAuth
+app.get('/checkAuth', checkAuth);
 
 //post request
 app.post('/register', validate(registerSchema), createUser);
