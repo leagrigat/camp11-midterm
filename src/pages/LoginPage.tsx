@@ -65,32 +65,34 @@ function LoginPage() {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-grow flex-col justify-between"
+        className="flex flex-col justify-between flex-grow"
       >
-        <div className="text-white-dimmed flex flex-col gap-3">
+        <div className="flex flex-col gap-3 text-white-dimmed">
           <Input
+            data-testid="email"
             id="email"
             placeholder="Your Email"
             autoComplete="email"
             type="email"
             error={errors.email}
             {...register('email')}
-            icon={<MdOutlineEmail className="h-6 w-6" />}
+            icon={<MdOutlineEmail className="w-6 h-6" />}
           />
           <Input
+            data-testid="password"
             id="password"
             placeholder="Your Password"
             autoComplete="current-password"
             type="password"
             error={errors.password}
             {...register('password')}
-            icon={<RiLockPasswordLine className="h-6 w-6" />}
+            icon={<RiLockPasswordLine className="w-6 h-6" />}
           />
-          <div className="flex gap-2 justify-end text-sm text-medium">
+          <div className="flex justify-end gap-2 text-sm text-medium">
             <span>Don't have an account yet?</span>
             <Link
               to={'/register'}
-              className="cursor-pointer underline text-primary"
+              className="underline cursor-pointer text-primary"
             >
               <span>Sign Up</span>
             </Link>
