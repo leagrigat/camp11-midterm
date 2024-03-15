@@ -15,6 +15,7 @@ function MovieImage({
 }: MovieImageProps) {
   return (
     <Link
+      data-testid="movie-image"
       to={`/movies/${movieId}`}
       className={cn(
         isRounded && 'flex-[1_0_41vw] [&>img]:snap-center [&>img]:rounded-lg',
