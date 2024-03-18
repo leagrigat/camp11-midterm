@@ -6,7 +6,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-type ContextType = {
+export type ContextType = {
   userIsLoggedIn: boolean;
   isAuthLoading: boolean;
   setUserIsLoggedIn: Dispatch<SetStateAction<boolean>>;

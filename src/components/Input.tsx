@@ -23,17 +23,17 @@ const Input = forwardRef<HTMLInputElement, Props>(
           )}
         >
           <label htmlFor={id} className="flex items-center gap-5">
-            <div className="text-white-dimmed pl-5">{icon}</div>
+            <div className="pl-5 text-white-dimmed">{icon}</div>
             <input
               id={id}
               ref={ref}
               {...props}
-              className="bg-white-heavy placeholder-white-dimmed text-white size-full text-sm outline-none"
+              className="text-sm text-white outline-none bg-white-heavy placeholder-white-dimmed size-full"
             />
           </label>
         </div>
         {Boolean(error) && (
-          <p className="text-error text-sm text-medium mb-1">
+          <p className="mb-1 text-sm text-error text-medium" data-testid="input-error-message">
             {error?.message}
           </p>
         )}
