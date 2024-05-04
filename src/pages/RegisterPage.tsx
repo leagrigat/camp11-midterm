@@ -63,7 +63,7 @@ function RegisterPage() {
       if (file) {
         const res = await edgestore.publicFiles.upload({
           file,
-          onProgressChange: progress => {
+          onProgressChange: (progress: number) => {
             // you can use this to show a progress bar
             console.log(progress);
           },
