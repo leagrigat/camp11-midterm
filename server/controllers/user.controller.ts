@@ -155,11 +155,6 @@ export const switchFavData = async (req: Request, res: Response) => {
     });
 
     if (!favMovie) {
-      const newFav = await prisma.favorite.create({
-        data: {
-          movieId: movieId,
-        },
-      });
       res.status(200).json({
         message: true,
       });
@@ -229,7 +224,7 @@ export const getAllFavData = async (req: Request, res: Response) => {
 // Create new Ticket
 export const createTicket = async (req: Request, res: Response) => {
   try {
-    let { movieId, title, date, time, seat, price } = req.body;
+    const { movieId, date, time, seat, price } = req.body;
 
     // create new ticket in database
     const newTicket = await prisma.ticket.create({

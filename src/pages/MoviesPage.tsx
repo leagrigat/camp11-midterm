@@ -5,15 +5,8 @@ import { useGetMoviesByGenre } from '../hooks/useGetMoviesByGenre';
 import { InView } from 'react-intersection-observer';
 
 function MoviesPage() {
-  const {
-    movies,
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    error,
-    isError,
-  } = useGetMoviesByGenre();
+  const { movies, isLoading, fetchNextPage, hasNextPage } =
+    useGetMoviesByGenre();
 
   function getMovieImage(movie: Movie) {
     return (

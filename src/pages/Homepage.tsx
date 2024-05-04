@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { cn } from '../utils/cn';
 
 function Homepage() {
-  const { movies, isLoading, isError, error } = useGetMovies();
+  const { movies, isLoading } = useGetMovies();
   const [selected, setSelected] = useState<Movie | null>(null);
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ function Homepage() {
   return (
     <>
       <div className="flex flex-col gap-6">
-        <HomePageHeader/>
+        <HomePageHeader />
         <div className="text-sm">
           <Combobox value={selected} onChange={setSelected}>
             <div className="relative">
@@ -66,19 +66,22 @@ function Homepage() {
                     filteredMovies?.map(movie => (
                       <Combobox.Option
                         key={movie.id}
-                        className={({ active }) => (cn(
-                          'relative cursor-default select-none py-2 pl-10 pr-4',
+                        className={({ active }) =>
+                          cn(
+                            'relative cursor-default select-none py-2 pl-10 pr-4',
                             active
                               ? 'bg-[#FFB43A] text-black'
                               : 'text-white opacity-60'
-                    ))}
+                          )
+                        }
                         value={movie.id}
                       >
                         {({ selected }) => (
                           <>
                             {
                               <span
-                                className={cn('block truncate',
+                                className={cn(
+                                  'block truncate',
                                   selected ? 'font-extrabold' : 'font-medium'
                                 )}
                               >
