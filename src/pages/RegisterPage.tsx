@@ -74,13 +74,18 @@ function RegisterPage() {
         newData.avatar = res.url;
       }
       console.log(data, newData);
-      const response = await fetch('http://localhost:8000/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newData),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_SERVER_URL}:${
+          import.meta.env.VITE_SERVER_PORT
+        }/register`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newData),
+        }
+      );
       const res = await response.json();
       console.log(res); // handle the response data
 

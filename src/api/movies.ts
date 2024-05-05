@@ -137,12 +137,10 @@ export async function getMovies(pageParam = 0, genres: string) {
 }
 
 export async function getMoviesByID() {
-  const PORT = 8000;
-
   const fetchFavData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:${PORT}/bookmarked-movies/`,
+        `${import.meta.env.VITE_SERVER_URL}:${import.meta.env.VITE_SERVER_PORT}/bookmarked-movies/`,
         {
           method: 'GET',
           headers: {
@@ -162,7 +160,6 @@ export async function getMoviesByID() {
   const movies = [];
 
   for (let movie of await fetchFavData()) {
-    //    console.log(movie);
     const { data } = await axios.get<SingleMovie>(
       `https://api.themoviedb.org/3/movie/${movie.movieId}?append_to_response=credits&language=en-US`,
       {

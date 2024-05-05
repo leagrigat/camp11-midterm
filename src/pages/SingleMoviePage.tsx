@@ -13,7 +13,6 @@ function SingleMoviePage() {
   //SingleMovie data
   const { movieId } = useParams();
   const { movie } = useGetSingleMovie();
-  const PORT = '8000';
 
   // crew data
   const membersData = movie ? movie.credits.crew : [];
@@ -38,7 +37,9 @@ function SingleMoviePage() {
   const fetchFavData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:${PORT}/movies/${movieId}`,
+        `${import.meta.env.VITE_SERVER_URL}:${
+          import.meta.env.VITE_SERVER_PORT
+        }/movies/${movieId}`,
         {
           method: 'GET',
           headers: {
@@ -59,7 +60,9 @@ function SingleMoviePage() {
   const switchFavData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:${PORT}/movies/${movieId}`,
+        `${import.meta.env.VITE_SERVER_URL}:${
+          import.meta.env.VITE_SERVER_PORT
+        }/movies/${movieId}`,
         {
           method: favorite ? 'DELETE' : 'POST',
           headers: {

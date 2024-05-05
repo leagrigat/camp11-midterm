@@ -28,21 +28,27 @@ function GenreProvider({ children }: Props) {
   const [selectedCount, SetSelectedCount] = useState(0);
 
   useEffect(() => {
-    axios.get<genresLibraryType[]>('http://localhost:8000/genres').then(res => {
-      //local storage
-      const storedGenres = storedGenresString
-        ? JSON.parse(storedGenresString)
-        : res.data;
+    axios
+      .get<genresLibraryType[]>(
+        `${import.meta.env.VITE_SERVER_URL}:${
+          import.meta.env.VITE_SERVER_PORT
+        }/genres`
+      )
+      .then(res => {
+        //local storage
+        const storedGenres = storedGenresString
+          ? JSON.parse(storedGenresString)
+          : res.data;
 
-      setGenres(
-        storedGenres.sort((a: genresLibraryType, b: genresLibraryType) => {
-          return a.genre < b.genre ? -1 : 1;
-        }) ||
-          res.data.sort((a, b) => {
+        setGenres(
+          storedGenres.sort((a: genresLibraryType, b: genresLibraryType) => {
             return a.genre < b.genre ? -1 : 1;
-          })
-      );
-    });
+          }) ||
+            res.data.sort((a, b) => {
+              return a.genre < b.genre ? -1 : 1;
+            })
+        );
+      });
   }, []);
 
   useEffect(() => {

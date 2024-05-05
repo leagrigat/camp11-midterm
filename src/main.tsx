@@ -108,7 +108,11 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <EdgeStoreProvider basePath="http://localhost:8000/edgestore">
+  <EdgeStoreProvider
+    basePath={`${import.meta.env.VITE_SERVER_URL}:${
+      import.meta.env.VITE_SERVER_PORT
+    }/edgestore`}
+  >
     <QueryClientProvider client={queryClient}>
       <React.StrictMode>
         <div className="flex flex-col h-screen px-5 py-8">

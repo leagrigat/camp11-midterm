@@ -27,12 +27,17 @@ function ProfilePage() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/user/`, {
-        headers: {
-          accept: 'application/json',
-        },
-        withCredentials: true,
-      })
+      .get(
+        `${import.meta.env.VITE_SERVER_URL}:${
+          import.meta.env.VITE_SERVER_PORT
+        }/user/`,
+        {
+          headers: {
+            accept: 'application/json',
+          },
+          withCredentials: true,
+        }
+      )
       .then(response => {
         const user = response.data as UserData;
         setUser(user);
@@ -72,12 +77,18 @@ function ProfilePage() {
       } else {
         newData.avatar = user.avatar;
       }
-      await axios.put(`http://localhost:8000/user/`, newData, {
-        headers: {
-          accept: 'application/json',
-        },
-        withCredentials: true,
-      });
+      await axios.put(
+        `${import.meta.env.VITE_SERVER_URL}:${
+          import.meta.env.VITE_SERVER_PORT
+        }/user/`,
+        newData,
+        {
+          headers: {
+            accept: 'application/json',
+          },
+          withCredentials: true,
+        }
+      );
       toast.success('Profile data updated successfully!');
     } catch (error) {
       toast.error('Error updating profile data, please try again later');

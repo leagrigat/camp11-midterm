@@ -24,7 +24,12 @@ function CheckAuthProvider({ children }: Props) {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8000/checkAuth', { withCredentials: true })
+      .get(
+        `${import.meta.env.VITE_SERVER_URL}:${
+          import.meta.env.VITE_SERVER_PORT
+        }/checkAuth`,
+        { withCredentials: true }
+      )
       .then(res => {
         console.log(res.data);
         setUserIsLoggedIn(res.data.isLoggedIn);
