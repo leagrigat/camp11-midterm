@@ -27,7 +27,23 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import { profileSchema } from '../schema/profileSchema';
 
-//import { LogIn, Register } from './controllers';
+// List of allowed origins
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://cinescape.vercel.app'
+];
+
+// CORS options
+const corsOptions = {
+  origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+          callback(null, true);
+      } else {
+          callback(new Error('Not allowed by CORS'));
+      }
+  },
+  credentials: true,
+};
 
 //serverport
 const PORT = process.env.PORT;
@@ -49,7 +65,7 @@ const handler = createEdgeStoreExpressHandler({
 //Middleware
 app.use(express.json());
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(bodyParser.json());
 
@@ -89,10 +105,8 @@ app.post('/edgestore/*', handler);
 app.delete('/edgestore/*', handler);
 
 //start server
-console.log("THIS HAPPENS")
 app.listen(PORT, () => {
   console.log(`server is running at port ${PORT}`);
 });
-console.log("THIS HAPPENS, TOO")
 
 module.exports = app;
