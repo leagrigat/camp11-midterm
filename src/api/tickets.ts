@@ -5,7 +5,7 @@ import { TicketInfo } from '../pages/ReservationPage';
 export async function handleBookTicket(ticketInfo: TicketInfo) {
   try {
     const response = await axios.post(
-      `${import.meta.env.VITE_SERVER_URL}:${import.meta.env.VITE_SERVER_PORT}/reservation`,
+      `${import.meta.env.VITE_SERVER_URL}/reservation`,
       ticketInfo,
       {
         headers: {
@@ -27,7 +27,7 @@ export async function handleBookTicket(ticketInfo: TicketInfo) {
 export async function getReservations(movieId: string) {
   try {
     const response = await axios.get<TicketInfo[]>(
-      `${import.meta.env.VITE_SERVER_URL}:${import.meta.env.VITE_SERVER_PORT}/reservation/${movieId}`,
+      `${import.meta.env.VITE_SERVER_URL}/reservation/${movieId}`,
       {
         headers: {
           accept: 'application/json',

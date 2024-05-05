@@ -37,9 +37,7 @@ function SingleMoviePage() {
   const fetchFavData = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}:${
-          import.meta.env.VITE_SERVER_PORT
-        }/movies/${movieId}`,
+        `${import.meta.env.VITE_SERVER_URL}/movies/${movieId}`,
         {
           method: 'GET',
           headers: {
@@ -60,9 +58,7 @@ function SingleMoviePage() {
   const switchFavData = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}:${
-          import.meta.env.VITE_SERVER_PORT
-        }/movies/${movieId}`,
+        `${import.meta.env.VITE_SERVER_URL}/movies/${movieId}`,
         {
           method: favorite ? 'DELETE' : 'POST',
           headers: {

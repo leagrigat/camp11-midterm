@@ -7,17 +7,12 @@ function HomePageHeader() {
 
   useEffect(() => {
     axios
-      .get(
-        `${import.meta.env.VITE_SERVER_URL}:${
-          import.meta.env.VITE_SERVER_PORT
-        }/user`,
-        {
-          headers: {
-            accept: 'application/json',
-          },
-          withCredentials: true,
-        }
-      )
+      .get(`${import.meta.env.VITE_SERVER_URL}/user`, {
+        headers: {
+          accept: 'application/json',
+        },
+        withCredentials: true,
+      })
       .then(response => {
         setName(response.data.firstName);
         setAvatar(response.data.avatar);

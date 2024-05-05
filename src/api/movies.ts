@@ -140,7 +140,7 @@ export async function getMoviesByID() {
   const fetchFavData = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}:${import.meta.env.VITE_SERVER_PORT}/bookmarked-movies/`,
+        `${import.meta.env.VITE_SERVER_URL}/bookmarked-movies/`,
         {
           method: 'GET',
           headers: {

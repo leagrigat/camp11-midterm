@@ -29,11 +29,7 @@ function GenreProvider({ children }: Props) {
 
   useEffect(() => {
     axios
-      .get<genresLibraryType[]>(
-        `${import.meta.env.VITE_SERVER_URL}:${
-          import.meta.env.VITE_SERVER_PORT
-        }/genres`
-      )
+      .get<genresLibraryType[]>(`${import.meta.env.VITE_SERVER_URL}/genres`)
       .then(res => {
         //local storage
         const storedGenres = storedGenresString

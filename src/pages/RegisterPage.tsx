@@ -75,9 +75,7 @@ function RegisterPage() {
       }
       console.log(data, newData);
       const response = await fetch(
-        `${import.meta.env.VITE_SERVER_URL}:${
-          import.meta.env.VITE_SERVER_PORT
-        }/register`,
+        `${import.meta.env.VITE_SERVER_URL}/register`,
         {
           method: 'POST',
           headers: {
