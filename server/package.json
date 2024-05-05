@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.ts"
+    "postinstall": "prisma generate",
+    "start": "nodemon api/index.ts"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
